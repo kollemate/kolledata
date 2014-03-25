@@ -1,0 +1,40 @@
+{
+  "name": "kolledata",
+  "version": "0.0.1",
+  "description": "opensource crm solution",
+  "main": "app.js",
+  "dependencies": {
+    "express": "~3.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kiliankoe/kolledata.git"
+  },
+  "author": "",
+  "maintainers": [
+    {
+      "name": "Kilian Koeltzsch",
+      "email": "koeltzsch@ifsr.com"
+    },
+    {
+      "name": "Sascha Peukert",
+      "email": "sascha@ifsr.de"
+    },
+    {
+      "name": "Sebastian Mielke",
+      "email": "mielke@ifsr.de"
+    },
+    {
+      "name": "Frank Hedecke",
+      "email": "frank@ifsr.de"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/kiliankoe/kolledata/issues"
+  },
+  "homepage": "https://github.com/kiliankoe/kolledata"
+}
