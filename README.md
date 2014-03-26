@@ -22,8 +22,11 @@ $ npm install
 #### 4. Create mysql config
 
 ```
+$ mv example_mysqlconfig.js mysqlconfig.js
 $ emacs mysqlconfig.js
 ```
+
+edit to match your settings
 
 ```
 exports.config = {

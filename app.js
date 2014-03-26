@@ -15,5 +15,17 @@ db.connect(function(err){
 	console.log("connected to database!");
 });
 
+db.query('USE kd');
+
+db.query('SELECT * FROM `kd_person`', function(err, rows, fields) {
+  if (err) throw err;
+
+  for (var i = 0; i < rows.length; i++) {
+  	console.log(rows[i].per_firstname + " " + rows[i].per_name);
+  };
+});
+
+db.end();
+
 app.listen(8080);
 console.log("Listening on http://localhost:8080");
