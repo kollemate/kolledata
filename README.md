@@ -1,4 +1,6 @@
-## kolledata (working title)
+## kolledata (working title) 
+
+[![image](http://img.shields.io/badge/gitter-kolledata-brightgreen.svg)](https://gitter.im/kiliankoe/kolledata)
 
 
 #### 1. Install node
