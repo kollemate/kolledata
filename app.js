@@ -11,11 +11,8 @@ app.get('/', function(req,res){
 });
 
 db.connect(function(err){
-	if (!err) {
-		console.log("connected to database!");
-	} else {
-		console.log("connection to database failed!");
-	}
+	if (err) {throw err}
+	console.log("connected to database!");
 });
 
 app.listen(8080);
