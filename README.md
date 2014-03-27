@@ -1,5 +1,6 @@
 ## kolledata (working title) 
 
+[![Build Status](https://travis-ci.org/kollemate/kolledata.svg?branch=master)](https://travis-ci.org/kollemate/kolledata)
 
 #### 1. Install node
 
