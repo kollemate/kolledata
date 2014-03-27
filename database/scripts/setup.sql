@@ -70,3 +70,43 @@ CREATE TABLE kolledata.kd_person_history (
   -- ON DELETE CASCADE ON UPDATE CASCADE
   PRIMARY KEY (perh_id)
 );
+
+CREATE TABLE kolledata.kd_email (
+  em_id INT NOT NULL AUTO_INCREMENT,
+  em_person_id INT,
+  em_email VARCHAR(200),
+  em_timestamp DATETIME,
+  -- FOREIGN KEY (em_person_id) REFERENCES kd_person(per_id)
+  -- ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (em_id)
+);
+
+CREATE TABLE kolledata.kd_email_history (
+  emh_id INT NOT NULL AUTO_INCREMENT,
+  emh_email_id INT,
+  emh_email VARCHAR(200),
+  emh_timestamp DATETIME,
+  -- FOREIGN KEY (em_email_id) REFERENCES kd_email(em_id)
+  -- ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (emh_id)
+);
+
+CREATE TABLE kolledata.kd_phone (
+  ph_id INT NOT NULL AUTO_INCREMENT,
+  ph_person_id INT,
+  ph_phone VARCHAR(20),
+  ph_timestamp DATETIME,
+  -- FOREIGN KEY (ph_person_id) REFERENCES kd_person(per_id)
+  -- ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (ph_id)
+);
+
+CREATE TABLE kolledata.kd_phone_history (
+  phh_id INT NOT NULL AUTO_INCREMENT,
+  phh_phone_id INT,
+  phh_phone VARCHAR(20),
+  phh_timestamp DATETIME,
+  -- FOREIGN KEY (ph_phone_id) REFERENCES kd_phone(ph_id)
+  -- ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (phh_id)
+);
