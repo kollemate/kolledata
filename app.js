@@ -15,7 +15,7 @@ db.connect(function(err){
 	console.log("connected to database!");
 });
 
-db.query('USE kd');
+db.query('USE kolledata');
 
 db.query('SELECT * FROM `kd_person`', function(err, rows, fields) {
   if (err) throw err;
