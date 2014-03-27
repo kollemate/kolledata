@@ -1,7 +1,5 @@
 ## kolledata (working title) 
 
-[![image](http://img.shields.io/badge/gitter-kolledata-brightgreen.svg)](https://gitter.im/kiliankoe/kolledata)
-
 
 #### 1. Install node
 
@@ -10,7 +8,7 @@
 #### 2. Get this repo
 
 ```
-$ git clone <this repo>
+$ git clone git@github.com:kollemate/kolledata.git
 ```
 
 #### 3. Install dependencies
@@ -22,8 +20,8 @@ $ npm install
 #### 4. Create mysql config
 
 ```
-$ mv example_mysqlconfig.js mysqlconfig.js
-$ emacs mysqlconfig.js
+$ cp example_mysqlconfig.js mysqlconfig.js
+$ vim mysqlconfig.js
 ```
 
 edit to match your settings
