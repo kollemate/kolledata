@@ -1,4 +1,8 @@
-﻿-- CREATING THE DATABASE
+﻿-- CLEANUP
+DROP DATABASE IF EXISTS kolledata;
+SET SQL_SAFE_UPDATES=0;	
+
+-- CREATING THE DATABASE
 CREATE DATABASE kolledata;
 
 -- CREATING THE TABLES
@@ -31,9 +35,9 @@ CREATE TABLE kolledata.kd_company_history (
   comh_url VARCHAR(2083),
   comh_memo TEXT,
   comh_timestamp DATETIME,
-  -- FOREIGN KEY (comh_company_id) REFERENCES kd_company(com_id)
-  -- ON DELETE CASCADE ON UPDATE CASCADE
-  PRIMARY KEY (comh_id)
+  PRIMARY KEY (comh_id),
+  FOREIGN KEY (comh_company_id) REFERENCES kd_company(com_id)
+  ON DELETE CASCADE -- ON UPDATE CASCADE
 );
 
 CREATE TABLE kolledata.kd_person (
@@ -44,9 +48,9 @@ CREATE TABLE kolledata.kd_person (
   per_memo TEXT,
   per_timestamp DATETIME,
   per_company INT,
+  PRIMARY KEY (per_id)
   -- FOREIGN KEY (per_company) REFERENCES kd_company(com_id)
   -- ON DELETE CASCADE ON UPDATE CASCADE
-  PRIMARY KEY (per_id)
 );
 
 CREATE TABLE kolledata.kd_person_history (
@@ -58,9 +62,9 @@ CREATE TABLE kolledata.kd_person_history (
   perh_memo TEXT,
   perh_timestamp DATETIME,
   perh_company INT,
-  -- FOREIGN KEY (perh_person_id) REFERENCES kd_person(per_id)
-  -- ON DELETE CASCADE ON UPDATE CASCADE
-  PRIMARY KEY (perh_id)
+  PRIMARY KEY (perh_id),
+  FOREIGN KEY (perh_person_id) REFERENCES kd_person(per_id)
+  ON DELETE CASCADE -- ON UPDATE CASCADE
 );
 
 CREATE TABLE kolledata.kd_email (
@@ -68,9 +72,9 @@ CREATE TABLE kolledata.kd_email (
   em_person_id INT,
   em_email VARCHAR(200),
   em_timestamp DATETIME,
-  -- FOREIGN KEY (em_person_id) REFERENCES kd_person(per_id)
-  -- ON DELETE CASCADE ON UPDATE CASCADE
-  PRIMARY KEY (em_id)
+  PRIMARY KEY (em_id),
+  FOREIGN KEY (em_person_id) REFERENCES kd_person(per_id)
+  ON DELETE CASCADE -- ON UPDATE CASCADE
 );
 
 CREATE TABLE kolledata.kd_email_history (
@@ -78,9 +82,9 @@ CREATE TABLE kolledata.kd_email_history (
   emh_email_id INT,
   emh_email VARCHAR(200),
   emh_timestamp DATETIME,
-  -- FOREIGN KEY (em_email_id) REFERENCES kd_email(em_id)
-  -- ON DELETE CASCADE ON UPDATE CASCADE
-  PRIMARY KEY (emh_id)
+  PRIMARY KEY (emh_id),
+  FOREIGN KEY (emh_email_id) REFERENCES kd_email(em_id)
+  ON DELETE CASCADE -- ON UPDATE CASCADE
 );
 
 CREATE TABLE kolledata.kd_phone (
@@ -88,9 +92,9 @@ CREATE TABLE kolledata.kd_phone (
   ph_person_id INT,
   ph_phone VARCHAR(20),
   ph_timestamp DATETIME,
-  -- FOREIGN KEY (ph_person_id) REFERENCES kd_person(per_id)
-  -- ON DELETE CASCADE ON UPDATE CASCADE
-  PRIMARY KEY (ph_id)
+  PRIMARY KEY (ph_id),
+  FOREIGN KEY (ph_person_id) REFERENCES kd_person(per_id)
+  ON DELETE CASCADE -- ON UPDATE CASCADE
 );
 
 CREATE TABLE kolledata.kd_phone_history (
@@ -98,7 +102,132 @@ CREATE TABLE kolledata.kd_phone_history (
   phh_phone_id INT,
   phh_phone VARCHAR(20),
   phh_timestamp DATETIME,
-  -- FOREIGN KEY (ph_phone_id) REFERENCES kd_phone(ph_id)
-  -- ON DELETE CASCADE ON UPDATE CASCADE
-  PRIMARY KEY (phh_id)
+  PRIMARY KEY (phh_id),
+  FOREIGN KEY (phh_phone_id) REFERENCES kd_phone(ph_id)
+  ON DELETE CASCADE -- ON UPDATE CASCADE
 );
+
+-- CREATING THE TRIGGER
+DELIMITER $$
+
+CREATE
+	TRIGGER kolledata.com_history_trigger AFTER UPDATE 
+	ON kolledata.kd_company 
+	FOR EACH ROW BEGIN
+		
+		-- update old references if present
+		UPDATE kolledata.kd_company_history 
+          SET comh_company_id= NEW.com_id
+        WHERE comh_company_id=OLD.com_id;
+
+		-- copy old stuff in history table
+		INSERT INTO kolledata.kd_company_history (
+			comh_company_id,
+			comh_name,
+			comh_email,
+			comh_phone,
+			comh_country,
+			comh_city,
+			comh_postcode,
+			comh_adress,
+			comh_url,
+			comh_memo,
+			comh_timestamp
+		) 
+		VALUES (
+			NEW.com_id, 
+			OLD.com_name,
+			OLD.com_email,
+			OLD.com_phone,
+			OLD.com_country,
+			OLD.com_city,
+			OLD.com_postcode,
+			OLD.com_adress,
+			OLD.com_url,
+			OLD.com_memo,
+			OLD.com_timestamp
+		);
+
+END$$
+
+CREATE
+	TRIGGER kolledata.per_history_trigger AFTER UPDATE 
+	ON kolledata.kd_person 
+	FOR EACH ROW BEGIN
+		
+		-- update old references if present
+		UPDATE kolledata.kd_person_history 
+          SET perh_person_id= NEW.per_id
+        WHERE perh_person_id=OLD.per_id;
+
+		-- copy old stuff in history table
+		INSERT INTO kolledata.kd_person_history (
+			perh_person_id,
+      perh_name,
+      perh_firstname,
+      perh_url,
+      perh_memo,
+      perh_timestamp,
+      perh_company
+		) 
+		VALUES (
+			NEW.per_id, 
+			OLD.per_name,
+      OLD.per_firstname,
+      OLD.per_url,
+      OLD.per_memo,
+      OLD.per_timestamp,
+      OLD.per_company
+		);
+
+END$$
+
+CREATE
+	TRIGGER kolledata.em_history_trigger AFTER UPDATE 
+	ON kolledata.kd_email 
+	FOR EACH ROW BEGIN
+		
+		-- update old references if present
+		UPDATE kolledata.kd_email_history 
+          SET emh_email_id= NEW.em_id
+        WHERE emh_email_id=OLD.em_id;
+
+		-- copy old stuff in history table
+		INSERT INTO kolledata.kd_email_history (
+			emh_email_id,
+      emh_email,
+      emh_timestamp
+		) 
+		VALUES (
+			NEW.em_id, 
+			OLD.em_email,
+      OLD.em_timestamp
+		);
+
+END$$
+
+CREATE
+	TRIGGER kolledata.ph_history_trigger AFTER UPDATE 
+	ON kolledata.kd_phone 
+	FOR EACH ROW BEGIN
+		
+		-- update old references if present
+		UPDATE kolledata.kd_phone_history 
+          SET phh_phone_id= NEW.ph_id
+        WHERE phh_phone_id=OLD.ph_id;
+
+		-- copy old stuff in history table
+		INSERT INTO kolledata.kd_phone_history (
+			phh_phone_id,
+      phh_phone,
+      phh_timestamp
+		) 
+		VALUES (
+			NEW.ph_id, 
+			OLD.ph_phone,
+      OLD.ph_timestamp
+		);
+
+END$$
+
+DELIMITER ;
