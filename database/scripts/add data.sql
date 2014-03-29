@@ -1,4 +1,4 @@
--- No real scripts (!), just examples showing what you must do to add data to a specific table. The capitalized strings have to be replaced by real data from user input. You don't need to insert or update the history-tables manually.
+﻿-- No real scripts (!), just examples showing what you must do to add data to a specific table. The capitalized strings have to be replaced by real data from user input. You don't need to insert or update the history-tables manually.
 -- Don't replace NOW()!
 
 -- (1) To make sure no one executes this and inserts useless data
