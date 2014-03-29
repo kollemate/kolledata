@@ -1,4 +1,4 @@
-﻿-- No real scripts (!), just examples showing what you must do to update data to a specific table. The capitalized strings have to be replaced by real data from user input. You don't need to insert or update the history-tables manually.
+﻿-- No real scripts (!), just examples showing what you must do to update data to a specific table. The capitalized strings have to be replaced by real data from user input. You don't need to insert, update or delete the history-tables manually.
 -- Don't replace NOW()!
 -- You don't have to update all of the fields, just the ones that the user has changed! Just erase the name and the value from the query. The examples below will update all of them for demonstration.
 
