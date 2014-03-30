@@ -1,15 +1,15 @@
-## kolledata (working title) 
+## kolledata 
 
 [![Build Status](https://travis-ci.org/kollemate/kolledata.svg?branch=master)](https://travis-ci.org/kollemate/kolledata)
 
 #### 1. Install node
 
-[Official Site](http://nodejs.org/download/)
+Preferably from the [official site](http://nodejs.org/download/).
 
 #### 2. Get this repo
 
 ```
-$ git clone git@github.com:kollemate/kolledata.git
+$ git clone git@github.com:kollemate/kolledata.git && cd kolledata
 ```
 
 #### 3. Install dependencies
@@ -22,10 +22,9 @@ $ npm install
 
 ```
 $ cp example_mysqlconfig.js mysqlconfig.js
-$ vim mysqlconfig.js
 ```
 
-edit to match your settings
+edit ```mysqlconfig.js``` to match your settings
 
 ```
 exports.config = {
@@ -35,9 +34,14 @@ exports.config = {
 	port: "port"
 };
 ```
+#### 5. Start your MySQL server
 
-#### 5. Start the server
+However this is handled for your system ;)
+
+#### 6. Start the node server
 
 ```
 node app.js
 ```
+
+Port can be passed in as an environment variable, the default is ```8080```.
