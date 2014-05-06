@@ -9,8 +9,10 @@ START TRANSACTION;
 UPDATE kolledata.kd_company 
 SET 
   com_name='NAME OF THE COMPANY',
-  com_email='EMAILADDRESS',
-  com_phone='TELEPHONENUMBER',
+  com_email1='EMAILADDRESS 1',
+  com_email2='EMAILADDRESS 2',
+  com_phone1='TELEPHONENUMBER 1',
+  com_phone2='TELEPHONENUMBER 2',
   com_country='COUNTRY',
   com_city='CITY',
   com_postcode='POSTCODE',

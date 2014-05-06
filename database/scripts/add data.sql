@@ -5,11 +5,13 @@
 START TRANSACTION;
 
 -- Company
-INSERT INTO kolledata.kd_company (com_name, com_email, com_phone, com_country, com_city, com_postcode, com_adress, com_url, com_memo, com_timestamp)
+INSERT INTO kolledata.kd_company (com_name, com_email1, com_email2, com_phone1, com_phone2, com_country, com_city, com_postcode, com_adress, com_url, com_memo, com_timestamp)
 VALUES (
   'NAME OF THE COMPANY',
-  'EMAILADDRESS',
-  'TELEPHONENUMBER',
+  'EMAILADDRESS 1',
+  'EMAILADDRESS 2',
+  'TELEPHONENUMBER 1',
+  'TELEPHONENUMBER 2',
   'COUNTRY',
   'CITY',
   'POSTCODE',
