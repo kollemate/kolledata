@@ -24,46 +24,40 @@ app.set('port', process.env.PORT || 8080);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(connectAssets({
-  paths: ['public/css', 'public/js'],
-  helperContext: app.locals
+    paths: ['public/css', 'public/js'],
+    helperContext: app.locals
 }));
-
-/**
- * Load controllers.
- */
-
-var homeController = require('./controllers/home');
 
 /**
  * Routes
  */
 
-app.get('/', homeController.index);
+app.get('/', function(req, res) {
+    var query = 'SELECT * FROM `kd_person`';
+
+    db.query(query, function(err, rows, fields) {
+        if (err) throw err;
+        res.render('home', {
+            title: 'Home',
+            results: rows
+        });
+    });
+});
 
 /**
  * Run server
  */
 
 db.connect(function(err){
-	if (err) {
-		console.error('✗ MySQL Connection Error. Please make sure MySQL server is running.');
-	} else {
-		console.log("✔ Successfully connected to MySQL database.");
-	}
+    if (err) {
+        console.error('✗ MySQL Connection Error. Please make sure MySQL server is running.');
+    } else {
+        console.log("✔ Successfully connected to MySQL database.");
+    }
 });
 
-// db.query('USE kolledata');
-
-// db.query('SELECT * FROM `kd_person`', function(err, rows, fields) {
-//   if (err) throw err;
-//   console.log("\nJust some sample output from the database:")
-//   for (var i = 0; i < rows.length; i++) {
-//   	console.log(rows[i].per_firstname + " " + rows[i].per_name);
-//   };
-// });
-
-// db.end();
+// we'd have to call db.end() somewhere, damn you async node!
 
 app.listen(app.get('port'), function() {
-  console.log("✔ Express server listening on http://localhost:%d", app.get('port'));
+    console.log("✔ Express server listening on http://localhost:%d", app.get('port'));
 });

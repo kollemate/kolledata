@@ -1,10 +1,41 @@
 extends layout
 
 block content
-    h1 This is kolledata
+    h1 Hallo, ich bin ein Prototyp.
     p.lead
-        | Hello World
-    //- TODO: replace me with a table in a for loop plz
-    ul
-        li testitem
-        li otheritem
+        | Das hier sind alle User aus der Datenbank:
+
+    table.table
+        tr
+            th ID
+            th NAME
+            th FIRSTNAME
+            th URL
+            th MEMO
+            th TIMESTAMP
+            th COMPANY
+        - for (var i = 0; i < results.length; i++) {
+            tr
+                - for (var j = 0; j < 7; j++) {
+                    //- i know this is idiotic, but it's just for now
+                    //- FIXME!
+                    case j
+                        when 0
+                            td=results[i]['per_id']
+                        when 1
+                            td=results[i]['per_name']
+                        when 2
+                            td=results[i]['per_firstname']
+                        when 3
+                            td=results[i]['per_url']
+                        when 4
+                            td=results[i]['per_memo']
+                        when 5
+                            td=results[i]['per_timestamp']
+                        when 6
+                            td=results[i]['per_company']
+                        default
+                            td THE CAKE IS A LIE!
+
+                - }
+        - }
