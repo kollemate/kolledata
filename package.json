@@ -1,7 +1,7 @@
 {
   "name": "kolledata",
   "version": "0.0.1",
-  "description": "opensource crm solution",
+  "description": "opensource crm software",
   "main": "app.js",
   "dependencies": {
     "express": "~3.5.1",
@@ -13,7 +13,7 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git://github.com/kiliankoe/kolledata.git"
+    "url": "git://github.com/kollemate/kolledata.git"
   },
   "author": "",
   "maintainers": [
@@ -35,7 +35,7 @@
     }
   ],
   "bugs": {
-    "url": "https://github.com/kiliankoe/kolledata/issues"
+    "url": "https://github.com/kollemate/kolledata/issues"
   },
-  "homepage": "https://github.com/kiliankoe/kolledata"
+  "homepage": "https://github.com/kollemate/kolledata"
 }

@@ -3,6 +3,7 @@ var mysql = require('mysql');
 var mysqlconfig = require('./mysqlconfig');
 var path = require('path');
 var connectAssets = require('connect-assets');
+var package = require('./package.json');
 
 /**
  * Create MySQL Server with config data
@@ -42,6 +43,11 @@ app.get('/', function(req, res) {
             results: rows
         });
     });
+});
+
+app.get('/json', function(req, res) {
+    res.set('Content-Type', 'text/json');
+    res.send(package);
 });
 
 /**
