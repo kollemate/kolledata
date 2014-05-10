@@ -33,7 +33,7 @@ app.use(connectAssets({
  */
 
 app.get('/', function(req, res) {
-    var query = 'SELECT * FROM `kd_person`';
+    var query = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id;';
 
     db.query(query, function(err, rows, fields) {
         if (err) throw err;
