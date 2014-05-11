@@ -5,7 +5,7 @@ block content
     p.lead
         | Das hier sind alle User aus der Datenbank:
 
-    table.table.table-striped.table-hover
+    table.table.table-striped.table-hover(id='datatable')
         tr
             th FIRSTNAME
             th NAME
@@ -23,11 +23,11 @@ block content
                 td=results[i]['com_name']
                 td=results[i]['per_memo']
                 td
-                    button.btn.btn-primary.btn-xs(type='button',data-toggle='modal',data-target='#detailmodal') EDIT
+                    button.btn.btn-primary.btn-xs(type='button',data-toggle='modal',data-target='#detailmodal',data-id=results[i]['per_id']) EDIT
         - }
 
     p
-        button.btn.btn-default.btn-sm.btn-block(type='button') NEUEN EINTRAG HINZUFÜGEN
+        button.btn.btn-default.btn-sm.btn-block(type='button',id='newentrybtn') NEUEN EINTRAG HINZUFÜGEN
 
     .modal.fade(tabindex='-1',role='dialog',aria-labelledby='Infos',aria-hidden='true',id='detailmodal')
         .modal-dialog
