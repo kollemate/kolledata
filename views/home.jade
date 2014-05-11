@@ -1,22 +1,6 @@
 extends layout
 
 block content
-    h1 Hallo, ich bin ein Prototyp.
+    h1 Hallo, ich bin Kolledata.
     p.lead
-        | Das hier sind alle User aus der Datenbank:
-
-    table.table.table-striped.table-hover
-        tr
-            th FIRSTNAME
-            th NAME
-            th URL
-            th COMPANY
-            th MEMO
-        - for (var i = 0; i < results.length; i++) {
-            tr
-                td=results[i]['per_firstname']
-                td=results[i]['per_name']
-                td=results[i]['per_url']
-                td=results[i]['com_name']
-                td=results[i]['per_memo']
-        - }
+        | Das hier ist der Startseite.

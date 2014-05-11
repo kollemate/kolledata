@@ -34,12 +34,30 @@ app.use(connectAssets({
  */
 
 app.get('/', function(req, res) {
+    res.render('home', {
+        title: 'Home'
+    });
+});
+
+app.get('/users', function(req, res){
     var query = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id;';
 
     db.query(query, function(err, rows, fields) {
         if (err) throw err;
-        res.render('home', {
-            title: 'Home',
+        res.render('users', {
+            title: 'Users',
+            results: rows
+        });
+    });
+});
+
+app.get('/companies', function(req, res){
+    var query = 'SELECT * FROM kd_company;';
+
+    db.query(query, function(err, rows, fields) {
+        if (err) throw err;
+        res.render('companies', {
+            title: 'Companies',
             results: rows
         });
     });
