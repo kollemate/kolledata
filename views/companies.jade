@@ -15,7 +15,9 @@ block content
         - for (var i = 0; i < results.length; i++) {
             tr
                 td=results[i]['com_name']
-                td=results[i]['com_url']
+                td
+                    //- TODO: replace 'LINK' by the link itself... doesn't seem to work
+                    a(href=results[i]['com_url']) LINK
                 td=results[i]['com_email1']
                 td=results[i]['com_email2']
                 td=results[i]['com_memo']
