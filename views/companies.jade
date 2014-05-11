@@ -9,12 +9,14 @@ block content
         tr
             th NAME
             th URL
-            th EMAIL
+            th EMAIL1
+            th EMAIL2
             th MEMO
         - for (var i = 0; i < results.length; i++) {
             tr
                 td=results[i]['com_name']
                 td=results[i]['com_url']
-                td=results[i]['com_email']
+                td=results[i]['com_email1']
+                td=results[i]['com_email2']
                 td=results[i]['com_memo']
         - }
