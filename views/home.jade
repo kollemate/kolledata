@@ -1,6 +1,16 @@
 extends layout
 
 block content
-    h1 Hallo, ich bin Kolledata.
-    p.lead
-        | Das hier ist der Startseite.
+    .jumbotron
+        h1
+            | Hallo, ich bin
+            span.text-info  kolledata
+            | .
+        p.lead
+            | Eine möglichst minimalistische CRM Software.
+        p
+            | Mehr Informationen gibt es zur Zeit leider noch nicht wirklich, aber für zumindest ein klein wenig mehr solltest du in unser GitHub Repo schauen! :)
+        p
+            a.btn.btn-primary.btn-lg(href='http://github.com/kollemate/kolledata') GitHub
+
+
