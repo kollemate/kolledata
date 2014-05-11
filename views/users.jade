@@ -12,13 +12,29 @@ block content
             th URL
             th COMPANY
             th MEMO
+            th EDIT
         - for (var i = 0; i < results.length; i++) {
             tr
                 td=results[i]['per_firstname']
                 td=results[i]['per_name']
                 td
-                    //- would be nice to replace 'LINK' by the link itself... doesn't seem to work
+                    //- TODO: replace 'LINK' by the link itself... doesn't seem to work
                     a(href=results[i]['per_url']) LINK
                 td=results[i]['com_name']
                 td=results[i]['per_memo']
+                td
+                    button.btn.btn-primary.btn-xs(type='button',data-toggle='modal',data-target='#detailmodal') EDIT
         - }
+
+    .modal.fade(tabindex='-1',role='dialog',aria-labelledby='Infos',aria-hidden='true',id='detailmodal')
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(type='button',data-dismiss='modal',aria-hidden='true') x
+                    h3.modal-title Informationen
+                .modal-body
+                    p.lead Hier kommen noch genauere Informationen zu dem aktuellen Eintrag hin.
+                    p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vel libero sed elit ullamcorper ornare non vitae justo. Duis id eleifend ante, quis commodo massa. Pellentesque lacinia fermentum lobortis. Nunc pretium, risus eu molestie porta, est odio aliquet urna, at tincidunt neque purus eget nulla. Nullam nec nibh non eros faucibus venenatis. Vivamus eu sollicitudin neque. Quisque egestas, dolor id dignissim faucibus, lacus sapien malesuada arcu, eu malesuada quam libero tempus odio. Fusce id quam at libero rhoncus mattis. Nulla euismod semper nulla, vel lacinia metus blandit aliquam. Proin vehicula porta lacus sed rhoncus. Vestibulum imperdiet ultrices libero vitae sollicitudin. Nunc mollis vitae est eu sodales. Mauris sed auctor enim, sit amet eleifend purus. Aenean lobortis mattis lobortis. Donec mauris nisi, cursus sit amet adipiscing eget, iaculis non turpis.
+                    p Ut quis quam volutpat, rhoncus mauris sodales, scelerisque dui. Cras vitae suscipit dui, eu mattis lectus. Etiam sodales mauris vel erat malesuada, eget pharetra elit tincidunt. Nam facilisis sapien eget semper pulvinar. Aliquam pharetra ultricies dolor, in consequat velit iaculis a. Nullam hendrerit non urna nec vulputate. Ut ac enim aliquet, venenatis tellus ac, consequat sapien. Sed ornare hendrerit porttitor. Donec ornare tincidunt lacus, nec fringilla ante. Nam blandit rutrum pellentesque. Curabitur ornare sodales quam eget feugiat.
+                    button.btn.btn-default.btn-xs(type='button',data-dismiss='modal') ABBRECHEN
+                    button.btn.btn-primary.btn-xs(type='button') SPEICHERN
