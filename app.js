@@ -39,13 +39,13 @@ app.get('/', function(req, res) {
     });
 });
 
-app.get('/users', function(req, res){
+app.get('/persons', function(req, res){
     var query = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id;';
 
     db.query(query, function(err, rows, fields) {
         if (err) throw err;
-        res.render('users', {
-            title: 'Users',
+        res.render('persons', {
+            title: 'Persons',
             results: rows
         });
     });
