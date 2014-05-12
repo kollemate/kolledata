@@ -18,7 +18,7 @@ CREATE TABLE kolledata.kd_company (
   com_postcode VARCHAR(10),
   com_adress VARCHAR(200),
   com_url VARCHAR(2083),
-  com_memo TEXT,
+  com_memo LONGTEXT,
   com_timestamp DATETIME,
   PRIMARY KEY (com_id)
 );
@@ -37,7 +37,7 @@ CREATE TABLE kolledata.kd_company_history (
   comh_postcode VARCHAR(10),
   comh_adress VARCHAR(200),
   comh_url VARCHAR(2083),
-  comh_memo TEXT,
+  comh_memo LONGTEXT,
   comh_timestamp DATETIME,
   PRIMARY KEY (comh_id)
   -- FOREIGN KEY (comh_company_id) REFERENCES kd_company(com_id)
@@ -49,7 +49,7 @@ CREATE TABLE kolledata.kd_person (
   per_name VARCHAR(200),
   per_firstname VARCHAR(200),
   per_url VARCHAR(2083),
-  per_memo TEXT,
+  per_memo LONGTEXT,
   per_timestamp DATETIME,
   per_company INT,
   PRIMARY KEY (per_id)
@@ -63,7 +63,7 @@ CREATE TABLE kolledata.kd_person_history (
   perh_name VARCHAR(200),
   perh_firstname VARCHAR(200),
   perh_url VARCHAR(2083),
-  perh_memo TEXT,
+  perh_memo LONGTEXT,
   perh_timestamp DATETIME,
   perh_company INT,
   PRIMARY KEY (perh_id)
