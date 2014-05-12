@@ -6,7 +6,7 @@ $(document).ready(function() {
 
     // toggle display of memo rows onClick of inforows
     $('.inforow').click(function(){
-        $(this).next().slideToggle(200);
+        $(this).next().slideToggle();
     });
 
 });

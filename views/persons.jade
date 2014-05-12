@@ -40,36 +40,34 @@ block content
                     button.close(type='button',data-dismiss='modal',aria-hidden='true') ×
                     h3.modal-title Informationen
                 .modal-body
-                    form.form-horizontal
+                    form.form-horizontal(method='post')
                         fieldset
                             .form-group
-                                label.col-lg-2.control-label(for='inputFirstname') Vorname
+                                label.col-lg-2.control-label(for='firstName') Vorname
                                 .col-lg-10
-                                    input.form-control(type='text',id='inputFirstname',placeholder='Vorname')
+                                    input.form-control(type='text',id='firstName',name='firstName',placeholder='Vorname')
                             .form-group
-                                label.col-lg-2.control-label(for='inputLastname') Nachname
+                                label.col-lg-2.control-label(for='lastName') Nachname
                                 .col-lg-10
-                                    input.form-control(type='text',id='inputLastname',placeholder='Nachname')
+                                    input.form-control(type='text',id='lastName',name='lastName',placeholder='Nachname')
                             .form-group
-                                label.col-lg-2.control-label(for='inputURL') URL
+                                label.col-lg-2.control-label(for='url') URL
                                 .col-lg-10
-                                    input.form-control(type='text',id='inputURL',placeholder='http://kolle-mate.de')
+                                    input.form-control(type='text',id='url',name='url',placeholder='http://kolle-mate.de')
                             .form-group
-                                label.col-lg-2.control-label(for='inputEmail') E-Mail
+                                label.col-lg-2.control-label(for='email') E-Mail
                                 .col-lg-10
-                                    input.form-control(type='text',id='inputEmail',placeholder='max@mustermann.de')
+                                    input.form-control(type='text',id='email',name='email',placeholder='max@mustermann.de')
                             .form-group
-                                label.col-lg-2.control-label(for='inputMemo') Memo
+                                label.col-lg-2.control-label(for='memo') Memo
                                 .col-lg-10
-                                    textarea.form-control(type='text',input='inputMemo',rows='10')
+                                    textarea.form-control(type='text',input='memo',name='memo',rows='10')
                             .form-group
-                                label.col-lg-2.control-label(for='inputCompany') Firma
+                                label.col-lg-2.control-label(for='company') Firma
                                 .col-lg-10
-                                    select.form-control(id='select')
-                                        option Firma1
-                                        option Firma2
-                                        option irgendwann
-                                        option werde ich
-                                        option auch dynamisch
-                    button.btn.btn-default.btn-xs(type='button',data-dismiss='modal') ABBRECHEN
-                    button.btn.btn-primary.btn-xs(type='button',data-dismiss='modal',id='submitedit') SPEICHERN
+                                    select.form-control(id='company',name='company')
+                                        option 1
+                                        option 2
+                                        option 3
+                        button.btn.btn-default.btn-xs(type='button',data-dismiss='modal') ABBRECHEN
+                        button.btn.btn-primary.btn-xs(type='submit') SPEICHERN
