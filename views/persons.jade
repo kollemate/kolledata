@@ -29,7 +29,7 @@ block content
         - }
 
     p
-        button.btn.btn-default.btn-sm.btn-block(type='button',id='newentrybtn') NEUEN EINTRAG HINZUFÜGEN
+        button.btn.btn-default.btn-sm.btn-block(type='button',id='newentrybtn',data-toggle='modal',data-target='#detailmodal') NEUEN EINTRAG HINZUFÜGEN
 
     .modal.fade(tabindex='-1',role='dialog',aria-labelledby='Infos',aria-hidden='true',id='detailmodal')
         .modal-dialog
@@ -38,8 +38,36 @@ block content
                     button.close(type='button',data-dismiss='modal',aria-hidden='true') ×
                     h3.modal-title Informationen
                 .modal-body
-                    p.lead Hier kommen noch genauere Informationen zu dem aktuellen Eintrag hin.
-                    p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vel libero sed elit ullamcorper ornare non vitae justo. Duis id eleifend ante, quis commodo massa. Pellentesque lacinia fermentum lobortis. Nunc pretium, risus eu molestie porta, est odio aliquet urna, at tincidunt neque purus eget nulla. Nullam nec nibh non eros faucibus venenatis. Vivamus eu sollicitudin neque. Quisque egestas, dolor id dignissim faucibus, lacus sapien malesuada arcu, eu malesuada quam libero tempus odio. Fusce id quam at libero rhoncus mattis. Nulla euismod semper nulla, vel lacinia metus blandit aliquam. Proin vehicula porta lacus sed rhoncus. Vestibulum imperdiet ultrices libero vitae sollicitudin. Nunc mollis vitae est eu sodales. Mauris sed auctor enim, sit amet eleifend purus. Aenean lobortis mattis lobortis. Donec mauris nisi, cursus sit amet adipiscing eget, iaculis non turpis.
-                    p Ut quis quam volutpat, rhoncus mauris sodales, scelerisque dui. Cras vitae suscipit dui, eu mattis lectus. Etiam sodales mauris vel erat malesuada, eget pharetra elit tincidunt. Nam facilisis sapien eget semper pulvinar. Aliquam pharetra ultricies dolor, in consequat velit iaculis a. Nullam hendrerit non urna nec vulputate. Ut ac enim aliquet, venenatis tellus ac, consequat sapien. Sed ornare hendrerit porttitor. Donec ornare tincidunt lacus, nec fringilla ante. Nam blandit rutrum pellentesque. Curabitur ornare sodales quam eget feugiat.
+                    form.form-horizontal
+                        fieldset
+                            .form-group
+                                label.col-lg-2.control-label(for='inputFirstname') Vorname
+                                .col-lg-10
+                                    input.form-control(type='text',id='inputFirstname',placeholder='Vorname')
+                            .form-group
+                                label.col-lg-2.control-label(for='inputLastname') Nachname
+                                .col-lg-10
+                                    input.form-control(type='text',id='inputLastname',placeholder='Nachname')
+                            .form-group
+                                label.col-lg-2.control-label(for='inputURL') URL
+                                .col-lg-10
+                                    input.form-control(type='text',id='inputURL',placeholder='http://kolle-mate.de')
+                            .form-group
+                                label.col-lg-2.control-label(for='inputEmail') E-Mail
+                                .col-lg-10
+                                    input.form-control(type='text',id='inputEmail',placeholder='max@mustermann.de')
+                            .form-group
+                                label.col-lg-2.control-label(for='inputMemo') Memo
+                                .col-lg-10
+                                    textarea.form-control(type='text',input='inputMemo',rows='10')
+                            .form-group
+                                label.col-lg-2.control-label(for='inputCompany') Firma
+                                .col-lg-10
+                                    select.form-control(id='select')
+                                        option Firma1
+                                        option Firma2
+                                        option irgendwann
+                                        option werde ich
+                                        option auch dynamisch
                     button.btn.btn-default.btn-xs(type='button',data-dismiss='modal') ABBRECHEN
                     button.btn.btn-primary.btn-xs(type='button',data-dismiss='modal',id='submitedit') SPEICHERN
