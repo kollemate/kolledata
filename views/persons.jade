@@ -20,8 +20,8 @@ block content
                     =' '
                     =results[i]['per_name']
                 td
-                    //- TODO: replace 'LINK' by the link itself... doesn't seem to work
-                    a(href=results[i]['per_url']) LINK
+                    a(href=results[i]['per_url'])
+                        span=results[i]['per_url']
                 td=results[i]['com_name']
                 td=results[i]['per_memo']
                 td
