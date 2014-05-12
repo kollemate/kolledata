@@ -60,16 +60,28 @@ app.post('/persons', function(req, res) {
     var memo = req.body.memo;
     var company = req.body.company;
 
-    console.log(req.body);
-
     var query = 'INSERT INTO kolledata.kd_person (per_name, per_firstname, per_url, per_memo, per_timestamp, per_company) VALUES ("' +
     lastName + '","' + firstName + '","' + url + '","' + memo + '",NOW(),' + company + ");";
 
     db.query(query, function(err){
         if (err) throw err;
+
         var query = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id;';
         db.query(query, function(err, rows, fields) {
             if (err) throw err;
+
+            // TODO: set timestamp over javascript, not from the database and use it here to select the exact entry
+            var query = 'SELECT per_id FROM kd_person WHERE per_name="' + lastName + '" AND per_firstname="' + firstName + '" AND per_url="' + url + '";';
+            db.query(query, function(err, rows, fields){
+                if (err) throw err;
+
+                var userID = rows[0]['per_id'];
+                var query = 'INSERT INTO kolledata.kd_email (em_person_id, em_email, em_timestamp) VALUES (' + userID + ',"' + email + '", NOW());';
+                db.query(query, function(err){
+                    if (err) throw err;
+                });
+            });
+
             res.render('persons', {
                 title: 'Persons',
                 results: rows
