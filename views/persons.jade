@@ -6,15 +6,14 @@ block content
     p.lead
         | Das hier sind alle Personen aus der Datenbank:
 
-    table.table.table-striped.table-hover(id='datatable')
+    table.table.table-hover(id='datatable')
         tr
             th NAME
             th URL
             th COMPANY
-            th MEMO
             th EDIT
         - for (var i = 0; i < results.length; i++) {
-            tr
+            tr.inforow
                 td
                     =results[i]['per_firstname']
                     =' '
@@ -23,9 +22,12 @@ block content
                     a(href=results[i]['per_url'])
                         span=results[i]['per_url']
                 td=results[i]['com_name']
-                td=results[i]['per_memo']
                 td
                     button.btn.btn-primary.btn-xs(type='button',data-toggle='modal',data-target='#detailmodal',data-id=results[i]['per_id']) EDIT
+            tr.memo
+                td(colspan='4').well
+                    p=results[i]['per_memo']
+                    button.btn.btn-primary.btn-sm.btn-block(type='button') EDIT
         - }
 
     p
