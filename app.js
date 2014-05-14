@@ -98,6 +98,28 @@ app.post('/persons', function(req, res) {
     });
 });
 
+app.post('/rmperson', function(req, res){
+    var id = req.body.id;
+
+    var sql = 'DELETE FROM kolledata.kd_person WHERE per_id=?;';
+    var inserts = [id];
+    sql = mysql.format(sql, inserts);
+    console.log(sql);
+    db.query(sql, function(err){
+        if (err) throw err;
+
+        // var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id;';
+        // db.query(sql, function(err, rows, fields) {
+
+        //     res.render('persons',{
+        //         title: 'Persons',
+        //         results: rows
+        //     });
+        // });
+        res.redirect('/persons');
+    });
+});
+
 app.get('/companies', function(req, res){
     var query = 'SELECT * FROM kd_company;';
 

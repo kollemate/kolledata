@@ -23,7 +23,10 @@ block content
                         span=results[i]['per_url']
                 td=results[i]['com_name']
                 td
-                    button.btn.btn-primary.btn-xs(type='button',data-toggle='modal',data-target='#detailmodal',data-id=results[i]['per_id']) EDIT
+                    form(method='post',action='/rmperson')
+                        button.btn.btn-primary.btn-xs(type='button',data-toggle='modal',data-target='#detailmodal',data-id=results[i]['per_id']) EDIT
+                        input.hidden(type='text',id='id',name='id',value=results[i]['per_id'])
+                        button.btn.btn-danger.btn-xs(type='submit',name=results[i]['per_id']) ×
             tr.memo
                 td(colspan='4').well
                     p=results[i]['per_memo']
