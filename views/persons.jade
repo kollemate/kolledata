@@ -69,8 +69,8 @@ block content
                                 label.col-lg-2.control-label(for='company') Firma
                                 .col-lg-10
                                     select.form-control(id='company',name='company')
-                                        option 1
-                                        option 2
-                                        option 3
+                                        - for (var i = 0; i < companies.length; i++) {
+                                            option=companies[i]['com_name']
+                                        - }
                         button.btn.btn-default.btn-xs(type='button',data-dismiss='modal') ABBRECHEN
                         button.btn.btn-primary.btn-xs(type='submit') SPEICHERN

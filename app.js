@@ -45,9 +45,18 @@ app.get('/persons', function(req, res){
 
     db.query(sql, function(err, rows, fields) {
         if (err) throw err;
-        res.render('persons', {
-            title: 'Persons',
-            results: rows
+        var persons = rows;
+
+        var sql = 'SELECT * FROM kd_company;';
+        db.query(sql, function(err, rows, fields){
+            if (err) throw err;
+            var companies = rows;
+
+            res.render('persons', {
+                title: 'Persons',
+                results: persons,
+                companies: companies
+            });
         });
     });
 });
@@ -60,39 +69,52 @@ app.post('/persons', function(req, res) {
     var memo = req.body.memo;
     var company = req.body.company;
 
-
-    var sql = 'INSERT INTO kd_person (per_name, per_firstname, per_url, per_memo, per_timestamp, per_company) VALUES (?, ?, ?, ?, NOW(), ?)';
-    var inserts = [lastName, firstName, url, memo, company];
+    var sql = 'SELECT com_id FROM kd_company where com_name = ?;';
+    var inserts = [company];
     sql = mysql.format(sql, inserts);
+    db.query(sql, function(err,rows,fields){
+        company = rows[0]['com_id'];
+        var sql = 'INSERT INTO kd_person (per_name, per_firstname, per_url, per_memo, per_timestamp, per_company) VALUES (?, ?, ?, ?, NOW(), ?)';
+        var inserts = [lastName, firstName, url, memo, company];
+        sql = mysql.format(sql, inserts);
 
-    db.query(sql, function(err){
-        if (err) throw err;
-
-        var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id;';
-        db.query(sql, function(err, rows, fields) {
+        db.query(sql, function(err){
             if (err) throw err;
 
-            // TODO: set timestamp over javascript, not from the database and use it here to select the exact entry
-            var sql = 'SELECT per_id FROM kd_person WHERE per_name=? AND per_firstname=? AND per_url=?;';
-            var inserts = [lastName, firstName, url];
-            sql = mysql.format(sql, inserts);
-
-            db.query(sql, function(err, rows, fields){
+            var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id;';
+            db.query(sql, function(err, rows, fields) {
                 if (err) throw err;
+                var persons = rows;
 
-                var userID = rows[0]['per_id'];
-                var sql = 'INSERT INTO kolledata.kd_email (em_person_id, em_email, em_timestamp) VALUES (?, ?, NOW());';
-                var inserts = [userID, email];
+                // TODO: set timestamp over javascript, not from the database and use it here to select the exact entry
+                var sql = 'SELECT per_id FROM kd_person WHERE per_name=? AND per_firstname=? AND per_url=?;';
+                var inserts = [lastName, firstName, url];
                 sql = mysql.format(sql, inserts);
 
-                db.query(sql, function(err){
+                db.query(sql, function(err, rows, fields){
                     if (err) throw err;
-                });
-            });
 
-            res.render('persons', {
-                title: 'Persons',
-                results: rows
+                    var userID = rows[0]['per_id'];
+                    var sql = 'INSERT INTO kolledata.kd_email (em_person_id, em_email, em_timestamp) VALUES (?, ?, NOW());';
+                    var inserts = [userID, email];
+                    sql = mysql.format(sql, inserts);
+
+                    db.query(sql, function(err){
+                        if (err) throw err;
+
+                        var sql = 'SELECT * FROM kd_company;';
+                        db.query(sql, function(err, rows, fields){
+                            if (err) throw err;
+                            var companies = rows;
+
+                            res.render('persons', {
+                                title: 'Persons',
+                                results: persons,
+                                companies: companies
+                            });
+                        });
+                    });
+                });
             });
         });
     });
@@ -104,7 +126,6 @@ app.post('/rmperson', function(req, res){
     var sql = 'DELETE FROM kolledata.kd_person WHERE per_id=?;';
     var inserts = [id];
     sql = mysql.format(sql, inserts);
-    console.log(sql);
     db.query(sql, function(err){
         if (err) throw err;
 
