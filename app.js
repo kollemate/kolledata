@@ -69,6 +69,8 @@ app.post('/persons', function(req, res) {
     var memo = req.body.memo;
     var company = req.body.company;
 
+    console.log('Added person: ' + firstName + ' ' + lastName + ' ' + email);
+
     var sql = 'SELECT com_id FROM kd_company where com_name = ?;';
     var inserts = [company];
     sql = mysql.format(sql, inserts);
@@ -137,6 +139,7 @@ app.post('/rmperson', function(req, res){
         //         results: rows
         //     });
         // });
+        console.log('Deleted person: ' + id);
         res.redirect('/persons');
     });
 });
