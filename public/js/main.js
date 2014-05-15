@@ -5,8 +5,8 @@ $(document).ready(function() {
     $('.memo').hide();
 
     // toggle display of memo rows onClick of inforows
-    $('.inforow').click(function(){
-        $(this).next().slideToggle();
+    $('.showmemo').click(function(){
+        $(this).closest('tr').next('tr').slideToggle();
     });
 
 });
