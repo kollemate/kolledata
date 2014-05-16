@@ -41,9 +41,9 @@ The last line can be uncommented if your MySQL port is not the standard `3306`.
 
 #### 6. Setup the kolledata database
 
-...
+```
 $ mysql -u USERNAME -p -h HOST < database/scripts/setup.sql
-...
+```
 
 #### 7. Start the server
 
