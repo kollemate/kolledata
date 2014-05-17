@@ -45,6 +45,12 @@ The last line can be uncommented if your MySQL port is not the standard `3306`.
 $ mysql -u USERNAME -p -h HOST < database/scripts/setup.sql
 ```
 
+You might want to add some example data as well:
+
+```
+$ mysql -u USERNAME -p -h HOST < database/scripts/insertExampleData.sql
+```
+
 #### 7. Start the server
 
 ```
