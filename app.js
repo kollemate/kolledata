@@ -25,7 +25,7 @@ app.set('port', process.env.PORT || 8080);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(connectAssets({
-    paths: ['public/css', 'public/js'],
+    paths: ['public/css', 'public/js', 'bower_components'],
     helperContext: app.locals
 }));
 app.use(express.bodyParser());

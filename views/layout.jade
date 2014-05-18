@@ -7,8 +7,9 @@ html
         title #{title} | kolledata
         != css('bootstrap.min.css')
         != css('style.css')
-        != js('lib/jquery-2.1.0.min')
-        != js('application')
+        != js('jquery/dist/jquery.min')
+        != js('bootstrap.min')
+        != js('main')
     body
         #wrap
             include partials/navigation

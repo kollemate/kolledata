@@ -14,8 +14,11 @@ $ git clone https://github.com/kollemate/kolledata.git && cd kolledata
 
 #### 3. Install dependencies
 
+If you don't have Bower installed you might need to run ```npm install -g bower``` first.
+
 ```
 $ npm install
+$ bower install
 ```
 
 #### 4. Create MySQL config
