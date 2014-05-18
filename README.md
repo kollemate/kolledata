@@ -31,14 +31,15 @@ edit ```mysqlconfig.js``` to match your settings
 
 ```
 exports.config = {
-	host: "host",
-	user: "user",
-	password: "password"
-	// port: "port"
+    host: "host",
+    // port: "port",
+    user: "user",
+    password: "password",
+    database: "kolledata"
 };
 ```
 
-The last line can be uncommented if your MySQL port is not the standard `3306`.
+The port line can be uncommented if your MySQL port is not the standard `3306`.
 
 #### 5. Start your MySQL server
 
