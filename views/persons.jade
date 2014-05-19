@@ -3,8 +3,11 @@ extends layout
 block content
     //- include partials/alerts
 
-    p.lead
+    p.lead.col-lg-10.nopadding
         | Das hier sind alle Personen aus der Datenbank:
+
+    p.col-lg-2.input-sm.pull-right
+        input(id='searchInput',type='text',onkeyup='searchThis()',placeholder='Suche..')
 
     table.table.table-hover(id='datatable')
         tr
