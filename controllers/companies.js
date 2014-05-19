@@ -4,8 +4,8 @@ var mysql = require('mysql');
 module.exports = function(db) {
 
     module.index = function(req, res) {
-        var query = 'SELECT * FROM kd_company;';
-        db.query(query, function(err, rows, fields) {
+        var sql = 'SELECT * FROM kd_company;';
+        db.query(sql, function(err, rows, fields) {
             if (err) throw err;
 
             res.render('companies', {

@@ -51,7 +51,9 @@ app.post('/searchPerson', personsController.searchPerson);
 
 app.get('/companies', companiesController.index);
 
-app.get('/package', apiController.package);
+app.get('/api/package', apiController.package);
+app.get('/api/persons', apiController.allPersons);
+app.get('/api/companies', apiController.allCompanies);
 
 /**
  * Run server
