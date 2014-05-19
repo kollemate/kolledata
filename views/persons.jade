@@ -73,6 +73,7 @@ block content
                                 label.col-lg-2.control-label(for='company') Firma
                                 .col-lg-10
                                     select.form-control(id='company',name='company')
+                                        option - N/A -
                                         - for (var i = 0; i < companies.length; i++) {
                                             option=companies[i]['com_name']
                                         - }

@@ -69,51 +69,46 @@ app.post('/persons', function(req, res) {
     var memo = req.body.memo;
     var company = req.body.company;
 
-    console.log('Added person: ' + firstName + ' ' + lastName + ' ' + email);
-
-    var sql = 'SELECT com_id FROM kd_company where com_name = ?;';
+    // get company id of chosen company from add new person dropdown
+    var sql = 'SELECT com_id FROM kd_company WHERE com_name = ?;';
     var inserts = [company];
     sql = mysql.format(sql, inserts);
     db.query(sql, function(err,rows,fields){
-        company = rows[0]['com_id'];
+        if (company === '- N/A -') {
+            company = null;
+        } else {
+            company = rows[0]['com_id'];
+        }
+
+        // insert person with the now correct company into the database
         var sql = 'INSERT INTO kd_person (per_name, per_firstname, per_url, per_memo, per_timestamp, per_company) VALUES (?, ?, ?, ?, NOW(), ?)';
         var inserts = [lastName, firstName, url, memo, company];
         sql = mysql.format(sql, inserts);
-
-        db.query(sql, function(err){
+        db.query(sql, function(err, rows){
             if (err) throw err;
 
-            var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id;';
-            db.query(sql, function(err, rows, fields) {
+            // add email to the just changed row (rows.insertId is the id of the just added row)
+            var sql = 'INSERT INTO kolledata.kd_email (em_person_id, em_email, em_timestamp) VALUES (?, ?, NOW());';
+            var inserts = [rows.insertId, email];
+            sql = mysql.format(sql, inserts);
+            db.query(sql, function(err){
                 if (err) throw err;
-                var persons = rows;
 
-                // TODO: set timestamp over javascript, not from the database and use it here to select the exact entry
-                var sql = 'SELECT per_id FROM kd_person WHERE per_name=? AND per_firstname=? AND per_url=?;';
-                var inserts = [lastName, firstName, url];
-                sql = mysql.format(sql, inserts);
-
-                db.query(sql, function(err, rows, fields){
+                // get all persons joined with their respective company names
+                var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id;';
+                db.query(sql, function(err, rows, fields) {
                     if (err) throw err;
+                    var persons = rows;
 
-                    var userID = rows[0]['per_id'];
-                    var sql = 'INSERT INTO kolledata.kd_email (em_person_id, em_email, em_timestamp) VALUES (?, ?, NOW());';
-                    var inserts = [userID, email];
-                    sql = mysql.format(sql, inserts);
-
-                    db.query(sql, function(err){
+                    var sql = 'SELECT * FROM kd_company;';
+                    db.query(sql, function(err, rows, fields){
                         if (err) throw err;
+                        var companies = rows;
 
-                        var sql = 'SELECT * FROM kd_company;';
-                        db.query(sql, function(err, rows, fields){
-                            if (err) throw err;
-                            var companies = rows;
-
-                            res.render('persons', {
-                                title: 'Persons',
-                                results: persons,
-                                companies: companies
-                            });
+                        res.render('persons', {
+                            title: 'Persons',
+                            results: persons,
+                            companies: companies
                         });
                     });
                 });
@@ -131,15 +126,6 @@ app.post('/rmperson', function(req, res){
     db.query(sql, function(err){
         if (err) throw err;
 
-        // var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id;';
-        // db.query(sql, function(err, rows, fields) {
-
-        //     res.render('persons',{
-        //         title: 'Persons',
-        //         results: rows
-        //     });
-        // });
-        console.log('Deleted person: ' + id);
         res.redirect('/persons');
     });
 });
