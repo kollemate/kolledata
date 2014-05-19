@@ -74,7 +74,11 @@ app.post('/persons', function(req, res) {
     var inserts = [company];
     sql = mysql.format(sql, inserts);
     db.query(sql, function(err,rows,fields){
-        company = rows[0]['com_id'];
+        if (company === '- N/A -') {
+            company = null;
+        } else {
+            company = rows[0]['com_id'];
+        }
 
         // insert person with the now correct company into the database
         var sql = 'INSERT INTO kd_person (per_name, per_firstname, per_url, per_memo, per_timestamp, per_company) VALUES (?, ?, ?, ?, NOW(), ?)';
