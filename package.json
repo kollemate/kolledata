@@ -27,16 +27,20 @@
       "email": "sascha@ifsr.de"
     },
     {
-      "name": "Frank Hedecke",
-      "email": "frank@ifsr.de"
-    },
-    {
       "name": "Philipp Heisig",
       "email": "heisig@ifsr.de"
     },
     {
       "name": "Patrick Reipschläger",
       "email": "patrick@ifsr.de"
+    },
+    {
+      "name": "Frank Hedecke",
+      "email": "frank@ifsr.de"
+    },
+    {
+      "name": "Sebastian Mielke",
+      "email": "mielke@ifsr.de"
     }
   ],
   "bugs": {
