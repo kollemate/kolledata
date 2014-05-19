@@ -26,15 +26,20 @@ block content
                         span=results[i]['per_url']
                 td=results[i]['com_name']
                 td
-                    form(method='post',action='/rmperson')
-                        button.btn.btn-info.btn-xs.showmemo(type='button') ▼
-                        button.btn.btn-primary.btn-xs(type='button',data-toggle='modal',data-target='#detailmodal',data-id=results[i]['per_id']) EDIT
-                        input.hidden(type='text',id='id',name='id',value=results[i]['per_id'])
-                        button.btn.btn-danger.btn-xs(type='submit',name=results[i]['per_id']) ✘
+                    .pull-right
+                        form(method='post',action='/rmperson')
+                            - if (results[i]['per_memo'].length > 0) {
+                                button.btn.btn-info.btn-xs.showmemo(type='button') ▼
+                            - }
+                            button.btn.btn-primary.btn-xs(type='button',data-toggle='modal',data-target='#detailmodal',data-id=results[i]['per_id']) EDIT
+                            input.hidden(type='text',id='id',name='id',value=results[i]['per_id'])
+                            button.btn.btn-danger.btn-xs(type='submit',name=results[i]['per_id']) ✘
+            - if (results[i]['per_memo'].length > 0) {
             tr.memo
                 td(colspan='4').well
-                    p=results[i]['per_memo']
-                    button.btn.btn-primary.btn-sm.btn-block(type='button') EDIT
+                    p.col-lg-11=results[i]['per_memo']
+                    button.btn.btn-default.btn-xs.pull-right.col-lg-1(type='button') EDIT
+            - }
         - }
 
     p
@@ -77,5 +82,7 @@ block content
                                         - for (var i = 0; i < companies.length; i++) {
                                             option=companies[i]['com_name']
                                         - }
-                        button.btn.btn-default.btn-xs(type='button',data-dismiss='modal') ABBRECHEN
-                        button.btn.btn-primary.btn-xs(type='submit') SPEICHERN
+                        .pull-right
+                            button.btn.btn-default.btn-xs(type='button',data-dismiss='modal') ABBRECHEN
+                            button.btn.btn-primary.btn-xs(type='submit') SPEICHERN
+                        .clearfix

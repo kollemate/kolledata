@@ -5,7 +5,12 @@ $(document).ready(function() {
 
     // toggle display of memo rows onClick of inforows
     $('.showmemo').click(function(){
-        $(this).closest('tr').next('tr').slideToggle();
+        if($(this).html() == "▼") {
+            $(this).html("▲");
+        }else{
+            $(this).html("▼");
+        }
+        $(this).closest('tr').next('tr').slideToggle(0);
     });
 
 });
