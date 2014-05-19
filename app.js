@@ -47,34 +47,7 @@ app.get('/', homeController.index);
 app.get('/persons', personsController.index);
 app.post('/persons', personsController.addPerson);
 app.post('/rmperson', personsController.removePerson);
-
-
-// dynamic search function
-app.post('/searchPerson', function(req, res){
-    var search = req.body.searchInput;
-    search = '%' + search + '%';
-
-    var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id WHERE per_name LIKE ? OR per_firstname LIKE ? OR per_url LIKE ? OR com_name LIKE ?;';
-    var inserts = [search, search, search, search];
-    sql = mysql.format(sql, inserts);
-
-    db.query(sql, function(err, rows, fields) {
-        if (err) throw err;
-        var persons = rows;
-
-        var sql = 'SELECT * FROM kd_company;';
-        db.query(sql, function(err, rows, fields){
-            if (err) throw err;
-            var companies = rows;
-
-            res.render('persons', {
-                title: 'Persons',
-                results: persons,
-                companies: companies
-            });
-        });
-    });
-});
+app.post('/searchPerson', personsController.searchPerson);
 
 app.get('/companies', companiesController.index);
 
