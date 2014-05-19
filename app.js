@@ -29,6 +29,9 @@ app.use(connectAssets({
 }));
 app.use(express.bodyParser());
 
+// This is used for url parsing in the middle of a jade template
+app.locals.url = require('url');
+
 /**
  * Controllers
  */

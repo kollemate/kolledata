@@ -23,7 +23,8 @@ block content
                     =results[i]['per_name']
                 td
                     a(href=results[i]['per_url'])
-                        span=results[i]['per_url']
+                        span=            url.parse(results[i]['per_url']).hostname
+                        span.text-muted= url.parse(results[i]['per_url']).path
                 td=results[i]['com_name']
                 td
                     .pull-right
