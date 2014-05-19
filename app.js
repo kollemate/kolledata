@@ -41,6 +41,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/persons', function(req, res){
+    // get all persons and join their company IDs with the actual names
     var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id;';
 
     db.query(sql, function(err, rows, fields) {
@@ -100,6 +101,8 @@ app.post('/persons', function(req, res) {
                     if (err) throw err;
                     var persons = rows;
 
+                    // get all companies to pass on to jade so that the dropdown
+                    // in the add persons modal can be displayed
                     var sql = 'SELECT * FROM kd_company;';
                     db.query(sql, function(err, rows, fields){
                         if (err) throw err;
@@ -126,15 +129,18 @@ app.post('/rmperson', function(req, res){
     db.query(sql, function(err){
         if (err) throw err;
 
+        // redirect to /persons after deleting the entry to rerender the view
+        // also check issue #30 for a better idea of handling this entire request
         res.redirect('/persons');
     });
 });
 
 app.get('/companies', function(req, res){
-    var query = 'SELECT * FROM kd_company;';
 
+    var query = 'SELECT * FROM kd_company;';
     db.query(query, function(err, rows, fields) {
         if (err) throw err;
+
         res.render('companies', {
             title: 'Companies',
             results: rows
@@ -158,8 +164,6 @@ db.connect(function(err){
         console.log("✔ Successfully connected to MySQL database.");
     }
 });
-
-// we'd have to call db.end() somewhere, damn you async node!
 
 app.listen(app.get('port'), function() {
     console.log("✔ Express server listening on http://localhost:%d", app.get('port'));
