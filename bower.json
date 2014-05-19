@@ -1,13 +1,5 @@
 {
   "name": "kolledata",
-  "version": "0.0.1",
-  "homepage": "https://github.com/kollemate/kolledata",
-  "authors": [
-    "Kilian Koeltzsch <koeltzsch@gmail.com>"
-  ],
-  "description": "opensource crm software",
-  "main": "app.js",
-  "license": "MIT",
   "private": true,
   "ignore": [
     "**/.*",
