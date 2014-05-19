@@ -2,6 +2,7 @@
   "name": "kolledata",
   "version": "0.0.1",
   "description": "opensource crm software",
+  "license": "MIT",
   "main": "app.js",
   "dependencies": {
     "express": "~3.5.1",
