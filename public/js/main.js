@@ -1,4 +1,8 @@
 $(document).ready(function() {
+    memofields();
+});
+
+function memofields() {
     // hide all memo tablerows right from the start
     // this is definitely *not* a good way of doing this, but the only way that seems to be working for now...
     $('.memo').hide();
@@ -12,8 +16,7 @@ $(document).ready(function() {
         }
         $(this).closest('tr').next('tr').slideToggle(0);
     });
-
-});
+}
 
 // ajax stuff for the dynamic search
 var http = null;
@@ -52,9 +55,6 @@ function showResponse() {
         $("#datatable").html(response);
 
         // hide the memo-TRs and make them showable again
-        $('.memo').hide();
-        $('.showmemo').click(function() {
-            $(this).closest('tr').next('tr').slideToggle();
-        });
+        memofields();
     }
 }
