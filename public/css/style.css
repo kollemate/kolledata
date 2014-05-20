@@ -9,3 +9,10 @@
 .nopadding {
     padding: 0;
 }
+
+textarea.input {
+        line-height:16px;
+        height:16px;
+        padding:10px;
+        margin-bottom:10px;
+}

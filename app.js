@@ -51,6 +51,7 @@ app.get('/persons', personsController.index);
 app.post('/persons', personsController.addPerson);
 app.post('/rmperson', personsController.removePerson);
 app.post('/searchPerson', personsController.searchPerson);
+app.post('/editMemo', personsController.editMemo);
 
 app.get('/companies', companiesController.index);
 

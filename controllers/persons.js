@@ -127,5 +127,23 @@ module.exports = function(db) {
         });
     };
 
+    // edit memo field
+    module.editMemo = function(req, res) {
+        var memo = req.body.memo;
+        var id = req.body.id;
+
+        var sql = 'UPDATE kd_person SET per_memo = ? WHERE per_id = ?;';
+        var inserts = [memo, id];
+        sql = mysql.format(sql, inserts);
+
+        db.query(sql, function(err, rows, fields) {
+            if (err) throw err;
+
+            res.writeHead(200, { 'Content-Type': 'application/json'});
+            res.end(JSON.stringify({ memo: memo, id : id }));
+            res.end();
+        });
+    };
+
     return module;
 };

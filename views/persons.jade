@@ -36,10 +36,15 @@ block content
                             input.hidden(type='text',id='id',name='id',value=results[i]['per_id'])
                             button.btn.btn-danger.btn-xs(type='submit',name=results[i]['per_id']) ✘
             - if (results[i]['per_memo'].length > 0) {
-            tr.memo
+            tr.memo(id='memo_'+results[i]['per_id'])
                 td(colspan='4').well
-                    p.col-lg-11=results[i]['per_memo']
-                    button.btn.btn-default.btn-xs.pull-right.col-lg-1(type='button') EDIT
+                    p.input.col-lg-11=results[i]['per_memo']
+                    .col-lg-3.pull-right
+                        .pull-right.editbutton
+                            button.btn.btn-default.btn-xs(type='button') EDIT
+                        .pull-right.hidden.confirmbuttons
+                            button.btn.btn-default.btn-xs.cancelbutton(type='button') ABBRECHEN
+                            button.btn.btn-primary.btn-xs.submitbutton(type='submit') SPEICHERN
             - }
         - }
 
