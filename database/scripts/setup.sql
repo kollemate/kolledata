@@ -33,7 +33,7 @@ CREATE TABLE kolledata.kd_company_history (
   comh_email2 VARCHAR(100),
   comh_phone1 VARCHAR(20),
   comh_phone2 VARCHAR(20),
-  com_fax VARCHAR(20),
+  comh_fax VARCHAR(20),
   comh_country VARCHAR(100),
   comh_city VARCHAR(100),
   comh_postcode VARCHAR(10),
