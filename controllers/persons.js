@@ -27,6 +27,24 @@ module.exports = function(db) {
         });
     };
 
+    module.getPerson = function(req, res) {
+        var per_id = req.params.id;
+
+        var sql = 'SELECT * FROM kd_person WHERE per_id = ?';
+        var inserts = [per_id];
+        sql = mysql.format(sql, inserts);
+        db.query(sql, function(err, rows, fields){
+            if (err) throw err;
+
+            var person = rows;
+
+            res.render('person', {
+                title: rows[0]['per_firstname'] + ' ' + rows[0]['per_name'],
+                results: person
+            });
+        });
+    };
+
     module.addPerson = function(req, res) {
         var firstName = req.body.firstName;
         var lastName = req.body.lastName;

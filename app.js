@@ -49,6 +49,7 @@ var apiController = require('./controllers/api')(db);
 app.get('/', homeController.index);
 
 app.get('/persons', personsController.index);
+app.get('/persons/:id', personsController.getPerson);
 app.post('/persons', personsController.addPerson);
 app.post('/rmperson', personsController.removePerson);
 app.post('/searchPerson', personsController.searchPerson);

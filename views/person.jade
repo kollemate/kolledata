@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    //- include partials/alerts
+
+    //- p.lead.col-lg-10.nopadding
+    h2
+        =results[0]['per_firstname']
+        =' '
+        =results[0]['per_name']
+
+    p
+        strong URL
+    p=results[0]['per_url']
+
+    p
+        strong MEMO
+    p=results[0]['per_memo']
+
