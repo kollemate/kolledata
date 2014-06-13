@@ -1,50 +1,53 @@
 {
-  "name": "kolledata",
-  "version": "0.0.1",
-  "description": "opensource crm software",
-  "license": "MIT",
-  "main": "app.js",
-  "dependencies": {
-    "express": "~3.5.1",
-    "mysql": "^2.1.1",
-    "jade": "^1.3.0",
-    "connect-assets": "^3.0.0-beta2",
-    "less": "^1.7.0"
-  },
-  "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/kollemate/kolledata.git"
-  },
-  "author": "",
-  "maintainers": [
-    {
-      "name": "Kilian Koeltzsch",
-      "email": "koeltzsch@ifsr.de"
+    "name": "kolledata",
+    "version": "0.0.1",
+    "description": "opensource crm software",
+    "license": "MIT",
+    "main": "app.js",
+    "dependencies": {
+        "express": "~3.5.1",
+        "mysql": "^2.1.1",
+        "jade": "^1.3.0",
+        "connect-assets": "^3.0.0-beta2",
+        "less": "^1.7.0"
     },
-    {
-      "name": "Sascha Peukert",
-      "email": "sascha@ifsr.de"
+    "devDependencies": {},
+    "scripts": {
+        "start": "node app.js"
     },
-    {
-      "name": "Philipp Heisig",
-      "email": "heisig@ifsr.de"
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/kollemate/kolledata.git"
     },
-    {
-      "name": "Patrick Reipschläger",
-      "email": "patrick@ifsr.de"
+    "author": "",
+    "maintainers": [
+        {
+            "name": "Kilian Koeltzsch",
+            "email": "koeltzsch@ifsr.de"
+        },
+        {
+            "name": "Sascha Peukert",
+            "email": "sascha@ifsr.de"
+        },
+        {
+            "name": "Philipp Heisig",
+            "email": "heisig@ifsr.de"
+        },
+        {
+            "name": "Patrick Reipschläger",
+            "email": "patrick@ifsr.de"
+        },
+        {
+            "name": "Frank Hedecke",
+            "email": "frank@ifsr.de"
+        },
+        {
+            "name": "Sebastian Mielke",
+            "email": "mielke@ifsr.de"
+        }
+    ],
+    "bugs": {
+        "url": "https://github.com/kollemate/kolledata/issues"
     },
-    {
-      "name": "Frank Hedecke",
-      "email": "frank@ifsr.de"
-    },
-    {
-      "name": "Sebastian Mielke",
-      "email": "mielke@ifsr.de"
-    }
-  ],
-  "bugs": {
-    "url": "https://github.com/kollemate/kolledata/issues"
-  },
-  "homepage": "https://github.com/kollemate/kolledata"
+    "homepage": "https://github.com/kollemate/kolledata"
 }
