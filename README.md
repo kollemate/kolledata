@@ -43,6 +43,21 @@ The port line can be uncommented if your MySQL port is not the standard `3306`.
 
 #### 5. Start your MySQL server
 
+If your distribution uses systemd, type:
+
+```
+$ sudo systemctl restart mysqld.service
+```
+
+or
+
+
+```
+$ sudo systemctl enable mysqld.service
+```
+if you want to start the MySQL server at boot.
+
+
 #### 6. Setup the kolledata database
 
 ```
