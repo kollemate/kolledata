@@ -25,3 +25,7 @@ block content
     p
         strong MEMO
     p=results[0]['per_memo']
+
+    p
+    form(method='get',action='/persons/')         
+        button.btn.btn-info.btn-xs(type='submit') Zurück
