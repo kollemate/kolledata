@@ -34,7 +34,10 @@ block content
                             - }
                             button.btn.btn-primary.btn-xs(type='button',data-toggle='modal',data-target='#detailmodal',data-id=results[i]['per_id']) EDIT
                             input.hidden(type='text',id='id',name='id',value=results[i]['per_id'])
-                            button.btn.btn-danger.btn-xs(type='submit',name=results[i]['per_id']) ✘
+                            button.btn.btn-danger.btn-xs(type='submit', name=results[i]['per_id']) ✘
+                    .pull-right
+                        form(method='get',action='/persons/'+results[i]['per_id'])         
+                            button.btn.btn-info.btn-xs(type='submit') Show detailed Info
             - if (results[i]['per_memo'].length > 0) {
             tr.memo(id='memo_'+results[i]['per_id'])
                 td(colspan='4').well

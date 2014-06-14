@@ -127,6 +127,9 @@ function setNewMemo() {
     }
 }
 
+function showFullInfo() {
+}
+
 jQuery.fn.elasticArea = function() {
   return this.each(function(){
     function resizeTextarea() {
