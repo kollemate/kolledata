@@ -3,7 +3,6 @@ extends layout
 block content
     //- include partials/alerts
 
-    //- p.lead.col-lg-10.nopadding
     h2
         =results[0]['per_firstname']
         =' '
@@ -14,6 +13,15 @@ block content
     p=results[0]['per_url']
 
     p
+        strong E-MAIL
+    - for (var i = 0; i < emails.length; i++) {
+        p=emails[i]['em_email']
+    - }
+
+    p
+        strong COMPANY
+    p=results[0]['com_name']
+
+    p
         strong MEMO
     p=results[0]['per_memo']
-
