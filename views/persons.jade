@@ -32,8 +32,9 @@ block content
                             - if (results[i]['per_memo'].length > 0) {
                                 button.btn.btn-info.btn-xs.showmemo(type='button') ▼
                             - }
+                            - var personshortdesc = { name: results[i]['per_name'] , firstname: results[i]['per_firstname'] }
                             input.hidden(type='text',id='id',name='id',value=results[i]['per_id'])
-                            button.btn.btn-danger.btn-xs(type='submit', name=results[i]['per_id']) ✘
+                            button.btn.btn-danger.btn-xs(type='submit', name=results[i]['per_id'], onClick="return confirm('Wollen Sie #{personshortdesc.firstname} #{personshortdesc.name} wirklich löschen?')") ✘
                     .pull-right
                         form(method='get',action='/persons/'+results[i]['per_id'])
                             button.btn.btn-primary.btn-xs(type='submit') INFO
