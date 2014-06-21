@@ -3,7 +3,7 @@ var mysql = require('mysql');
 
 module.exports = function(db) {
 
-    module.getPerson = function(req, res) {
+    module.index = function(req, res) {
         var per_id = req.params.id;
 
         var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id WHERE per_id = ?';

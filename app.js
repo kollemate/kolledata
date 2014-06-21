@@ -38,7 +38,7 @@ app.locals.url = require('url');
 
 var homeController = require('./controllers/home')();
 var personsController = require('./controllers/persons')(db);
-var personController = require('./controllers/person')(db);
+var singleController = require('./controllers/person')(db);
 var companiesController = require('./controllers/companies')(db);
 var aboutController = require('./controllers/about')();
 var apiController = require('./controllers/api')(db);
@@ -51,11 +51,11 @@ app.get('/', homeController.index);
 
 app.get('/persons', personsController.index);
 app.post('/persons', personsController.addPerson);
-app.post('/rmperson', personsController.removePerson);
+app.post('/persons/delete', personsController.delete);
 app.post('/searchPerson', personsController.searchPerson);
 app.post('/editMemo', personsController.editMemo);
 
-app.get('/persons/:id', personController.getPerson);
+app.get('/persons/:id', singleController.index);
 
 app.get('/companies', companiesController.index);
 

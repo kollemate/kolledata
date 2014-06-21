@@ -24,5 +24,11 @@ module.exports = function(db) {
         });
     };
 
+    module.test = function(req, res) {
+        res.set('Content-Type', 'text/json');
+        res.send(req.body);
+        console.log(req.body);
+    };
+
     return module;
 };

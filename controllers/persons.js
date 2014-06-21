@@ -85,17 +85,16 @@ module.exports = function(db) {
         });
     };
 
-    module.removePerson = function(req, res) {
-        var id = req.body.id;
+    module.delete = function(req, res) {
+        var per_id = req.body.per_id;
 
         var sql = 'DELETE FROM kolledata.kd_person WHERE per_id=?;';
-        var inserts = [id];
+        var inserts = [per_id];
         sql = mysql.format(sql, inserts);
         db.query(sql, function(err){
             if (err) throw err;
 
             // redirect to /persons after deleting the entry to rerender the view
-            // also check issue #30 for a better idea of handling this entire request
             res.redirect('/persons');
         });
     };
