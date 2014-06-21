@@ -40,8 +40,9 @@ block content
                             - var personshortdesc = { name: results[i]['per_name'] , firstname: results[i]['per_firstname'] }
                             button.btn.btn-danger.btn-xs(type='submit', name='per_id', value=results[i]['per_id'], onClick="return confirm('Wollen Sie #{personshortdesc.firstname} #{personshortdesc.name} wirklich löschen?')") ✘
                     .pull-right
-                        form(method='get',action='/persons/'+results[i]['per_id'])
+                        form(method='get',action='/persons/' + results[i]['per_id'])
                             button.btn.btn-primary.btn-xs(type='submit') INFO
+                            //- why does this add a question mark to the end of the URL?!
             - if (results[i]['per_memo'].length > 0) {
             tr.memo(id='memo_'+results[i]['per_id'])
                 td(colspan='4').well

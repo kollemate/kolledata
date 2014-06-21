@@ -9,9 +9,6 @@ block content
                 =results[0]['per_firstname']
                 =' '
                 =results[0]['per_name']
-                    .pull-right
-                        form(method='get',action='/persons/' + results[0]['per_id'] + '/edit')
-                            button.btn.btn-info.btn-xs(type='submit') EDIT
 
     div.list-group
         div.list-group-item
@@ -48,6 +45,8 @@ block content
             h5.list-group-item-text
                 =results[0]['per_memo']
 
-    p
-    form(method='get',action='/persons/')
-        button.btn.btn-info.btn-xs(type='submit') Zurück
+    .pull-left
+        form(method='get',action='/persons/' + results[0]['per_id'])
+            button.btn.btn-xs(type='submit') Abbrechen
+    form(method='post',action='')
+        button.btn.btn-info.btn-xs(type='submit') Speichern
