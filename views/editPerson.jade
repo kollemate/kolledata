@@ -5,10 +5,12 @@ block content
 
     div.panel.panel-primary
         div.panel-heading
-            h3
-                =results[0]['per_firstname']
-                =' '
-                =results[0]['per_name']
+            form.form-horizontal(method='post',action='/persons/' + results[0]['per_id'] + '/edit')
+                label.control-label(for='firstName') Vorname
+                input.form-control(type='text',id='firstName',name='firstName',value=results[0]['per_firstname'])
+                label.control-label(for='name') Nachname
+                input.form-control(type='text',id='name',name='name',value=results[0]['per_name'])
+                button.btn.btn-info.btn-xs(type='submit') Speichern
 
     div.list-group
         div.list-group-item
@@ -48,5 +50,5 @@ block content
     .pull-left
         form(method='get',action='/persons/' + results[0]['per_id'])
             button.btn.btn-xs(type='submit') Abbrechen
-    form(method='post',action='')
-        button.btn.btn-info.btn-xs(type='submit') Speichern
+    //- form(method='post',action='/persons/' + results[0]['per_id'] + '/edit')
+    //-     button.btn.btn-info.btn-xs(type='submit') Speichern

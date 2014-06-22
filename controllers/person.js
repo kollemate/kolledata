@@ -67,5 +67,20 @@ module.exports = function(db) {
         });
     };
 
+    module.edit = function(req, res) {
+        var per_id = req.params.id;
+        var name = req.body.name;
+        var firstName = req.body.firstName;
+
+        var sql = 'UPDATE kd_person SET per_name = ?, per_firstname = ?, per_timestamp = NOW() WHERE per_id = ?;';
+        var inserts = [name, firstName, per_id];
+        sql = mysql.format(sql, inserts);
+        db.query(sql, function(err){
+            if (err) throw err;
+
+            res.redirect('/persons/' + per_id);
+        });
+    };
+
     return module;
 };
