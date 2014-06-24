@@ -71,7 +71,6 @@ module.exports = function(db) {
         var per_id = req.params.id;
         var name = req.body.name;
         var firstName = req.body.firstName;
-        console.log(req.body);
 
         var sql = 'UPDATE kd_person SET per_name = ?, per_firstname = ?, per_timestamp = NOW() WHERE per_id = ?;';
         var inserts = [name, firstName, per_id];
@@ -87,8 +86,6 @@ module.exports = function(db) {
     module.editMemo = function(req, res) {
         var memo = req.body.memo;
         var id = req.body.id;
-
-        console.log(req);
 
         var sql = 'UPDATE kd_person SET per_memo = ? WHERE per_id = ?;';
         var inserts = [memo, id];
