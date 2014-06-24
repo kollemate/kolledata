@@ -71,14 +71,30 @@ module.exports = function(db) {
         var per_id = req.params.id;
         var name = req.body.name;
         var firstName = req.body.firstName;
+        var url = req.body.url;
+        var company = req.body.company;
 
-        var sql = 'UPDATE kd_person SET per_name = ?, per_firstname = ?, per_timestamp = NOW() WHERE per_id = ?;';
-        var inserts = [name, firstName, per_id];
+        // seriously.. fuck emails.
+
+        var sql = 'SELECT com_id FROM kd_company WHERE com_name = ?;';
+        var inserts = [company];
         sql = mysql.format(sql, inserts);
-        db.query(sql, function(err){
-            if (err) throw err;
+        db.query(sql, function(err, rows, fields) {
+            if (company === '- N/A -') {
+                company = null;
+            } else {
+                company = rows[0].com_id;
+            }
 
-            res.redirect('/persons/' + per_id);
+            var sql = 'UPDATE kd_person SET per_name = ?, per_firstname = ?, per_url = ?, per_company = ?, per_timestamp = NOW() WHERE per_id = ?;';
+            var inserts = [name, firstName, url, company, per_id];
+            sql = mysql.format(sql, inserts);
+            console.log(sql);
+            db.query(sql, function(err){
+                if (err) throw err;
+
+                res.redirect('/persons/' + per_id);
+            });
         });
     };
 

@@ -24,9 +24,9 @@ block content
                     - if(emails.length == 0) {
                         input.form-control(type='text',id='email0',name='email0',value='')
                     - } else {
-                    -   for (var i = 0; i < emails.length; i++) {
+                        - for (var i = 0; i < emails.length; i++) {
                             input.form-control(type='text',id='email'+i,name='email'+i,value=emails[i]['em_email'])
-                    -   }
+                        - }
                     - }
 
             div.list-group
