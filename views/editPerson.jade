@@ -20,24 +20,19 @@ block content
 
             div.list-group
                 div.list-group-item
-                    h5.list-group-item-heading
-                       strong E-MAIL
-                    h5.list-group-item-text
-                        - if(emails.length == 0) {
-                            | no mail available
-                        - } else {
-                        -   for (var i = 0; i < emails.length; i++) {
-                                p=emails[i]['em_email']
-                        -   }
-                        - }
-
+                    label.control-label(for='email0') MAIL
+                    - if(emails.length == 0) {
+                        input.form-control(type='text',id='email0',name='email0',value="")
+                    - } else {
+                    -   for (var i = 0; i < emails.length; i++) {
+                            input.form-control(type='text',id='email'+i,name='email'+i,value=emails[i]['em_email'])
+                    -   }
+                    - }
 
             div.list-group
                 div.list-group-item
-                    h5.list-group-item-heading
-                        strong COMPANY
-                    h5.list-group-item-text
-                        =results[0]['com_name']
+                    label.control-label(for='url') COMPANY
+                    input.form-control(type='text',id='company',name='company',value=results[0]['com_name'])
             button.btn.btn-info.btn-xs(type='submit') Speichern
 
             .pull-left
