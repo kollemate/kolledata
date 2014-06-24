@@ -3,46 +3,76 @@ extends layout
 block content
     //- include partials/alerts
 
-    p.lead
-        | Das hier sind alle Firmen aus der Datenbank:
-    .alert.alert-warning
-        h4 Disclaimer
-        p
-            | Diese Seite wird nicht aktuell gehalten. Design- und Formatupdates betreffen in erster Linie die
-            =' '
-            a(href='/persons') Personen
-            |  Seite. Updates an dieser Seite werden mit Verzögerung eingepflegt.
+    p.lead.col-lg-10.nopadding
+        | Companies
 
-    table.table.table-striped.table-hover
+    p.col-lg-2.input-sm.pull-right
+        input(id='searchInput',type='text',onkeyup='searchThis()',placeholder='Search...')
+
+    table.table.table-hover(id='datatable')
         tr
             th NAME
             th URL
-            th EMAIL1
-            th EMAIL2
-            th MEMO
+            th ADDRESS
             th EDIT
         - for (var i = 0; i < results.length; i++) {
             tr
-                td=results[i]['com_name']
                 td
-                    //- TODO: replace 'LINK' by the link itself... doesn't seem to work
-                    a(href=results[i]['com_url']) LINK
-                td=results[i]['com_email1']
-                td=results[i]['com_email2']
-                td=results[i]['com_memo']
+                    =results[i]['com_name']
                 td
-                    button.btn.btn-primary.btn-xs(type='button',data-toggle='modal',data-target='#detailmodal') EDIT
+                    a(href=results[i]['com_url'])
+                        span=            url.parse(results[i]['com_url']).hostname
+                        span.text-muted= url.parse(results[i]['com_url']).path
+                td=results[i]['com_adress']
+                td
+                    //-----------
+                    //- BUTTONS
+                    //-----------
+                    .pull-right
+                        button.btn.btn-info.btn-xs.showmemo(type='button')
+                            - if (results[i]['com_memo'].length > 0) {
+                                span.symbolbutton ▼
+                            - } else {
+                                span.symbolbutton ✚
+                            - }
+                        input.hidden(type='text',id='id',name='id',value=results[i]['com_id'])
+                    .pull-right
+                        form(method='post',action='/companies/delete',)
+                            button.btn.btn-danger.btn-xs(type='submit', name='com_id', value=results[i]['com_id'], onClick="return confirm('Wollen Sie diese Firma wirklich löschen?')") ✘
+                    .pull-right
+                        form(method='get',action='/companies/' + results[i]['com_id'])
+                            button.btn.btn-primary.btn-xs(type='submit') INFO
         - }
+
+    p
+        button.btn.btn-default.btn-sm.btn-block(type='button',id='newentrybtn',data-toggle='modal',data-target='#detailmodal') ADD NEW ENTRY
 
     .modal.fade(tabindex='-1',role='dialog',aria-labelledby='Infos',aria-hidden='true',id='detailmodal')
         .modal-dialog
             .modal-content
                 .modal-header
                     button.close(type='button',data-dismiss='modal',aria-hidden='true') ×
-                    h3.modal-title Informationen
+                    h3.modal-title New Entry
                 .modal-body
-                    p.lead Hier kommen noch genauere Informationen zu dem aktuellen Eintrag hin.
-                    p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vel libero sed elit ullamcorper ornare non vitae justo. Duis id eleifend ante, quis commodo massa. Pellentesque lacinia fermentum lobortis. Nunc pretium, risus eu molestie porta, est odio aliquet urna, at tincidunt neque purus eget nulla. Nullam nec nibh non eros faucibus venenatis. Vivamus eu sollicitudin neque. Quisque egestas, dolor id dignissim faucibus, lacus sapien malesuada arcu, eu malesuada quam libero tempus odio. Fusce id quam at libero rhoncus mattis. Nulla euismod semper nulla, vel lacinia metus blandit aliquam. Proin vehicula porta lacus sed rhoncus. Vestibulum imperdiet ultrices libero vitae sollicitudin. Nunc mollis vitae est eu sodales. Mauris sed auctor enim, sit amet eleifend purus. Aenean lobortis mattis lobortis. Donec mauris nisi, cursus sit amet adipiscing eget, iaculis non turpis.
-                    p Ut quis quam volutpat, rhoncus mauris sodales, scelerisque dui. Cras vitae suscipit dui, eu mattis lectus. Etiam sodales mauris vel erat malesuada, eget pharetra elit tincidunt. Nam facilisis sapien eget semper pulvinar. Aliquam pharetra ultricies dolor, in consequat velit iaculis a. Nullam hendrerit non urna nec vulputate. Ut ac enim aliquet, venenatis tellus ac, consequat sapien. Sed ornare hendrerit porttitor. Donec ornare tincidunt lacus, nec fringilla ante. Nam blandit rutrum pellentesque. Curabitur ornare sodales quam eget feugiat.
-                    button.btn.btn-default.btn-xs(type='button',data-dismiss='modal') ABBRECHEN
-                    button.btn.btn-primary.btn-xs(type='button') SPEICHERN
+                    form.form-horizontal(method='post')
+                        fieldset
+                            .form-group
+                                label.col-lg-2.control-label(for='name') NAME
+                                .col-lg-10
+                                    input.form-control(type='text',id='name',name='name',placeholder='name')
+                            .form-group
+                                label.col-lg-2.control-label(for='url') URL
+                                .col-lg-10
+                                    input.form-control(type='text',id='url',name='url',placeholder='http://kolle-mate.de')
+                            .form-group
+                                label.col-lg-2.control-label(for='email') E-MAIL
+                                .col-lg-10
+                                    input.form-control(type='text',id='email',name='email',placeholder='max@mustermann.de')
+                            .form-group
+                                label.col-lg-2.control-label(for='memo') MEMO
+                                .col-lg-10
+                                    textarea.form-control(type='text',input='memo',name='memo',rows='10')
+                        .pull-right
+                            button.btn.btn-default.btn-xs(type='button',data-dismiss='modal') CANCEL
+                            button.btn.btn-primary.btn-xs(type='submit') SAVE
+                        .clearfix

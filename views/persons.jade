@@ -4,10 +4,10 @@ block content
     //- include partials/alerts
 
     p.lead.col-lg-10.nopadding
-        | Personen
+        | Persons
 
     p.col-lg-2.input-sm.pull-right
-        input(id='searchInput',type='text',onkeyup='searchThis()',placeholder='Suche..')
+        input(id='searchInput',type='text',onkeyup='searchThis()',placeholder='Search...')
 
     table.table.table-hover(id='datatable')
         tr
@@ -45,7 +45,6 @@ block content
                     .pull-right
                         form(method='get',action='/persons/' + results[i]['per_id'])
                             button.btn.btn-primary.btn-xs(type='submit') INFO
-                            //- why does this add a question mark to the end of the URL?!
             tr.memo(id='memo_'+results[i]['per_id'])
                 td(colspan='4').well
                     p.input.col-lg-11=results[i]['per_memo']
@@ -58,39 +57,39 @@ block content
         - }
 
     p
-        button.btn.btn-default.btn-sm.btn-block(type='button',id='newentrybtn',data-toggle='modal',data-target='#detailmodal') NEUEN EINTRAG HINZUFÜGEN
+        button.btn.btn-default.btn-sm.btn-block(type='button',id='newentrybtn',data-toggle='modal',data-target='#detailmodal') ADD NEW ENTRY
 
     .modal.fade(tabindex='-1',role='dialog',aria-labelledby='Infos',aria-hidden='true',id='detailmodal')
         .modal-dialog
             .modal-content
                 .modal-header
                     button.close(type='button',data-dismiss='modal',aria-hidden='true') ×
-                    h3.modal-title Informationen
+                    h3.modal-title New Entry
                 .modal-body
                     form.form-horizontal(method='post')
                         fieldset
                             .form-group
-                                label.col-lg-2.control-label(for='firstName') Vorname
+                                label.col-lg-2.control-label(for='firstName') FIRSTNAME
                                 .col-lg-10
-                                    input.form-control(type='text',id='firstName',name='firstName',placeholder='Vorname')
+                                    input.form-control(type='text',id='firstName',name='firstName',placeholder='first name')
                             .form-group
-                                label.col-lg-2.control-label(for='lastName') Nachname
+                                label.col-lg-2.control-label(for='lastName') LASTNAME
                                 .col-lg-10
-                                    input.form-control(type='text',id='lastName',name='lastName',placeholder='Nachname')
+                                    input.form-control(type='text',id='lastName',name='lastName',placeholder='last name')
                             .form-group
                                 label.col-lg-2.control-label(for='url') URL
                                 .col-lg-10
                                     input.form-control(type='text',id='url',name='url',placeholder='http://kolle-mate.de')
                             .form-group
-                                label.col-lg-2.control-label(for='email') E-Mail
+                                label.col-lg-2.control-label(for='email') E-MAIL
                                 .col-lg-10
                                     input.form-control(type='text',id='email',name='email',placeholder='max@mustermann.de')
                             .form-group
-                                label.col-lg-2.control-label(for='memo') Memo
+                                label.col-lg-2.control-label(for='memo') MEMO
                                 .col-lg-10
                                     textarea.form-control(type='text',input='memo',name='memo',rows='10')
                             .form-group
-                                label.col-lg-2.control-label(for='company') Firma
+                                label.col-lg-2.control-label(for='company') COMPANY
                                 .col-lg-10
                                     select.form-control(id='company',name='company')
                                         option - N/A -
@@ -98,6 +97,6 @@ block content
                                             option=companies[i]['com_name']
                                         - }
                         .pull-right
-                            button.btn.btn-default.btn-xs(type='button',data-dismiss='modal') ABBRECHEN
-                            button.btn.btn-primary.btn-xs(type='submit') SPEICHERN
+                            button.btn.btn-default.btn-xs(type='button',data-dismiss='modal') CANCEL
+                            button.btn.btn-primary.btn-xs(type='submit') SAVE
                         .clearfix

@@ -89,7 +89,6 @@ module.exports = function(db) {
             var sql = 'UPDATE kd_person SET per_name = ?, per_firstname = ?, per_url = ?, per_company = ?, per_timestamp = NOW() WHERE per_id = ?;';
             var inserts = [name, firstName, url, company, per_id];
             sql = mysql.format(sql, inserts);
-            console.log(sql);
             db.query(sql, function(err){
                 if (err) throw err;
 

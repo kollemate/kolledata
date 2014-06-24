@@ -15,5 +15,22 @@ module.exports = function(db) {
         });
     };
 
+    module.addCompany = function(req, res) {
+        var name = req.body.name;
+        var url = req.body.url;
+        var email = req.body.email;
+        var memo = req.body.memo;
+
+        var sql = 'INSERT INTO kd_company (com_name, com_url, com_email com_memo, per_timestamp) VALUES (?, ?, ?, NOW())';
+        var inserts = [name, url, memo];
+        sql = mysql.format(sql, inserts);
+        db.query(sql, function(err, rows){
+            if (err) throw err;
+
+            var sql = 'INSERT INTO kolledata.kd_email (em_person_id, em_email, em_timestamp) VALUES (?, ?, NOW());';
+            var inserts = [rows.insertId, email];
+        });
+    };
+
     return module;
 };
