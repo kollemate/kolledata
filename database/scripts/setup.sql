@@ -58,7 +58,7 @@ CREATE TABLE kolledata.kd_person (
   per_timestamp DATETIME,
   per_company INT,
   per_department VARCHAR(100),
-  per_arbitrator INT,
+  per_referredBy INT,
   per_category INT,
   PRIMARY KEY (per_id)
   -- FOREIGN KEY (per_company) REFERENCES kd_company(com_id)
@@ -78,7 +78,7 @@ CREATE TABLE kolledata.kd_person_history (
   perh_timestamp DATETIME,
   perh_company INT,
   perh_department VARCHAR(100),
-  perh_arbitrator INT,
+  perh_referredBy INT,
   perh_category INT,
   PRIMARY KEY (perh_id)
   -- FOREIGN KEY (perh_person_id) REFERENCES kd_person(per_id)
@@ -287,7 +287,7 @@ CREATE
       perh_timestamp,
       perh_company,
       perh_department,
-      perh_arbitrator,
+      perh_referredBy,
       perh_category
 		) 
 		VALUES (
@@ -302,7 +302,7 @@ CREATE
       OLD.per_timestamp,
       OLD.per_company,
       OLD.per_department,
-      OLD.per_arbitrator,
+      OLD.per_referredBy,
       OLD.per_category
 		);
 
@@ -325,7 +325,7 @@ CREATE
       perh_timestamp,
       perh_company,
       perh_department,
-      perh_arbitrator,
+      perh_referredBy,
       perh_category
 		) 
 		VALUES (
@@ -340,7 +340,7 @@ CREATE
       OLD.per_timestamp,
       OLD.per_company,
       OLD.per_department,
-      OLD.per_arbitrator,
+      OLD.per_referredBy,
       OLD.per_category
 		);
 
