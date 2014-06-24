@@ -83,5 +83,23 @@ module.exports = function(db) {
         });
     };
 
+    // edit memo field
+    module.editMemo = function(req, res) {
+        var memo = req.body.memo;
+        var id = req.body.id;
+
+        console.log(req);
+
+        var sql = 'UPDATE kd_person SET per_memo = ? WHERE per_id = ?;';
+        var inserts = [memo, id];
+        sql = mysql.format(sql, inserts);
+
+        db.query(sql, function(err, rows, fields) {
+            if (err) throw err;
+
+            res.redirect('/persons/' + id);
+        });
+    };
+
     return module;
 };

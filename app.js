@@ -59,6 +59,7 @@ app.post('/editMemo', personsController.editMemo);
 app.get('/persons/:id', singleController.index);
 app.get('/persons/:id/edit', singleController.editIndex);
 app.post('/persons/:id/edit', singleController.edit);
+app.post('/persons/:id/editMemo', singleController.editMemo);
 
 app.get('/companies', companiesController.index);
 

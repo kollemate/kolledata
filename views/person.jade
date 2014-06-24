@@ -48,8 +48,11 @@ block content
 
     .col-md-7
         div.list-group
-            div.list-group-item
+            div.list-group-item.memotextdiv
                 h5.list-group-item-heading
                     strong MEMO
-                h5.list-group-item-text
-                    =results[0]['per_memo']
+                form(method='post',action='/persons/' + results[0]['per_id'] + '/editMemo')
+                    input.hidden.form-control(type='text',id='id',name='id',value=results[0]['per_id'])
+                    textarea.memotextarea.form-control(id='memo',name='memo')=results[0]['per_memo']
+                    p
+                    button.btn.btn-info.btn-xs(type='submit') Speichern

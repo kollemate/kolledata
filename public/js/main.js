@@ -1,6 +1,11 @@
 $(document).ready(function() {
     memofields();
+});
 
+// resize big memo fields on info pages
+$(function(){
+    $('.memotextdiv').css({ height: $(window).innerHeight() - 100 });
+    $('.memotextarea').css({ height: $(window).innerHeight() - 185 });
 });
 
 function memofields() {
