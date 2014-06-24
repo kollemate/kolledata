@@ -509,4 +509,47 @@ CREATE
 
 END$$
 
+CREATE
+	TRIGGER kolledata.cat_history_trigger AFTER UPDATE 
+	ON kolledata.kd_category 
+	FOR EACH ROW BEGIN
+		
+		-- update old references if present
+		UPDATE kolledata.kd_category_history 
+          SET cath_category_id= NEW.cat_id
+        WHERE cath_category_id=OLD.cat_id;
+
+		-- copy old stuff in history table
+		INSERT INTO kolledata.kd_category_history (
+			cath_category_id,
+      cath_name,
+      cath_memo
+		) 
+		VALUES (
+			NEW.cat_id, 
+			OLD.cat_name,
+      OLD.cat_memo
+		);
+
+END$$
+
+CREATE
+	TRIGGER kolledata.cath_delete_trigger AFTER DELETE 
+	ON kolledata.kd_category 
+	FOR EACH ROW BEGIN
+
+		-- copy old stuff in history table
+		INSERT INTO kolledata.kd_category_history (
+			cath_category_id,
+      cath_name,
+      cath_memo
+		) 
+		VALUES (
+			OLD.cat_id, 
+			OLD.cat_name,
+      OLD.cat_memo
+		);
+
+END$$
+
 DELIMITER ;
