@@ -27,7 +27,8 @@ app.use(connectAssets({
     paths: ['public/css', 'public/js', 'bower_components'],
     helperContext: app.locals
 }));
-app.use(express.bodyParser());
+app.use(express.urlencoded())
+app.use(express.json())
 
 // This is used for url parsing in the middle of a jade template
 app.locals.url = require('url');
