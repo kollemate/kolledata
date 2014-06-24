@@ -59,6 +59,7 @@ CREATE TABLE kolledata.kd_person (
   per_company INT,
   per_department VARCHAR(100),
   per_arbitrator INT,
+  per_category INT,
   PRIMARY KEY (per_id)
   -- FOREIGN KEY (per_company) REFERENCES kd_company(com_id)
   -- ON DELETE CASCADE ON UPDATE CASCADE
@@ -78,6 +79,7 @@ CREATE TABLE kolledata.kd_person_history (
   perh_company INT,
   perh_department VARCHAR(100),
   perh_arbitrator INT,
+  perh_category INT,
   PRIMARY KEY (perh_id)
   -- FOREIGN KEY (perh_person_id) REFERENCES kd_person(per_id)
   -- ON DELETE CASCADE -- ON UPDATE CASCADE
@@ -267,7 +269,8 @@ CREATE
       perh_timestamp,
       perh_company,
       perh_department,
-      perh_arbitrator
+      perh_arbitrator,
+      perh_category
 		) 
 		VALUES (
 			NEW.per_id,
@@ -281,7 +284,8 @@ CREATE
       OLD.per_timestamp,
       OLD.per_company,
       OLD.per_department,
-      OLD.per_arbitrator
+      OLD.per_arbitrator,
+      OLD.per_category
 		);
 
 END$$
@@ -303,7 +307,8 @@ CREATE
       perh_timestamp,
       perh_company,
       perh_department,
-      perh_arbitrator
+      perh_arbitrator,
+      perh_category
 		) 
 		VALUES (
 			OLD.per_id, 
@@ -317,7 +322,8 @@ CREATE
       OLD.per_timestamp,
       OLD.per_company,
       OLD.per_department,
-      OLD.per_arbitrator
+      OLD.per_arbitrator,
+      OLD.per_category
 		);
 
 END$$
