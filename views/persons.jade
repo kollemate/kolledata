@@ -31,9 +31,12 @@ block content
                     //- BUTTONS
                     //-----------
                     .pull-right
-                        - if (results[i]['per_memo'].length > 0) {
-                            button.btn.btn-info.btn-xs.showmemo(type='button') ▼
-                        - }
+                        button.btn.btn-info.btn-xs.showmemo(type='button')
+                            - if (results[i]['per_memo'].length > 0) {
+                                span.symbolbutton ▼
+                            - } else {
+                                span.symbolbutton ✚
+                            - }
                         input.hidden(type='text',id='id',name='id',value=results[i]['per_id'])
                     .pull-right
                         form(method='post',action='/persons/delete',)
@@ -43,7 +46,6 @@ block content
                         form(method='get',action='/persons/' + results[i]['per_id'])
                             button.btn.btn-primary.btn-xs(type='submit') INFO
                             //- why does this add a question mark to the end of the URL?!
-            - if (results[i]['per_memo'].length > 0) {
             tr.memo(id='memo_'+results[i]['per_id'])
                 td(colspan='4').well
                     p.input.col-lg-11=results[i]['per_memo']
@@ -53,7 +55,6 @@ block content
                         .pull-right.hidden.confirmbuttons
                             button.btn.btn-default.btn-xs.cancelbutton(type='button') ABBRECHEN
                             button.btn.btn-primary.btn-xs.submitbutton(type='submit') SPEICHERN
-            - }
         - }
 
     p

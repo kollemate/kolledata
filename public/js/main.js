@@ -15,12 +15,23 @@ function memofields() {
 
     // toggle display of memo rows onClick of inforows
     $('.showmemo').click(function(){
-        if($(this).html() == "▼") {
-            $(this).html("▲");
-        }else{
-            $(this).html("▼");
+        var next_tr = $(this).closest('tr').next('tr');
+        var this_content = $(this).children().first();
+        if(this_content.html() == "▼") {
+            this_content.html("▲");
+        } else if(this_content.html() == "▲") {
+            if($("#" + next_tr.attr('id')).find('.input').html())
+                this_content.html("▼"); // Text has been added
+            else
+                this_content.html("✚"); // or not.
+        } else {
+            this_content.html("▲");
+            editMemo(next_tr.attr('id')); // empty memo field -> add new
+            
+            // TODO: Einklappen ohne Speichern löscht den Text in einem ehemals leeren Eintrag. Ist so sicher nicht Sinn der Sache.
+            // alert("before showmemo:"+$("#"+next_tr.attr('id')).find('.input').text());
         }
-        $(this).closest('tr').next('tr').slideToggle(0);
+        next_tr.slideToggle(0);
     });
 
     editMemofields();
@@ -86,14 +97,16 @@ function showResponse() {
 
 function editMemo(memo_id) {
     var id = '#'+memo_id;
-    $(id).find('.editbutton').toggleClass('hidden');
-    $(id).find('.confirmbuttons').toggleClass('hidden');
-    $(id).find('.input').replaceWith($('<textarea name="textarea_'+memo_id+'" id="textarea_'+memo_id+'" class="input col-lg-11">' + $(id).find('.input').html() + '</textarea>'));
+    $(id).find('.editbutton').toggleClass('hidden', true);
+    $(id).find('.confirmbuttons').toggleClass('hidden', false);
+    
+    var temp;
+    temp=$(id).find('.input').text();
+    alert(temp);
+    $(id).find('.input').replaceWith($('<textarea name="textarea_'+memo_id+'" id="textarea_'+memo_id+'" class="input col-lg-11">' + temp + '</textarea>'));
     $('textarea.input').elasticArea();
 
     // hack to set the focus at the end of the textarea
-    var temp;
-    temp=$(id).find('.input').val();
     $(id).find('.input').val('');
     $(id).find('.input').focus();
     $(id).find('.input').val(temp);
@@ -102,8 +115,8 @@ function editMemo(memo_id) {
 
 function cancelEdit(memo_id) {
     var id = '#'+memo_id;
-    $(id).find('.editbutton').toggleClass('hidden');
-    $(id).find('.confirmbuttons').toggleClass('hidden');
+    $(id).find('.editbutton').toggleClass('hidden', false);
+    $(id).find('.confirmbuttons').toggleClass('hidden', true);
     $(id).find('.input').replaceWith($('<p class="input col-lg-11">' + $(id).find('.input').html() + '</p>'));
 }
 
