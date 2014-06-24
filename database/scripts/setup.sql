@@ -156,6 +156,24 @@ CREATE TABLE kolledata.kd_bank_accounts_history (
   PRIMARY KEY (bah_id)
 );
 
+CREATE TABLE kolledata.kd_category (
+  cat_id INT NOT NULL AUTO_INCREMENT,
+  cat_person_id INT,
+  cat_name VARCHAR(50),
+  cat_memo TEXT,
+  PRIMARY KEY (cat_id)
+
+);
+
+CREATE TABLE kolledata.kd_kd_category_history (
+  cath_id INT NOT NULL AUTO_INCREMENT,
+  cath_category_id INT,
+  cath_name VARCHAR(50),
+  cath_memo TEXT,
+  PRIMARY KEY (cath_id)
+
+);
+
 -- CREATING THE TRIGGER
 DELIMITER $$
 
