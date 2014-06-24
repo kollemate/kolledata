@@ -2,7 +2,7 @@ extends layout
 
 block content
     //- include partials/alerts
-    
+
     .col-md-5
         form.form-horizontal(method='post',action='/persons/' + results[0]['per_id'] + '/edit')
             div.panel.panel-primary
@@ -22,7 +22,7 @@ block content
                 div.list-group-item
                     label.control-label(for='email0') MAIL
                     - if(emails.length == 0) {
-                        input.form-control(type='text',id='email0',name='email0',value="")
+                        input.form-control(type='text',id='email0',name='email0',value='')
                     - } else {
                     -   for (var i = 0; i < emails.length; i++) {
                             input.form-control(type='text',id='email'+i,name='email'+i,value=emails[i]['em_email'])
@@ -32,19 +32,30 @@ block content
             div.list-group
                 div.list-group-item
                     label.control-label(for='url') COMPANY
-                    input.form-control(type='text',id='company',name='company',value=results[0]['com_name'])
+                    //- input.form-control(type='text',id='company',name='company',value=results[0]['com_name'])
+                    select.form-control(id='company',name='company')
+                        option - N/A -
+                        - for (var i = 0; i < companies.length; i++) {
+                            - if (companies[i]['com_name'] === results[0]['com_name']) {
+                                option(selected='selected')=companies[i]['com_name']
+                            - } else {
+                                option=companies[i]['com_name']
+                            - }
+                        - }
             button.btn.btn-info.btn-xs(type='submit') Speichern
 
             .pull-left
                 form(method='get',action='/persons/' + results[0]['per_id'])
                     button.btn.btn-xs(type='submit') Abbrechen
             //- form(method='post',action='/persons/' + results[0]['per_id'] + '/edit')
-        
 
     .col-md-7
         div.list-group
-            div.list-group-item
+            div.list-group-item.memotextdiv
                 h5.list-group-item-heading
                     strong MEMO
-                h5.list-group-item-text
-                    =results[0]['per_memo']
+                form(method='post',action='/persons/' + results[0]['per_id'] + '/editMemo')
+                    input.hidden.form-control(type='text',id='id',name='id',value=results[0]['per_id'])
+                    textarea.memotextarea.form-control(id='memo',name='memo')=results[0]['per_memo']
+                    p
+                    button.btn.btn-info.btn-xs(type='submit') Speichern
