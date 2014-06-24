@@ -73,11 +73,7 @@ module.exports = function(db) {
                             if (err) throw err;
                             var companies = rows;
 
-                            res.render('persons', {
-                                title: 'Persons',
-                                results: persons,
-                                companies: companies
-                            });
+                            res.redirect('/persons');
                         });
                     });
                 });
