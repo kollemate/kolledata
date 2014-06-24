@@ -2,53 +2,54 @@ extends layout
 
 block content
     //- include partials/alerts
+    
+    .col-md-5
+        form.form-horizontal(method='post',action='/persons/' + results[0]['per_id'] + '/edit')
+            div.panel.panel-primary
+                div.panel-heading
+                    label.control-label(for='firstName') Vorname
+                    input.form-control(type='text',id='firstName',name='firstName',value=results[0]['per_firstname'])
+                    label.control-label(for='name') Nachname
+                    input.form-control(type='text',id='name',name='name',value=results[0]['per_name'])
 
-    div.panel.panel-primary
-        div.panel-heading
-            form.form-horizontal(method='post',action='/persons/' + results[0]['per_id'] + '/edit')
-                label.control-label(for='firstName') Vorname
-                input.form-control(type='text',id='firstName',name='firstName',value=results[0]['per_firstname'])
-                label.control-label(for='name') Nachname
-                input.form-control(type='text',id='name',name='name',value=results[0]['per_name'])
-                button.btn.btn-info.btn-xs(type='submit') Speichern
+            div.list-group
+                div.list-group-item
+                    label.control-label(for='url') URL
+                    input.form-control(type='text',id='url',name='url',value=results[0]['per_url'])
+                    //-button.btn.btn-info.btn-xs(type='submit') Speichern
 
-    div.list-group
-        div.list-group-item
-            h5.list-group-item-heading
-                strong URL
-            h5.list-group-item-text
-                =results[0]['per_url']
-
-    div.list-group
-        div.list-group-item
-            h5.list-group-item-heading
-               strong E-MAIL
-            h5.list-group-item-text
-                - if(emails.length == 0) {
-                    | no mail available
-                - } else {
-                -   for (var i = 0; i < emails.length; i++) {
-                        p=emails[i]['em_email']
-                -   }
-                - }
+            div.list-group
+                div.list-group-item
+                    h5.list-group-item-heading
+                       strong E-MAIL
+                    h5.list-group-item-text
+                        - if(emails.length == 0) {
+                            | no mail available
+                        - } else {
+                        -   for (var i = 0; i < emails.length; i++) {
+                                p=emails[i]['em_email']
+                        -   }
+                        - }
 
 
-    div.list-group
-        div.list-group-item
-            h5.list-group-item-heading
-                strong COMPANY
-            h5.list-group-item-text
-                =results[0]['com_name']
+            div.list-group
+                div.list-group-item
+                    h5.list-group-item-heading
+                        strong COMPANY
+                    h5.list-group-item-text
+                        =results[0]['com_name']
+            button.btn.btn-info.btn-xs(type='submit') Speichern
 
-    div.list-group
-        div.list-group-item
-            h5.list-group-item-heading
-                strong MEMO
-            h5.list-group-item-text
-                =results[0]['per_memo']
+            .pull-left
+                form(method='get',action='/persons/' + results[0]['per_id'])
+                    button.btn.btn-xs(type='submit') Abbrechen
+            //- form(method='post',action='/persons/' + results[0]['per_id'] + '/edit')
+        
 
-    .pull-left
-        form(method='get',action='/persons/' + results[0]['per_id'])
-            button.btn.btn-xs(type='submit') Abbrechen
-    //- form(method='post',action='/persons/' + results[0]['per_id'] + '/edit')
-    //-     button.btn.btn-info.btn-xs(type='submit') Speichern
+    .col-md-7
+        div.list-group
+            div.list-group-item
+                h5.list-group-item-heading
+                    strong MEMO
+                h5.list-group-item-text
+                    =results[0]['per_memo']

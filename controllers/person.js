@@ -71,6 +71,7 @@ module.exports = function(db) {
         var per_id = req.params.id;
         var name = req.body.name;
         var firstName = req.body.firstName;
+        console.log(req.body);
 
         var sql = 'UPDATE kd_person SET per_name = ?, per_firstname = ?, per_timestamp = NOW() WHERE per_id = ?;';
         var inserts = [name, firstName, per_id];

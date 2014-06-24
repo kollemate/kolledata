@@ -3,51 +3,53 @@ extends layout
 block content
     //- include partials/alerts
 
-    div.panel.panel-primary
-        div.panel-heading
-            h3
-                =results[0]['per_firstname']
-                =' '
-                =results[0]['per_name']
-                    .pull-right
-                        form(method='get',action='/persons/' + results[0]['per_id'] + '/edit')
-                            button.btn.btn-info.btn-xs(type='submit') EDIT
+    .col-md-5
+        div.panel.panel-primary
+            div.panel-heading
+                h3
+                    =results[0]['per_firstname']
+                    =' '
+                    =results[0]['per_name']
+                        .pull-right
+                            form(method='get',action='/persons/' + results[0]['per_id'] + '/edit')
+                                button.btn.btn-info.btn-xs(type='submit') EDIT
 
-    div.list-group
-        div.list-group-item
-            h5.list-group-item-heading
-                strong URL
-            h5.list-group-item-text
-                =results[0]['per_url']
+        div.list-group
+            div.list-group-item
+                h5.list-group-item-heading
+                    strong URL
+                h5.list-group-item-text
+                    =results[0]['per_url']
 
-    div.list-group
-        div.list-group-item
-            h5.list-group-item-heading
-               strong E-MAIL
-            h5.list-group-item-text
-                - if(emails.length == 0) {
-                    | no mail available
-                - } else {
-                -   for (var i = 0; i < emails.length; i++) {
-                        p=emails[i]['em_email']
-                -   }
-                - }
+        div.list-group
+            div.list-group-item
+                h5.list-group-item-heading
+                   strong E-MAIL
+                h5.list-group-item-text
+                    - if(emails.length == 0) {
+                        | no mail available
+                    - } else {
+                    -   for (var i = 0; i < emails.length; i++) {
+                            p=emails[i]['em_email']
+                    -   }
+                    - }
 
 
-    div.list-group
-        div.list-group-item
-            h5.list-group-item-heading
-                strong COMPANY
-            h5.list-group-item-text
-                =results[0]['com_name']
+        div.list-group
+            div.list-group-item
+                h5.list-group-item-heading
+                    strong COMPANY
+                h5.list-group-item-text
+                    =results[0]['com_name']
 
-    div.list-group
-        div.list-group-item
-            h5.list-group-item-heading
-                strong MEMO
-            h5.list-group-item-text
-                =results[0]['per_memo']
+        p
+        form(method='get',action='/persons/')
+            button.btn.btn-info.btn-xs(type='submit') Zurück
 
-    p
-    form(method='get',action='/persons/')
-        button.btn.btn-info.btn-xs(type='submit') Zurück
+    .col-md-7
+        div.list-group
+            div.list-group-item
+                h5.list-group-item-heading
+                    strong MEMO
+                h5.list-group-item-text
+                    =results[0]['per_memo']
