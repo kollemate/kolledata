@@ -41,8 +41,10 @@ var homeController = require('./controllers/home')();
 var personsController = require('./controllers/persons')(db);
 var singleController = require('./controllers/person')(db);
 var companiesController = require('./controllers/companies')(db);
+var importController = require('./controllers/import')();
 var aboutController = require('./controllers/about')();
 var apiController = require('./controllers/api')(db);
+var errorController = require('./controllers/error')();
 
 /**
  * Routes
@@ -64,6 +66,8 @@ app.post('/persons/:id/editMemo', singleController.editMemo);
 app.get('/companies', companiesController.index);
 app.post('/companies', companiesController.addCompany);
 
+app.get('/import', importController.index);
+
 app.get('/about', aboutController.index);
 
 app.get('/api/package', apiController.package);
@@ -71,6 +75,15 @@ app.get('/api/persons', apiController.allPersons);
 app.get('/api/companies', apiController.allCompanies);
 
 app.get('/makecoffee', homeController.coffee);
+
+// Generic Fallnback for 404 errors
+app.get('*', errorController.fallback);
+
+/**
+ * Error Handling
+ */
+ 
+app.use(errorController.generic);
 
 /**
  * Run server
