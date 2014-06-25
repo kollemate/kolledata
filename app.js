@@ -70,6 +70,8 @@ app.get('/api/package', apiController.package);
 app.get('/api/persons', apiController.allPersons);
 app.get('/api/companies', apiController.allCompanies);
 
+app.get('/makecoffee', homeController.coffee);
+
 /**
  * Run server
  */
