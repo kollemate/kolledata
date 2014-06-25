@@ -1,14 +1,14 @@
 ﻿-- SOME DUMMY-DATA TO POPULATE THE DATABASE
 
 -- Company
-INSERT INTO kolledata.kd_company (com_name, com_email1, com_phone1, com_country, com_city, com_postcode, com_adress, com_url, com_memo, com_timestamp)
+INSERT INTO kolledata.kd_company (com_name, com_email1, com_phone1, com_country, com_city, com_postcode, com_address, com_url, com_memo, com_timestamp)
 VALUES ('Time and Relative Dimension in Space', 'vortex@tardis.org','yes','mostly UK','mostly London or Cardiff','???','our universe','http://www.bbc.co.uk/programmes/b006q2x0/profiles/tardis','The doctors Wife',NOW());
 
-INSERT INTO kolledata.kd_company (com_name, com_email1, com_phone1, com_country, com_city, com_postcode, com_adress, com_url, com_memo, com_timestamp)
+INSERT INTO kolledata.kd_company (com_name, com_email1, com_phone1, com_country, com_city, com_postcode, com_address, com_url, com_memo, com_timestamp)
 VALUES ('The Church of the Silence', 'info@silence-must-fall.org','0000...','in Space','No','???','somewhere in the universe','http://tardis.wikia.com/wiki/Papal_Mainframe','currently in orbit over Trenzalor',NOW());
 
 -- Company-History
-INSERT INTO kolledata.kd_company_history (comh_company_id, comh_name, comh_email1, comh_phone1, comh_country, comh_city, comh_postcode, comh_adress, comh_url, comh_memo, comh_timestamp)
+INSERT INTO kolledata.kd_company_history (comh_company_id, comh_name, comh_email1, comh_phone1, comh_country, comh_city, comh_postcode, comh_address, comh_url, comh_memo, comh_timestamp)
 VALUES (2,'The Church of the Papal Mainframe', 'info@mainframe.org','0000...','in Space','No','???','somewhere in the universe','http://tardis.wikia.com/wiki/Papal_Mainframe','',NOW() - INTERVAL 1 DAY);
 
 -- Person

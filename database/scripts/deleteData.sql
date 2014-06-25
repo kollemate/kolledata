@@ -1,4 +1,4 @@
-﻿-- No real scripts (!), just examples showing what you must do to delete data-rows in a specific table. You don't need to insert, update or delete the history-tables manually. If you delete a person, its emailadresses and phonenumbers will be deleted by the database.
+﻿-- No real scripts (!), just examples showing what you must do to delete data-rows in a specific table. You don't need to insert, update or delete the history-tables manually. If you delete a person, its emailaddresses and phonenumbers will be deleted by the database.
 
 -- (1) To make sure no one executes this with changes to the database
 START TRANSACTION;

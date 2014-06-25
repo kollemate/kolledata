@@ -17,7 +17,7 @@ CREATE TABLE kolledata.kd_company (
   com_country VARCHAR(100),
   com_city VARCHAR(100),
   com_postcode VARCHAR(10),
-  com_adress VARCHAR(200),
+  com_address VARCHAR(200),
   com_url VARCHAR(2083),
   com_memo LONGTEXT,
   com_timestamp DATETIME,
@@ -37,7 +37,7 @@ CREATE TABLE kolledata.kd_company_history (
   comh_country VARCHAR(100),
   comh_city VARCHAR(100),
   comh_postcode VARCHAR(10),
-  comh_adress VARCHAR(200),
+  comh_address VARCHAR(200),
   comh_url VARCHAR(2083),
   comh_memo LONGTEXT,
   comh_timestamp DATETIME,
@@ -199,7 +199,7 @@ CREATE
 			comh_country,
 			comh_city,
 			comh_postcode,
-			comh_adress,
+			comh_address,
 			comh_url,
 			comh_memo,
 			comh_timestamp
@@ -215,7 +215,7 @@ CREATE
 			OLD.com_country,
 			OLD.com_city,
 			OLD.com_postcode,
-			OLD.com_adress,
+			OLD.com_address,
 			OLD.com_url,
 			OLD.com_memo,
 			OLD.com_timestamp
@@ -240,7 +240,7 @@ CREATE
 			comh_country,
 			comh_city,
 			comh_postcode,
-			comh_adress,
+			comh_address,
 			comh_url,
 			comh_memo,
 			comh_timestamp
@@ -256,7 +256,7 @@ CREATE
 			OLD.com_country,
 			OLD.com_city,
 			OLD.com_postcode,
-			OLD.com_adress,
+			OLD.com_address,
 			OLD.com_url,
 			OLD.com_memo,
 			OLD.com_timestamp

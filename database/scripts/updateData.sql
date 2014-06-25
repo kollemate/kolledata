@@ -16,7 +16,7 @@ SET
   com_country='COUNTRY',
   com_city='CITY',
   com_postcode='POSTCODE',
-  com_adress='ADDRESS',
+  com_address='ADDRESS',
   com_url='URL',
   com_memo='MEMO', 
   com_timestamp= NOW()
