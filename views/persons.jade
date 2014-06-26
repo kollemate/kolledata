@@ -11,16 +11,44 @@ block content
 
     table.table.table-hover(id='datatable')
         tr
-            th NAME
-            th URL
-            th COMPANY
+            - if (column === "per_name") var per_name_order = order;
+            th.mouse_pointer(onClick='sortColumns(\'per_name\', \'' + per_name_order + '\')')
+                | NAME
+                - if (per_name_order === "ASC") {
+                    i.fa.fa-sort-asc.sort_icons
+                - } else if (per_name_order === "DESC") {
+                    i.fa.fa-sort-desc.sort_icons
+                - } else {
+                    i.fa.fa-sort.sort_icons
+                - }
+            - if (column === "per_url") var per_url_order = order;
+            th.mouse_pointer(onClick='sortColumns(\'per_url\', \'' + per_url_order + '\')')
+                | URL
+                - if (per_url_order === "ASC") {
+                    i.fa.fa-sort-asc.sort_icons
+                - } else if (per_url_order === "DESC") {
+                    i.fa.fa-sort-desc.sort_icons
+                - } else {
+                    i.fa.fa-sort.sort_icons
+                - }
+            - if (column === "com_name") var com_name_order = order;
+            th.mouse_pointer(onClick='sortColumns(\'com_name\', \'' + com_name_order + '\')')
+                | COMPANY
+                - if (com_name_order === "ASC") {
+                    i.fa.fa-sort-asc.sort_icons
+                - } else if (com_name_order === "DESC") {
+                    i.fa.fa-sort-desc.sort_icons
+                - } else {
+                    i.fa.fa-sort.sort_icons
+                - }
             th EDIT
+                i.fa.fa-undo.sort_icons.pull-right.mouse_pointer(onClick='sortColumns(\'unsort\', \'unsort\')')
         - for (var i = 0; i < results.length; i++) {
             tr
                 td
-                    =results[i]['per_firstname']
-                    =' '
                     =results[i]['per_name']
+                    =', '
+                    =results[i]['per_firstname']
                 td
                     a(href=results[i]['per_url'])
                         span=            url.parse(results[i]['per_url']).hostname

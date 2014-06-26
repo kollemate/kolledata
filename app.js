@@ -56,6 +56,7 @@ app.get('/persons', personsController.index);
 app.post('/persons', personsController.addPerson);
 app.post('/persons/delete', personsController.delete);
 app.post('/searchPerson', personsController.searchPerson);
+app.post('/sortColumns', personsController.sortColumns);
 app.post('/editMemo', personsController.editMemo);
 
 app.get('/persons/:id', singleController.index);

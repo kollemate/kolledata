@@ -11,13 +11,22 @@
 }
 
 textarea.input {
-    line-height:16px;
-    height:16px;
-    padding:10px;
-    margin-bottom:10px;
+    line-height: 16px;
+    height: 16px;
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
 .symbolbutton {
-    display:inline-block;
-    width:1.1em; /* Works for me. Damn these ki... hacks. */
+    display: inline-block;
+    width: 1.1em; /* Works for me. Damn these ki... hacks. */
+}
+
+.sort_icons {
+    padding: 2px;
+    padding-left: 4px;
+}
+
+.mouse_pointer {
+    cursor: pointer;
 }

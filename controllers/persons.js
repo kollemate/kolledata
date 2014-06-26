@@ -122,6 +122,67 @@ module.exports = function(db) {
         });
     };
 
+    module.sortColumns = function(req, res) {
+        var column = req.body.sortColumn;
+        var order = req.body.sortOrder;
+
+        switch(column) {
+            case "per_firstname":
+                var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id ORDER BY per_firstname;';
+                break;
+            case "per_name":
+                var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id ORDER BY per_name;';
+                break;
+            case "per_url":
+                var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id ORDER BY per_url;';
+                break;
+            case "com_name":
+                var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id ORDER BY com_name;';
+                break;
+            case "unsort":
+                var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id;';
+                break;
+            default:
+                var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id;';
+                break;
+        }
+
+        if (order != 'ASC' && order != 'DESC' && order != 'unsort') {
+            order = 'ASC';
+        }
+
+        if (order != 'unsort') {
+            sql = sql.substr(0, sql.length-1) + " " + order + ';';
+        }
+
+        if (order == 'ASC') {
+            order = 'DESC';
+        } else if (order == 'DESC') {
+            order = 'ASC';
+        } else if (order == 'unsort') {
+            order = 'undefined';
+        }
+
+        db.query(sql, function(err, rows, fields) {
+            if (err) throw err;
+            var persons = rows;
+
+            var sql = 'SELECT * FROM kd_company;';
+            db.query(sql, function(err, rows, fields){
+                if (err) throw err;
+                var companies = rows;
+
+                res.render('persons', {
+                    title: 'Persons',
+                    results: persons,
+                    companies: companies,
+                    column: column,
+                    order: order
+                });
+            });
+        });
+    };
+
     // edit memo field
     module.editMemo = function(req, res) {
         var memo = req.body.memo;
