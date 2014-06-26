@@ -71,7 +71,9 @@ block content
                     .pull-right
                         form(method='post',action='/persons/delete',)
                             - var personshortdesc = { name: results[i]['per_name'] , firstname: results[i]['per_firstname'] }
-                            button.btn.btn-danger.btn-xs(type='submit', name='per_id', value=results[i]['per_id'], onClick="return confirm('Wollen Sie #{personshortdesc.firstname} #{personshortdesc.name} wirklich löschen?')") ✘
+                            button.btn.btn-danger.btn-xs(type='submit', name='per_id', value=results[i]['per_id'], onClick="return confirm('Wollen Sie #{personshortdesc.firstname} #{personshortdesc.name} wirklich löschen?')")
+                                span.symbolbutton
+                                    i.fa.fa-times
                     .pull-right
                         form(method='get',action='/persons/' + results[i]['per_id'])
                             button.btn.btn-primary.btn-xs(type='submit') INFO
