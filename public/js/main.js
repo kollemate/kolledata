@@ -27,7 +27,7 @@ function memofields() {
         } else {
             this_content.html("▲");
             editMemo(next_tr.attr('id')); // empty memo field -> add new
-            
+
             // TODO: Einklappen ohne Speichern löscht den Text in einem ehemals leeren Eintrag. Ist so sicher nicht Sinn der Sache.
             // alert("before showmemo:"+$("#"+next_tr.attr('id')).find('.input').text());
         }
@@ -99,10 +99,10 @@ function editMemo(memo_id) {
     var id = '#'+memo_id;
     $(id).find('.editbutton').toggleClass('hidden', true);
     $(id).find('.confirmbuttons').toggleClass('hidden', false);
-    
+
     var temp;
     temp=$(id).find('.input').text();
-    alert(temp);
+    // alert(temp);
     $(id).find('.input').replaceWith($('<textarea name="textarea_'+memo_id+'" id="textarea_'+memo_id+'" class="input col-lg-11">' + temp + '</textarea>'));
     $('textarea.input').elasticArea();
 

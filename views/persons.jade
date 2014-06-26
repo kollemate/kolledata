@@ -61,9 +61,11 @@ block content
                     .pull-right
                         button.btn.btn-info.btn-xs.showmemo(type='button')
                             - if (results[i]['per_memo'].length > 0) {
-                                span.symbolbutton ▼
+                                span.symbolbutton
+                                    i.fa.fa-caret-down
                             - } else {
-                                span.symbolbutton ✚
+                                span.symbolbutton
+                                    i.fa.fa-plus
                             - }
                         input.hidden(type='text',id='id',name='id',value=results[i]['per_id'])
                     .pull-right
