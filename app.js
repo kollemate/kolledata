@@ -77,13 +77,16 @@ app.get('/api/companies', apiController.allCompanies);
 
 app.get('/makecoffee', homeController.coffee);
 
-// Generic Fallnback for 404 errors
-app.get('*', errorController.fallback);
-
 /**
  * Error Handling
  */
  
+// NOTE: Only for debug purposes, remove from release build
+// registers a number of debug routes which can be used to
+// test the error handling
+errorController.registerDebugRoutes(app);
+
+app.use(errorController.err404);
 app.use(errorController.generic);
 
 /**
