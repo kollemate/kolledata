@@ -11,7 +11,7 @@ block content
                     label.control-label(for='firstName') First Name
                     input.form-control(type='text',id='firstName',name='firstName',placeholder='first name')
                     label.control-label(for='name') Last Name
-                    input.form-control(type='text',id='name',name='name',placeholder='last name')
+                    input.form-control(type='text',id='lastName',name='lastName',placeholder='last name')
 
             div.list-group
                 div.list-group-item
@@ -38,7 +38,7 @@ block content
                 div.list-group-item.memotextdiv
                     h5.list-group-item-heading
                         strong MEMO
-                    form(method='post',action='/persons/')
+                        p
                         textarea.memotextarea.form-control(id='memo',name='memo')
 
 
