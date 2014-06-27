@@ -1,0 +1,7 @@
+{
+    "errors" : {
+        "flavorText" : "You should now begin to panic and run around in the room, waving your hands.",
+        "msg404" : "The requested page \"%0\" doesn't exist!",
+        "msg500" : "An unknown error has occurred!"
+    }
+}

@@ -6,4 +6,8 @@ block content
             | Error
             =' '
             = error.status
-        p.lead Sie sollten nun in Panik verfallen und wild mit dem Armen wedelnd im Raum herumlaufen.
+        .alert.alert-danger
+            p
+                = error.message
+        p.lead
+            = lang.get('errors', 'flavorText')

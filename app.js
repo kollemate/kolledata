@@ -34,6 +34,19 @@ app.use(express.json());
 app.locals.url = require('url');
 
 /**
+ * Multi Language Support
+ */
+
+// create the language module and store a reference in to global
+// namespace using the identifier 'lang', so it can be accessed
+// from everywhere within the application
+global.lang = require('./controllers/lang')();
+// load the default language file, this can be changed dynamically
+// by simply calling load again with a different filename and refreshing
+// the webpage which is currently displayed
+lang.load('./languages/german.json');
+
+/**
  * Controllers
  */
 
