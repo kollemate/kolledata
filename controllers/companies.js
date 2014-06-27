@@ -8,7 +8,7 @@ module.exports = function(db) {
         db.query(sql, function(err, rows, fields) {
             if (err) throw err;
 
-            res.render('companies', {
+            res.render('companies/companies', {
                 title: 'Companies',
                 results: rows
             });

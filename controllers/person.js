@@ -22,7 +22,7 @@ module.exports = function(db) {
 
                 var emails = rows;
 
-                res.render('person', {
+                res.render('persons/person', {
                     title: person[0]['per_firstname'] + ' ' + person[0]['per_name'],
                     results: person,
                     emails: emails
@@ -56,7 +56,7 @@ module.exports = function(db) {
 
                     var companies = rows;
 
-                    res.render('editPerson', {
+                    res.render('persons/editPerson', {
                         title: person[0]['per_firstname'] + ' ' + person[0]['per_name'] + ' bearbeiten',
                         results: person,
                         emails: emails,

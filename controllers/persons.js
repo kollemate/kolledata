@@ -18,7 +18,7 @@ module.exports = function(db) {
                 if (err) throw err;
                 var companies = rows;
 
-                res.render('persons', {
+                res.render('persons/persons', {
                     title: 'Persons',
                     results: persons,
                     companies: companies
@@ -33,7 +33,7 @@ module.exports = function(db) {
         db.query(sql, function(err, rows){
             if (err) throw err;
 
-            res.render('newperson', {
+            res.render('persons/newperson', {
                 title: 'Add New Person',
                 companies: rows
             });
@@ -126,7 +126,7 @@ module.exports = function(db) {
                 if (err) throw err;
                 var companies = rows;
 
-                res.render('persons', {
+                res.render('persons/persons', {
                     title: 'Persons',
                     results: persons,
                     companies: companies
@@ -185,7 +185,7 @@ module.exports = function(db) {
                 if (err) throw err;
                 var companies = rows;
 
-                res.render('persons', {
+                res.render('persons/persons', {
                     title: 'Persons',
                     results: persons,
                     companies: companies,
