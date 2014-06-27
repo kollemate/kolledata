@@ -65,7 +65,7 @@ describe('GET /doesntexist', function(){
     });
 });
 
-//fill me in POST request to /persons
+//fill me in POST request to /persons/new
 var test_id;
 
 // params:
@@ -76,7 +76,7 @@ var email = 'test@test.com';
 var memo = 'test memo';
 var company = '- N/A -';
 
-describe ('POST /persons', function(){
+describe ('POST /persons/new', function(){
     it('should return 200 OK', function(done){
         request(kd)
             // how?

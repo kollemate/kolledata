@@ -27,6 +27,19 @@ module.exports = function(db) {
         });
     };
 
+    module.newIndex = function(req, res) {
+
+        var sql = 'SELECT com_name FROM kd_company';
+        db.query(sql, function(err, rows){
+            if (err) throw err;
+
+            res.render('newperson', {
+                title: 'Add New Person',
+                companies: rows
+            });
+        });
+    };
+
     module.addPerson = function(req, res) {
         var firstName = req.body.firstName;
         var lastName = req.body.lastName;

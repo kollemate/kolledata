@@ -1,0 +1,52 @@
+extends layout
+
+block content
+    //- include partials/alerts
+
+    form.form-horizontal(method='post',action='/persons/new')
+
+        .col-md-5
+            div.panel.panel-primary
+                div.panel-heading
+                    label.control-label(for='firstName') First Name
+                    input.form-control(type='text',id='firstName',name='firstName',placeholder='first name')
+                    label.control-label(for='name') Last Name
+                    input.form-control(type='text',id='name',name='name',placeholder='last name')
+
+            div.list-group
+                div.list-group-item
+                    label.control-label(for='url') URL
+                    input.form-control(type='text',id='url',name='url',placeholder='http://kolle-mate.de')
+                    //-button.btn.btn-info.btn-xs(type='submit') Speichern
+
+            div.list-group
+                div.list-group-item
+                    label.control-label(for='email0') MAIL
+                    input.form-control(type='text',id='email0',name='email0',placeholder='max@mustermann.de')
+                    p
+                    input.form-control(type='text',id='email1',name='email1',placeholder='max@musterfirma.de')
+
+            div.list-group
+                div.list-group-item
+                    label.control-label(for='url') COMPANY
+                    select.form-control(id='company',name='company')
+                        option - N/A -
+                        - for (var i = 0; i < companies.length; i++) {
+                            option=companies[i]['com_name']
+                        - }
+
+        .col-md-7
+            div.list-group
+                div.list-group-item.memotextdiv
+                    h5.list-group-item-heading
+                        strong MEMO
+                    form(method='post',action='/persons/')
+                        textarea.memotextarea.form-control(id='memo',name='memo')
+
+
+        button.btn.btn-info.btn-xs(type='submit') Speichern
+
+        .pull-left
+            form(method='get',action='/persons/')
+                button.btn.btn-xs(type='submit') Abbrechen
+            //- form(method='post',action='/persons/' + results[0]['per_id'] + '/edit')

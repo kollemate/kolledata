@@ -66,6 +66,8 @@ var errorController = require('./controllers/error')();
 app.get('/', homeController.index);
 
 app.get('/persons', personsController.index);
+app.get('/persons/new', personsController.newIndex);
+app.post('/persons/new', personsController.addPerson); //TODO
 app.post('/persons', personsController.addPerson);
 app.post('/persons/delete', personsController.delete);
 app.post('/searchPerson', personsController.searchPerson);
@@ -93,7 +95,7 @@ app.get('/makecoffee', homeController.coffee);
 /**
  * Error Handling
  */
- 
+
 // NOTE: Only for debug purposes, remove from release build
 // registers a number of debug routes which can be used to
 // test the error handling
