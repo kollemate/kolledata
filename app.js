@@ -17,6 +17,12 @@ var db = mysql.createConnection(mysqlconfig.config);
 var app = express();
 
 /**
+ * Export the app for testability
+ */
+
+module.exports = app;
+
+/**
  * Express configuration
  */
 

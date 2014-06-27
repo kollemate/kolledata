@@ -1,4 +1,5 @@
 var request = require('supertest');
+var assert = require('assert');
 var kd = require('../app.js');
 
 describe('GET /', function() {
@@ -62,33 +63,5 @@ describe('GET /doesntexist', function(){
         request(kd)
             .get('/doesntexist')
             .expect(404, done);
-    });
-});
-
-//fill me in POST request to /persons/new
-var test_id;
-
-// params:
-var firstName = 'Max';
-var lastName = 'Mustermann';
-var url = 'http://test.com';
-var email = 'test@test.com';
-var memo = 'test memo';
-var company = '- N/A -';
-
-describe ('POST /persons/new', function(){
-    it('should return 200 OK', function(done){
-        request(kd)
-            // how?
-    });
-});
-
-//params:
-var per_id = test_id;
-
-describe ('POST /persons/delete', function(){
-    it('should return 200 OK', function(done){
-        request(kd)
-            // how?
     });
 });
