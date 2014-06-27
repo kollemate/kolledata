@@ -11,9 +11,12 @@
         "connect-assets": "^3.0.0-beta2",
         "less": "^1.7.0"
     },
-    "devDependencies": {},
+    "devDependencies": {
+        "supertest": "~"
+    },
     "scripts": {
-        "start": "node app.js"
+        "start": "node app.js",
+        "test": "supertest test/routes.js"
     },
     "repository": {
         "type": "git",
