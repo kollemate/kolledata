@@ -16,13 +16,13 @@ block content
             div.list-group
                 div.list-group-item
                     label.control-label(for='url') URL
-                    input.form-control(type='text',id='url',name='url',placeholder='http://kolle-mate.de')
+                    input.form-control(type='text',id='url',name='url',placeholder='http://kolle-mate.de',onblur='validateURL()')
                     //-button.btn.btn-info.btn-xs(type='submit') Speichern
 
             div.list-group
                 div.list-group-item
                     label.control-label(for='email0') MAIL
-                    input.form-control(type='text',id='email',name='email',placeholder='max@mustermann.de')
+                    input.form-control(type='text',id='email',name='email',placeholder='max@mustermann.de',onblur='validateEmail()')
 
             div.list-group
                 div.list-group-item
@@ -43,7 +43,7 @@ block content
 
 
         .pull-left
-            button.btn.btn-info.btn-xs(type='submit') Speichern
+            button.btn.btn-info.btn-xs(type='submit',id='submitbtn') Speichern
 
     .pull-left
         form(method='get',action='/persons/')

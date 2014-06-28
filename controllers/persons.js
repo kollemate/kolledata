@@ -66,6 +66,11 @@ module.exports = function(db) {
         var memo = req.body.memo;
         var company = req.body.company;
 
+        if (firstName === '' && lastName === '') {
+            res.redirect('/persons');
+            return;
+        }
+
         // get company id of chosen company from add new person dropdown
         var sql = 'SELECT com_id FROM kd_company \
         WHERE com_name = ?;';

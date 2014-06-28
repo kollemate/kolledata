@@ -2,6 +2,7 @@
   "name": "kolledata",
   "private": true,
   "dependencies": {
-    "jquery": "~2.1.1"
+    "jquery": "~2.1.1",
+    "validator-js": "~3.16.0"
   }
 }
