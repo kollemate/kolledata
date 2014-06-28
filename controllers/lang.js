@@ -43,8 +43,6 @@ module.exports = function() {
      * @return {string} the retrieved language string.
      */
     var dictGet = function(category, key) {
-        console.log(category);
-        console.log(key);
         // if no category or key was not defined, there is nothing to be got, so throw an error
         if (category === undefined || key === undefined)
             throw 'ERROR - dict.get: No category or key specified';
