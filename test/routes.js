@@ -53,7 +53,7 @@ describe('GET /import', function() {
 describe('GET /api/persons', function() {
     it('should return 200 OK', function(done) {
         request(kd)
-          .get('/api')
+          .get('/api/persons')
           .expect(200, done);
     });
 });
