@@ -6,6 +6,7 @@ module.exports = function() {
     // the last route registered within the app, so it only
     // gets called after every other possible route has failed.
     module.err404 = function(req, res, next) {
+        res.status(404);
         showErrorPage(res, 404, lang.get('errors', 'msg404', req.url), 'requested url: ' + req.url);
     };
 
@@ -23,10 +24,6 @@ module.exports = function() {
             status : status,
             message : pageMsg
         };
-
-        if (err.status === 404) {
-            res.status(404);
-        }
 
         res.render('error', { error: err, lang: lang });
         console.log('! Error ' + status + ': ' + logMsg);
