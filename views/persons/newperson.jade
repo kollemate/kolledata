@@ -42,9 +42,10 @@ block content
                         textarea.memotextarea.form-control(id='memo',name='memo')
 
 
-        button.btn.btn-info.btn-xs(type='submit') Speichern
-
         .pull-left
-            form(method='get',action='/persons/')
-                button.btn.btn-xs(type='submit') Abbrechen
+            button.btn.btn-info.btn-xs(type='submit') Speichern
+
+    .pull-left
+        form(method='get',action='/persons/')
+            button.btn.btn-xs(type='submit') Abbrechen
             //- form(method='post',action='/persons/' + results[0]['per_id'] + '/edit')
