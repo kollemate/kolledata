@@ -72,8 +72,8 @@ app.get('/', homeController.index);
 
 app.get('/persons', personsController.index);
 app.get('/persons/new', personsController.newIndex);
-app.post('/persons/new', personsController.addPerson); //TODO
-app.post('/persons', personsController.addPerson);
+app.post('/persons/new', personsController.addPerson);
+app.post('/persons/find', personsController.findID);
 app.post('/persons/delete', personsController.delete);
 app.post('/searchPerson', personsController.searchPerson);
 app.post('/sortColumns', personsController.sortColumns);

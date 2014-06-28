@@ -28,7 +28,6 @@ module.exports = function(db) {
     };
 
     module.newIndex = function(req, res) {
-
         var sql = 'SELECT com_name FROM kd_company';
         db.query(sql, function(err, rows){
             if (err) throw err;
@@ -37,6 +36,22 @@ module.exports = function(db) {
                 title: 'Add New Person',
                 companies: rows
             });
+        });
+    };
+
+    module.findID = function(req, res) {
+        var firstName = req.body.firstName;
+        var lastName = req.body.lastName;
+
+        var sql = 'SELECT per_id from kd_person WHERE per_firstname = ? AND per_name = ?;';
+        var inserts = [firstName, lastName];
+        sql = mysql.format(sql, inserts);
+
+        db.query(sql, function(err, rows){
+            if (err) throw err;
+
+            res.set('Content-Type', 'text/json');
+            res.send(rows);
         });
     };
 

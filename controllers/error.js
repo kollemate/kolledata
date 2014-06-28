@@ -24,7 +24,7 @@ module.exports = function() {
             message : pageMsg
         };
 
-        if (err['status'] === 404) {
+        if (err.status === 404) {
             res.status(404);
         }
 
