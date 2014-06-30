@@ -44,7 +44,7 @@ block content
 
         p
         form(method='get',action='/persons/')
-            button.btn.btn-info.btn-xs(type='submit') Zurück
+            button.btn.btn-info.btn-xs(type='submit') Back
 
     .col-md-7
         div.list-group
@@ -55,4 +55,4 @@ block content
                     input.hidden.form-control(type='text',id='id',name='id',value=results[0]['per_id'])
                     textarea.memotextarea.form-control(id='memo',name='memo')=results[0]['per_memo']
                     p
-                    button.btn.btn-info.btn-xs(type='submit') Speichern
+                    button.btn.btn-info.btn-xs(type='submit') Save
