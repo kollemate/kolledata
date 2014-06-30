@@ -11,7 +11,6 @@
  */
 
 //= require ../../bower_components/jquery/dist/jquery.min
-//= require ../../bower_components/bootstrap/dist/js/bootstrap.min
 //= require ../../bower_components/validator-js/validator.min
 //= require main
 //= require memo

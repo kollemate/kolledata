@@ -3,13 +3,13 @@ extends layout
 block content
     .jumbotron
         h1
-            | Hallo, ich bin
+            = dict.get('home', 'intro1')
             span.text-info  kolledata
             | .
         p.lead
-            | Eine möglichst minimalistische CRM Software.
+            = dict.get('home', 'intro2')
         p
-            | Mehr Informationen gibt es zur Zeit leider noch nicht wirklich, aber für zumindest ein klein wenig mehr solltest du in unser GitHub Repo schauen! :)
+            = dict.get('home', 'infoText')
         p
             a.btn.btn-primary.btn-lg(href='http://github.com/kollemate/kolledata') GitHub
 

@@ -16,7 +16,7 @@ module.exports = function() {
         // The path to the default dictionary, which is used if the requested
         // dictionary wasn't found.
         default : './languages/english.json'
-    }
+    };
     
     /**
      * The library object, where all loaded dictionary get stored, indexed by their
@@ -55,7 +55,7 @@ module.exports = function() {
         for (var i = 2; i < arguments.length; i++)
             str = str.replace('%' + (i - 2), arguments[i]);
         return str;
-    }
+    };
     
     /**
      * Load the language file with the specified IETF language tag
@@ -89,7 +89,7 @@ module.exports = function() {
             console.log(err);
             return false;
         }
-    }
+    };
     
     /**
      * Get the dictionary with the specified IETF language tag. If the dictionary wasn't already
@@ -113,7 +113,7 @@ module.exports = function() {
         if (_dicts['default'] === undefined)
             this.loadDictionary('default');
         return _dicts['default'];
-    }
+    };
     
     /**
      * Gets an appropriate dictionary for the 'accept-language' attribute in the request headers.
@@ -152,7 +152,7 @@ module.exports = function() {
         }
         // if none of the tags was supported, return the default dictionary
         return getDictionry('default');
-    }
+    };
     
     /**
      * Get the language string with the specified category and key from the dictionary with the
@@ -177,7 +177,7 @@ module.exports = function() {
         // simply return the result of the dictionary's get method - it will throw errors,
         // if category or key were invalid, so there's no need to check that here also
         return dictGet.apply(dict, newArgs);
-    }
+    };
 
     return module;
 }

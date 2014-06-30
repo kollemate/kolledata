@@ -10,15 +10,21 @@
         .collapse.navbar-collapse
             ul.nav.navbar-nav
                 li(class=title=='Home'?'active':undefined)
-                    a(href='/') Home
+                    a(href='/')
+                        = dict === undefined ? 'Home' : dict.get('navigation', 'home')
                 li(class=title=='Persons'?'active':undefined)
-                    a(href='/persons') Persons
+                    a(href='/persons')
+                        = dict === undefined ? 'Persons' : dict.get('navigation', 'persons')
                 li(class=title=='Companies'?'active':undefined)
-                    a(href='/companies') Companies
+                    a(href='/companies')
+                        = dict === undefined ? 'Companies' : dict.get('navigation', 'companies')
             ul.nav.navbar-nav.navbar-right
                 li(class=title=='Import'?'active':undefined)
-                    a(href='/import') Import
+                    a(href='/import')
+                        = dict === undefined ? 'Import' : dict.get('navigation', 'import')
                 li(class=title=='About'?'active':undefined)
-                    a(href='/about') About
+                    a(href='/about')
+                        = dict === undefined ? 'About' : dict.get('navigation', 'about')
                 li(class=title=='Login'?'active':undefined)
-                    a(href='#') Login
+                    a(href='#')
+                        = dict === undefined ? 'Login' : dict.get('navigation', 'login')

@@ -1,4 +1,19 @@
 {
+    "navigation" : {
+        "home" : "Home",
+        "persons" : "Personen",
+        "companies" : "Firmen",
+        "import" : "Import",
+        "about" : "About",
+        "login" : "Login"
+    },
+
+    "home" : {
+        "intro1" : "Hallo, ich bin",
+        "intro2" : "Eine möglichst minimalistische CRM Software.",
+        "infoText" : "Mehr Informationen gibt es zur Zeit leider noch nicht wirklich, aber für zumindest ein klein wenig mehr solltest du in unser GitHub Repo schauen! :)"
+    },
+    
     "errors" : {
         "flavorText" : "Sie sollten nun in Panik verfallen und wild mit dem Armen wedelnd im Raum herumlaufen.",
         "msg404" : "Die angeforderte Seite \"%0\" existiert nicht!",

@@ -1,15 +1,13 @@
 module.exports = function() {
 
     module.index = function(req, res) {
-        res.render('home', {
-            title: 'Home'
-        });
+        var dict = lang.getDictionaryFromRequestHeader(req);
+        res.render('home', { title: 'Home', dict: dict });
     };
 
     module.about = function(req, res) {
-        res.render('about', {
-            title: 'About'
-        });
+        var dict = lang.getDictionaryFromRequestHeader(req);
+        res.render('about', { title: 'About', dict: dict });
     };
 
     module.coffee = function(req, res) {
