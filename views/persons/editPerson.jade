@@ -43,9 +43,9 @@ block content
                         - }
             button.btn.btn-info.btn-xs(type='submit',id='submitbtn') Save
 
-            .pull-left
-                form(method='get',action='/persons/' + results[0]['per_id'])
-                    button.btn.btn-xs(type='submit') Cancel
+        .pull-left
+            form(method='get',action='/persons/' + results[0]['per_id'])
+                button.btn.btn-xs(type='submit') Cancel
 
     .col-md-7
         div.list-group

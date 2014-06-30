@@ -98,7 +98,9 @@ module.exports = function(db) {
 
                 for (var i = 0; i < emails.length; i++) {
                     if (emails[i] === '') {
-                        var sql = 'START TRANSACTION; DELETE FROM kd_email WHERE em_person_id = ? AND em_email = ?; COMMIT;';
+                        var sql = 'START TRANSACTION; \
+                        DELETE FROM kd_email WHERE em_person_id = ? AND em_email = ?; \
+                        COMMIT;';
                         var inserts = [per_id, oldemails[i]];
                         sql = mysql.format(sql, inserts);
                         db.query(sql, function(err){
@@ -106,7 +108,9 @@ module.exports = function(db) {
                         });
                     }
                     if (emails[i] !== oldemails[i]) {
-                        var sql = 'START TRANSACTION; UPDATE kd_email SET em_email = ?, em_timestamp = NOW() WHERE em_person_id = ? AND em_email = ?; COMMIT;';
+                        var sql = 'START TRANSACTION; \
+                        UPDATE kd_email SET em_email = ?, em_timestamp = NOW() WHERE em_person_id = ? AND em_email = ?; \
+                        COMMIT;';
                         var inserts = [emails[i], per_id, oldemails[i]];
                         sql = mysql.format(sql, inserts);
                         db.query(sql, function(err){
@@ -118,7 +122,7 @@ module.exports = function(db) {
                 res.redirect('/persons/' + per_id);
             });
 
-            
+
         });
     };
 
