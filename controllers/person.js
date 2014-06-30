@@ -50,6 +50,7 @@ module.exports = function(db) {
 
                 var emails = rows;
 
+
                 var sql = 'SELECT com_name FROM kd_company;';
                 db.query(sql, function(err, rows, fields){
                     if (err) throw err;
@@ -73,6 +74,10 @@ module.exports = function(db) {
         var firstName = req.body.firstName;
         var url = req.body.url;
         var company = req.body.company;
+        var emails = req.body.emails;
+        var oldemails = req.body.oldemails;
+
+        //console.log(req.body);
 
         // seriously.. fuck emails.
 
@@ -89,11 +94,31 @@ module.exports = function(db) {
             var sql = 'UPDATE kd_person SET per_name = ?, per_firstname = ?, per_url = ?, per_company = ?, per_timestamp = NOW() WHERE per_id = ?;';
             var inserts = [name, firstName, url, company, per_id];
             sql = mysql.format(sql, inserts);
-            db.query(sql, function(err){
-                if (err) throw err;
+            db.query(sql, function(err, rows, fields){
+
+                for (var i = 0; i < emails.length; i++) {
+                    if (emails[i] === '') {
+                        var sql = 'START TRANSACTION; DELETE FROM kd_email WHERE em_person_id = ? AND em_email = ?; COMMIT;';
+                        var inserts = [per_id, oldemails[i]];
+                        sql = mysql.format(sql, inserts);
+                        db.query(sql, function(err){
+                            if (err) throw err;
+                        });
+                    }
+                    if (emails[i] !== oldemails[i]) {
+                        var sql = 'START TRANSACTION; UPDATE kd_email SET em_email = ?, em_timestamp = NOW() WHERE em_person_id = ? AND em_email = ?; COMMIT;';
+                        var inserts = [emails[i], per_id, oldemails[i]];
+                        sql = mysql.format(sql, inserts);
+                        db.query(sql, function(err){
+                            if (err) throw err;
+                        });
+                    }
+                };
 
                 res.redirect('/persons/' + per_id);
             });
+
+            
         });
     };
 

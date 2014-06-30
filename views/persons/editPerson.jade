@@ -22,10 +22,11 @@ block content
                 div.list-group-item
                     label.control-label(for='email0') MAIL
                     - if(emails.length == 0) {
-                        input.form-control(type='text',id='email0',name='email0',value='')
+                        input.form-control(type='email',id='emails[0]',name='emails[0]',value='')
                     - } else {
                         - for (var i = 0; i < emails.length; i++) {
-                            input.form-control(type='text',id='email'+i,name='email'+i,value=emails[i]['em_email'])
+                            input.form-control(type='email',id='emails[' + i + ']',name='emails[' + i + ']',value=emails[i]['em_email'])
+                            input.form-control(type='hidden',id='oldemails[' + i + ']',name='oldemails[' + i + ']',value=emails[i]['em_email'])
                         - }
                     - }
 
