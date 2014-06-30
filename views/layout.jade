@@ -8,13 +8,11 @@ html
         link(href='//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css', rel='stylesheet')
         != css('bootstrap.min.css')
         != css('style.css')
-        != js('jquery/dist/jquery.min')
-        != js('bootstrap.min')
-        != js('validator-js/validator.min')
-        != js('main')
     body
         #wrap
             include partials/navigation
             .container
                 block content
             include partials/footer
+
+        != js('application')
