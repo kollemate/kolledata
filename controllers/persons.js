@@ -19,11 +19,13 @@ module.exports = function(db) {
             db.query(sql, function(err, rows, fields){
                 if (err) throw err;
                 var companies = rows;
+                var dict = lang.getDictionaryFromRequestHeader(req);
 
                 res.render('persons/persons', {
                     title: 'Persons',
                     results: persons,
-                    companies: companies
+                    companies: companies,
+                    dict: dict
                 });
             });
         });
@@ -33,10 +35,12 @@ module.exports = function(db) {
         var sql = 'SELECT com_name FROM kd_company';
         db.query(sql, function(err, rows){
             if (err) throw err;
-
+            var dict = lang.getDictionaryFromRequestHeader(req);
+            
             res.render('persons/newperson', {
                 title: 'Add New Person',
-                companies: rows
+                companies: rows,
+                dict: dict
             });
         });
     };
@@ -162,11 +166,13 @@ module.exports = function(db) {
             db.query(sql, function(err, rows, fields){
                 if (err) throw err;
                 var companies = rows;
+                var dict = lang.getDictionaryFromRequestHeader(req);
 
                 res.render('persons/persons', {
                     title: 'Persons',
                     results: persons,
-                    companies: companies
+                    companies: companies,
+                    dict: dict
                 });
             });
         });
@@ -231,13 +237,15 @@ module.exports = function(db) {
             db.query(sql, function(err, rows, fields){
                 if (err) throw err;
                 var companies = rows;
+                var dict = lang.getDictionaryFromRequestHeader(req);
 
                 res.render('persons/persons', {
                     title: 'Persons',
                     results: persons,
                     companies: companies,
                     column: column,
-                    order: order
+                    order: order,
+                    dict: dict
                 });
             });
         });

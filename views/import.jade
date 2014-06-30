@@ -2,10 +2,12 @@ extends layout
 
 block content
     p.lead
-        | Importieren von Daten in die Datenbank
+        = dict === undefined ? 'ERROR' : dict.get('import', 'title')
     .alert.alert-warning
-        h4 Achtung
+        h4
+            = dict === undefined ? 'ERROR' : dict.get('import', 'alertInfoTitle')
         p
-            | Nutzen Sie diese Funktion nur wenn sie sich sicher sind, was sie tun.
+            = dict === undefined ? 'ERROR' : dict.get('import', 'alertInfoText')
 
-    button.btn.btn-info.btn-xs(type='submit') IMPORTIEREN
+    button.btn.btn-info.btn-xs(type='submit')
+        = dict === undefined ? 'IMPORT' : dict.get('import', 'importButtonText')

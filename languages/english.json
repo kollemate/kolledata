@@ -7,11 +7,38 @@
         "about" : "About",
         "login" : "Login",
     },
+    
+    "alerts" : {
+        "editSuccessTitle" : "Awesome!",
+        "editSuccessText" : "The dataset has been successfully updated with the database.",
+        "editFailTitle" : "Upps!",
+        "editFailText" : "Something went wrong."
+    },
 
     "home" : {
         "intro1" : "Hello, I'm",
         "intro2" : "A minimalistic CRM Software.",
         "infoText" : "There isn't much more information at the time, but you can look into our GitHub Repo for a little more! :)"
+    },
+    
+    "persons" : {
+        "title" : "Persons",
+        "name" : "NAME",
+        "url" : "URL",
+        "company" : "COMPANY",
+        "edit" : "EDIT",
+        "infoButtonText" : "INFO",
+        "editButtonText" : "EDIT",
+        "cancelButtonText" : "CANCEL",
+        "saveButtonText" : "SAVE",
+        "addButtonText" : "ADD NEW ENTRY"
+    },
+    
+    "import" : {
+        "title" : "Import data into the database.",
+        "alertInfoTitle" : "Attention!",
+        "alertInfoText" : "Only use this function if you know what you are doing.",
+        "importButtonText" : "IMPORT"
     },
 
     "errors" : {

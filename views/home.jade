@@ -3,13 +3,13 @@ extends layout
 block content
     .jumbotron
         h1
-            = dict.get('home', 'intro1')
+            = dict === undefined ? 'ERROR' : dict.get('home', 'intro1')
             span.text-info  kolledata
             | .
         p.lead
-            = dict.get('home', 'intro2')
+            = dict === undefined ? 'ERROR' : dict.get('home', 'intro2')
         p
-            = dict.get('home', 'infoText')
+            = dict === undefined ? 'ERROR' : dict.get('home', 'infoText')
         p
             a.btn.btn-primary.btn-lg(href='http://github.com/kollemate/kolledata') GitHub
 

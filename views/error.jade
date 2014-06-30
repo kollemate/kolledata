@@ -10,4 +10,4 @@ block content
             p
                 = error.message
         p.lead
-            = dict.get('errors', 'flavorText')
+            = dict === undefined ? 'ERROR' : dict.get('errors', 'flavorText')

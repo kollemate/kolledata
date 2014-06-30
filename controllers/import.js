@@ -1,7 +1,8 @@
 module.exports = function() {
 
 	module.index = function(req, res) {
-		res.render('import', { title: 'Import' });
+        var dict = lang.getDictionaryFromRequestHeader(req);
+		res.render('import', { title: 'Import', dict: dict });
 	};
 	
     return module;

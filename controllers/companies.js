@@ -7,10 +7,12 @@ module.exports = function(db) {
         var sql = 'SELECT * FROM kd_company;';
         db.query(sql, function(err, rows, fields) {
             if (err) throw err;
+            var dict = lang.getDictionaryFromRequestHeader(req);
 
             res.render('companies/companies', {
                 title: 'Companies',
-                results: rows
+                results: rows,
+                dict: dict
             });
         });
     };

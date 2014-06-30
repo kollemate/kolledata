@@ -7,11 +7,38 @@
         "about" : "About",
         "login" : "Login"
     },
+    
+    "alerts" : {
+        "editSuccessTitle" : "Awesome!",
+        "editSuccessText" : "Datensatz wurde erfolgreich in der Datenbank aktualisiert",
+        "editFailTitle" : "Upps!",
+        "editFailText" : "Da ist wohl was schief gelaufen."
+    },
 
     "home" : {
         "intro1" : "Hallo, ich bin",
         "intro2" : "Eine möglichst minimalistische CRM Software.",
         "infoText" : "Mehr Informationen gibt es zur Zeit leider noch nicht wirklich, aber für zumindest ein klein wenig mehr solltest du in unser GitHub Repo schauen! :)"
+    },
+    
+    "persons" : {
+        "title" : "Personen",
+        "name" : "NAME",
+        "url" : "URL",
+        "company" : "FIRMA",
+        "edit" : "EDITIEREN",
+        "infoButtonText" : "INFO",
+        "editButtonText" : "EDITIEREN",
+        "cancelButtonText" : "ABBRECHEN",
+        "saveButtonText" : "SPEICHERN",
+        "addButtonText" : "NEUEN EINTRAG HINZUFÜGEN"
+    },
+    
+    "import" : {
+        "title" : "Importieren von Daten in die Datenbank.",
+        "alertInfoTitle" : "Achtung!",
+        "alertInfoText" : "Nutzen Sie diese Funktion nur wenn sie sich sicher sind, was sie tun.",
+        "importButtonText" : "IMPORTIEREN"
     },
     
     "errors" : {

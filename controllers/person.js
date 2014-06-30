@@ -21,11 +21,13 @@ module.exports = function(db) {
                 if (err) throw err;
 
                 var emails = rows;
+                var dict = lang.getDictionaryFromRequestHeader(req);
 
                 res.render('persons/person', {
                     title: person[0]['per_firstname'] + ' ' + person[0]['per_name'],
                     results: person,
-                    emails: emails
+                    emails: emails,
+                    dict: dict
                 });
             });
         });
@@ -56,12 +58,14 @@ module.exports = function(db) {
                     if (err) throw err;
 
                     var companies = rows;
+                    var dict = lang.getDictionaryFromRequestHeader(req);
 
                     res.render('persons/editPerson', {
                         title: person[0]['per_firstname'] + ' ' + person[0]['per_name'] + ' bearbeiten',
                         results: person,
                         emails: emails,
-                        companies: companies
+                        companies: companies,
+                        dict: dict
                     });
                 });
             });
