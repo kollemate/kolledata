@@ -9,17 +9,21 @@ block content
             | This page is still far from finished. We're getting there.
 
     p.lead.col-lg-10.nopadding
-        | Companies
+        = dict === undefined ? 'ERROR' : dict.get('companies', 'title')
 
     p.col-lg-2.input-sm.pull-right
         input(id='searchInput',type='text',onkeyup='searchThis()',placeholder='Search...')
 
     table.table.table-hover(id='datatable')
         tr
-            th NAME
-            th URL
-            th ADDRESS
-            th EDIT
+            th
+                = dict === undefined ? 'ERROR' : dict.get('companies', 'name')
+            th
+                = dict === undefined ? 'ERROR' : dict.get('companies', 'url')
+            th
+                = dict === undefined ? 'ERROR' : dict.get('companies', 'adress')
+            th
+                = dict === undefined ? 'ERROR' : dict.get('companies', 'edit')
         - for (var i = 0; i < results.length; i++) {
             tr
                 td
@@ -46,7 +50,8 @@ block content
                             button.btn.btn-danger.btn-xs(type='submit', name='com_id', value=results[i]['com_id'], onClick="return confirm('Wollen Sie diese Firma wirklich löschen?')") ✘
                     .pull-right
                         form(method='get',action='/companies/' + results[i]['com_id'])
-                            button.btn.btn-primary.btn-xs(type='submit') INFO
+                            button.btn.btn-primary.btn-xs(type='submit')
+                                = dict === undefined ? 'ERROR' : dict.get('companies', 'infoButtonText')
         - }
 
     p

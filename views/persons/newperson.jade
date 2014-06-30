@@ -8,24 +8,29 @@ block content
         .col-md-5
             div.panel.panel-primary.form-group
                 div.panel-heading
-                    label.control-label(for='firstName') First Name
+                    label.control-label(for='firstName')
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'firstName')
                     input.form-control(type='text',id='firstName',name='firstName',placeholder='first name')
-                    label.control-label(for='name') Last Name
+                    label.control-label(for='name')
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'lastName')
                     input.form-control(type='text',id='lastName',name='lastName',placeholder='last name')
 
             div.list-group.form-group(id='urlgroup')
                 div.list-group-item
-                    label.control-label(for='url') URL
+                    label.control-label(for='url')
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'url')
                     input.form-control(type='text',id='url',name='url',placeholder='http://kolle-mate.de',onblur='validateURL()')
 
             div.list-group.form-group(id='emailgroup')
                 div.list-group-item
-                    label.control-label(for='email0') MAIL
+                    label.control-label(for='email0')
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'email')
                     input.form-control(type='email',id='email',name='email',placeholder='max@mustermann.de',onblur='validateEmail()')
 
             div.list-group.form-group
                 div.list-group-item
-                    label.control-label(for='url') COMPANY
+                    label.control-label(for='url')
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'company')
                     select.form-control(id='company',name='company')
                         option - N/A -
                         - for (var i = 0; i < companies.length; i++) {
@@ -36,15 +41,18 @@ block content
             div.list-group
                 div.list-group-item.memotextdiv
                     h5.list-group-item-heading
-                        strong MEMO
+                        strong
+                            = dict === undefined ? 'ERROR' : dict.get('persons', 'memo')
                         p
                         textarea.memotextarea.form-control(id='memo',name='memo')
 
 
         .pull-left
-            button.btn.btn-info.btn-xs(type='submit',id='submitbtn') Save
+            button.btn.btn-info.btn-xs(type='submit',id='submitbtn')
+                = dict === undefined ? 'ERROR' : dict.get('persons', 'saveButtonText')
 
     .pull-left
         form(method='get',action='/persons/')
-            button.btn.btn-xs(type='submit') Cancel
+            button.btn.btn-xs(type='submit')
+                = dict === undefined ? 'ERROR' : dict.get('persons', 'cancelButtonText')
         p

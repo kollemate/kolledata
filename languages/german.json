@@ -24,14 +24,29 @@
     "persons" : {
         "title" : "Personen",
         "name" : "NAME",
+        "firstName" : "Vorname",
+        "lastName" : "Nachname",
         "url" : "URL",
         "company" : "FIRMA",
+        "email" : "E-MAIL",
         "edit" : "EDITIEREN",
+        "memo" : "MEMO",
         "infoButtonText" : "INFO",
         "editButtonText" : "EDITIEREN",
         "cancelButtonText" : "ABBRECHEN",
         "saveButtonText" : "SPEICHERN",
-        "addButtonText" : "NEUEN EINTRAG HINZUFÜGEN"
+        "addButtonText" : "NEUEN EINTRAG HINZUFÜGEN",
+        "backButtonText" : "ZURÜCK"
+    },
+    
+    "companies" : {
+        "title" : "Firmen",
+        "name" : "NAME",
+        "url" : "URL",
+        "adress" : "ADRESSE",
+        "edit": "EDITIEREN",
+        "deleteConfirmText" : "Wollen Sie diese Firma wirklich löschen?",
+        "infoButtonText" : "INFO"
     },
     
     "import" : {

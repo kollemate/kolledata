@@ -12,19 +12,22 @@ block content
                     =results[0]['per_name']
                         .pull-right
                             form(method='get',action='/persons/' + results[0]['per_id'] + '/edit')
-                                button.btn.btn-info.btn-xs(type='submit') EDIT
+                                button.btn.btn-info.btn-xs(type='submit')
+                                    = dict === undefined ? 'ERROR' : dict.get('persons', 'editButtonText')
 
         div.list-group
             div.list-group-item
                 h5.list-group-item-heading
-                    strong URL
+                    strong
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'url')
                 h5.list-group-item-text
                     =results[0]['per_url']
 
         div.list-group
             div.list-group-item
                 h5.list-group-item-heading
-                   strong E-MAIL
+                    strong
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'email')
                 h5.list-group-item-text
                     - if(emails.length == 0) {
                         | no mail available
@@ -38,21 +41,25 @@ block content
         div.list-group
             div.list-group-item
                 h5.list-group-item-heading
-                    strong COMPANY
+                    strong
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'company')
                 h5.list-group-item-text
                     =results[0]['com_name']
 
         p
         form(method='get',action='/persons/')
-            button.btn.btn-info.btn-xs(type='submit') Back
+            button.btn.btn-info.btn-xs(type='submit')
+                = dict === undefined ? 'ERROR' : dict.get('persons', 'backButtonText')
 
     .col-md-7
         div.list-group
             div.list-group-item.memotextdiv
                 h5.list-group-item-heading
-                    strong MEMO
+                    strong
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'memo')
                 form(method='post',action='/persons/' + results[0]['per_id'] + '/editMemo')
                     input.hidden.form-control(type='text',id='id',name='id',value=results[0]['per_id'])
                     textarea.memotextarea.form-control(id='memo',name='memo')=results[0]['per_memo']
                     p
-                    button.btn.btn-info.btn-xs(type='submit') Save
+                    button.btn.btn-info.btn-xs(type='submit')
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'saveButtonText')

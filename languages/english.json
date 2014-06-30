@@ -24,14 +24,29 @@
     "persons" : {
         "title" : "Persons",
         "name" : "NAME",
+        "firstName" : "First Name",
+        "lastName" : "Last Name",
         "url" : "URL",
         "company" : "COMPANY",
+        "email" : "E-MAIL",
         "edit" : "EDIT",
+        "memo" : "MEMO",
         "infoButtonText" : "INFO",
         "editButtonText" : "EDIT",
         "cancelButtonText" : "CANCEL",
         "saveButtonText" : "SAVE",
-        "addButtonText" : "ADD NEW ENTRY"
+        "addButtonText" : "ADD NEW ENTRY",
+        "backButtonText" : "BACK"
+    },
+    
+    "companies" : {
+        "title" : "Companies",
+        "name" : "NAME",
+        "url" : "URL",
+        "adress" : "ADRESS",
+        "edit": "EDIT",
+        "deleteConfirmText" : "Do you really want to delete this company?",
+        "infoButtonText" : "INFO"
     },
     
     "import" : {

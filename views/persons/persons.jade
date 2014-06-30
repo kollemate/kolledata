@@ -4,7 +4,7 @@ block content
     //- include partials/alerts
 
     p.lead.col-lg-10.nopadding
-        = dict == undefined ? 'ERROR' : dict.get('persons', 'title')
+        = dict === undefined ? 'ERROR' : dict.get('persons', 'title')
 
     p.col-lg-2.input-sm.pull-right
         input(id='searchInput',type='text',onkeyup='searchThis()',placeholder='Search...')
@@ -13,7 +13,7 @@ block content
         tr
             - if (column === "per_name") var per_name_order = order;
             th.mouse_pointer(onClick='sortColumns(\'per_name\', \'' + per_name_order + '\')')
-                = dict == undefined ? 'ERROR' : dict.get('persons', 'name')
+                = dict === undefined ? 'ERROR' : dict.get('persons', 'name')
                 - if (per_name_order === "ASC") {
                     i.fa.fa-sort-asc.sort_icons
                 - } else if (per_name_order === "DESC") {
@@ -23,7 +23,7 @@ block content
                 - }
             - if (column === "per_url") var per_url_order = order;
             th.mouse_pointer(onClick='sortColumns(\'per_url\', \'' + per_url_order + '\')')
-                = dict == undefined ? 'ERROR' : dict.get('persons', 'url')
+                = dict === undefined ? 'ERROR' : dict.get('persons', 'url')
                 - if (per_url_order === "ASC") {
                     i.fa.fa-sort-asc.sort_icons
                 - } else if (per_url_order === "DESC") {
@@ -33,7 +33,7 @@ block content
                 - }
             - if (column === "com_name") var com_name_order = order;
             th.mouse_pointer(onClick='sortColumns(\'com_name\', \'' + com_name_order + '\')')
-                = dict == undefined ? 'ERROR' : dict.get('persons', 'company')
+                = dict === undefined ? 'ERROR' : dict.get('persons', 'company')
                 - if (com_name_order === "ASC") {
                     i.fa.fa-sort-asc.sort_icons
                 - } else if (com_name_order === "DESC") {
@@ -42,7 +42,7 @@ block content
                     i.fa.fa-sort.sort_icons
                 - }
             th
-                = dict == undefined ? 'ERROR' : dict.get('persons', 'edit')
+                = dict === undefined ? 'ERROR' : dict.get('persons', 'edit')
                 i.fa.fa-undo.sort_icons.pull-right.mouse_pointer(onClick='sortColumns(\'unsort\', \'unsort\')')
         - for (var i = 0; i < results.length; i++) {
             tr
@@ -78,22 +78,22 @@ block content
                     .pull-right
                         form(method='get',action='/persons/' + results[i]['per_id'])
                             button.btn.btn-primary.btn-xs(type='submit')
-                                = dict == undefined ? 'ERROR' : dict.get('persons', 'infoButtonText')
+                                = dict === undefined ? 'ERROR' : dict.get('persons', 'infoButtonText')
             tr.memo(id='memo_'+results[i]['per_id'])
                 td(colspan='4').well
                     p.input.col-lg-11=results[i]['per_memo']
                     .col-lg-3.pull-right
                         .pull-right.editbutton
                             button.btn.btn-default.btn-xs(type='button')
-                                = dict == undefined ? 'ERROR' : dict.get('persons', 'editButtonText')
+                                = dict === undefined ? 'ERROR' : dict.get('persons', 'editButtonText')
                         .pull-right.hidden.confirmbuttons
                             button.btn.btn-default.btn-xs.cancelbutton(type='button')
-                                = dict == undefined ? 'ERROR' : dict.get('persons', 'cancelButtonText')
+                                = dict === undefined ? 'ERROR' : dict.get('persons', 'cancelButtonText')
                             button.btn.btn-primary.btn-xs.submitbutton(type='submit')
-                                = dict == undefined ? 'ERROR' : dict.get('persons', 'saveButtonText')
+                                = dict === undefined ? 'ERROR' : dict.get('persons', 'saveButtonText')
         - }
 
     form(method='get',action='/persons/new')
         button.btn.btn-default.btn-sm.btn-block(type='submit',id='newentrybtn')
-            = dict == undefined ? 'ERROR' : dict.get('persons', 'addButtonText')
+            = dict === undefined ? 'ERROR' : dict.get('persons', 'addButtonText')
     p
