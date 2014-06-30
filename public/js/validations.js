@@ -6,6 +6,7 @@ function validateURL() {
         allow_underscores: false
     };
     if (!validator.isURL(document.getElementById('url').value, options)) {
+        document.getElementById('urlgroup').classList.remove('has-success');
         document.getElementById('submitbtn').classList.add('disabled');
         document.getElementById('urlgroup').classList.add('has-error');
     } else {
@@ -17,6 +18,7 @@ function validateURL() {
 
 function validateEmail() {
     if (!validator.isEmail(document.getElementById('email').value)) {
+        document.getElementById('emailgroup').classList.remove('has-success');
         document.getElementById('submitbtn').classList.add('disabled');
         document.getElementById('emailgroup').classList.add('has-error');
     } else {
