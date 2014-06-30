@@ -3,5 +3,6 @@ exports.config = {
     // port: "port",
     user: "user",
     password: "password",
-    database: "kolledata"
+    database: "kolledata",
+    multipleStatements: true
 };
