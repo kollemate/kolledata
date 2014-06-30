@@ -41,7 +41,8 @@ block content
                                 option=companies[i]['com_name']
                             - }
                         - }
-            button.btn.btn-info.btn-xs(type='submit',id='submitbtn') Save
+            .pull-left
+                button.btn.btn-info.btn-xs(type='submit',id='submitbtn') Save
 
         .pull-left
             form(method='get',action='/persons/' + results[0]['per_id'])
