@@ -66,6 +66,7 @@ module.exports = function(db) {
         var memo = req.body.memo;
         var company = req.body.company;
 
+        //TODO: Do this as a frontend validation, so no user data is lost
         if (firstName === '' && lastName === '') {
             res.redirect('/persons');
             return;

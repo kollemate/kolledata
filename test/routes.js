@@ -3,6 +3,14 @@ var assert = require('assert');
 var kd = require('../app.js');
 
 describe('GET some pages', function(){
+    describe('waiting for server setup', function() {
+        it('should return 200 OK', function(done) {
+            request(kd)
+                .get('/')
+                .expect(200, done);
+        });
+    });
+
     describe('GET /', function() {
         it('should return 200 OK', function(done) {
             request(kd)
@@ -62,21 +70,26 @@ describe('GET some pages', function(){
 });
 
 
-describe('set up a dummy user', function(){
+describe('test a new single user', function(){
     //fill me in POST request to /persons/new... somehow
-    var test_id;
+    var test_id = 26;
+
+    var testperson = {
+        firstName: 'Max',
+        lastName: 'Mustermann',
+        url: 'http://test.com',
+        email: 'test@test.com',
+        memo: 'test memo',
+        company: '- N/A -'
+    };
+
+    var testperson_name = {
+        firstName: 'Max',
+        lastName: 'Mustermann'
+    };
 
     describe('POST new person to /persons/new', function(){
         it('should return 200 OK', function(done){
-            var testperson = {
-                firstName: 'Max',
-                lastName: 'Mustermann',
-                url: 'http://test.com',
-                email: 'test@test.com',
-                memo: 'test memo',
-                company: '- N/A -'
-            };
-
             request(kd)
                 .post('/persons/new')
                 .send(testperson)
@@ -85,34 +98,32 @@ describe('set up a dummy user', function(){
                 // is this really the kind of redirect we want to be using for this?
                 // 302 is actually 'moved temporarily'...
 
-            var testperson_name = {
-                firstName: 'Max',
-                lastName: 'Mustermann'
-            };
-
-            test_id = request(kd)
-                .post('/persons/find')
-                .send(testperson_name);
+            // test_id = request(kd)
+            //     .post('/persons/find')
+            //     .send(testperson_name);
         });
     });
 
     describe('GET /persons/' + test_id, function() {
+        var urlpath = '/persons/' + test_id;
         it('should return 200 OK', function(done){
             request(kd)
-                .get('/persons/' + test_id)
+                .get(urlpath)
                 .expect(200, done);
         });
     });
 
     describe('GET /persons/' + test_id + '/edit', function() {
+        var urlpath = '/persons/' + test_id + '/edit';
         it('should return 200 OK', function(done){
             request(kd)
-                .get('/persons/' + test_id + '/edit')
+                .get(urlpath)
                 .expect(200, done);
         });
     });
 
     //TODO: edit something on testperson
+    // don't forget to check if the edits actually came through
 
     describe('POST /persons/delete', function(){
         it('should return 200 OK', function(done){
@@ -124,7 +135,7 @@ describe('set up a dummy user', function(){
             request(kd)
                 .post('/persons/delete')
                 .send(send_id)
-                .expect(200, done);
+                .expect(302, done);
         });
     });
 
