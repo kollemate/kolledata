@@ -4,23 +4,17 @@ block content
     a(href='https://github.com/kollemate/kolledata')
         img(style="position: absolute; top: 0; right: 0; border: 0;",src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67",alt="Fork me on GitHub",data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png")
     h1
-        | Made with
-        =' '
+        = dict === undefined ? 'ERROR' : dict.get('about', 'intro1')
         i.fa.fa-heart
-        |  and fueled by
-        =' '
+        = dict === undefined ? 'ERROR' : dict.get('about', 'intro2')
         a(href='http://kolle-mate.de') Kolle-Mate
     p.lead Version 0.0.1
     p
-        | If you find any bugs or have any issues or questions with this project, please send a mail to
-        =' '
-        a(href='mailto:kollemate@ifsr.de') our mailinglist
-        =' '
-        | or directly open an issue on the
-        =' '
-        a(href='https://github.com/kollemate/kolledata/issues') project page
-        =' '
-        | . Thanks :)
+        = dict === undefined ? 'ERROR' : dict.get('about', 'contact1')
+        a(href='mailto:kollemate@ifsr.de')= dict === undefined ? 'ERROR' : dict.get('about', 'contact2')
+        = dict === undefined ? 'ERROR' : dict.get('about', 'contact3')
+        a(href='https://github.com/kollemate/kolledata/issues')= dict === undefined ? 'ERROR' : dict.get('about', 'contact4')
+        = dict === undefined ? 'ERROR' : dict.get('about', 'contact5')
     p
         | The MIT License (MIT)
         | Copyright (c) 2014

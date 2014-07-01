@@ -4,7 +4,7 @@
         "persons" : "Personen",
         "companies" : "Firmen",
         "import" : "Import",
-        "about" : "About",
+        "about" : "Über",
         "login" : "Login"
     },
 
@@ -19,6 +19,16 @@
         "intro1" : "Hallo, ich bin",
         "intro2" : "Eine möglichst minimalistische CRM Software.",
         "infoText" : "Mehr Informationen gibt es zur Zeit leider noch nicht wirklich, aber für zumindest ein klein wenig mehr solltest du in unser GitHub Repo schauen! :)"
+    },
+
+    "about" : {
+        "intro1" : "Mit ",
+        "intro2" : " gemacht und angetrieben durch ",
+        "contact1" : "Solltest du irgendwelche Bugs finden oder Fragen zu diesem Projekt haben, schicke doch bitte eine Mail an ",
+        "contact2" : "unsere Mailingliste",
+        "contact3" : " oder öffne direkt ein Issue auf der ",
+        "contact4" : "Projektseite",
+        "contact5" : ". Danke :)"
     },
 
     "persons" : {

@@ -21,6 +21,16 @@
         "infoText" : "There isn't much more information at the time, but you can look into our GitHub Repo for a little more! :)"
     },
 
+    "about" : {
+        "intro1" : "Made with ",
+        "intro2" : " and fueled by ",
+        "contact1" : "If you find any bugs or have any issues or questions with this project, please send a mail to ",
+        "contact2" : "our mailinglist",
+        "contact3" : " or directly open an issue on the ",
+        "contact4" : "project page",
+        "contact5" : ". Thanks :)"
+    },
+
     "persons" : {
         "title" : "Persons",
         "name" : "NAME",
