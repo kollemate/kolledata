@@ -5,9 +5,9 @@
         "companies" : "Companies",
         "import" : "Import",
         "about" : "About",
-        "login" : "Login",
+        "login" : "Login"
     },
-    
+
     "alerts" : {
         "editSuccessTitle" : "Awesome!",
         "editSuccessText" : "The dataset has been successfully updated with the database.",
@@ -20,7 +20,7 @@
         "intro2" : "A minimalistic CRM Software.",
         "infoText" : "There isn't much more information at the time, but you can look into our GitHub Repo for a little more! :)"
     },
-    
+
     "persons" : {
         "title" : "Persons",
         "name" : "NAME",
@@ -38,7 +38,7 @@
         "addButtonText" : "ADD NEW ENTRY",
         "backButtonText" : "BACK"
     },
-    
+
     "companies" : {
         "title" : "Companies",
         "name" : "NAME",
@@ -48,7 +48,7 @@
         "deleteConfirmText" : "Do you really want to delete this company?",
         "infoButtonText" : "INFO"
     },
-    
+
     "import" : {
         "title" : "Import data into the database.",
         "alertInfoTitle" : "Attention!",
