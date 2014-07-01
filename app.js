@@ -84,6 +84,7 @@ app.get('/companies', companiesController.index);
 app.post('/companies', companiesController.addCompany);
 
 app.get('/import', importController.index);
+app.post('/import', importController.handleUpload);
 
 app.get('/about', homeController.about);
 

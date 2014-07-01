@@ -8,6 +8,8 @@ block content
             = dict === undefined ? 'ERROR' : dict.get('import', 'alertInfoTitle')
         p
             = dict === undefined ? 'ERROR' : dict.get('import', 'alertInfoText')
-
-    button.btn.btn-info.btn-xs(type='submit')
-        = dict === undefined ? 'IMPORT' : dict.get('import', 'importButtonText')
+            
+    form(action='/import', method='post', enctype='multipart/form-data')
+        input(type='file', name='csvFile')
+        button.btn.btn-info.btn-xs(type='submit')
+            = dict === undefined ? 'IMPORT' : dict.get('import', 'importButtonText')
