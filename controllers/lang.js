@@ -150,8 +150,9 @@ module.exports = function() {
             if (_paths[tag] !== undefined)
                 return this.getDictionary(tag);
         }
+		console.log('default config');
         // if none of the tags was supported, return the default dictionary
-        return getDictionry('default');
+        return this.getDictionary('default');
     };
     
     /**
