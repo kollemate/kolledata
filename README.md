@@ -1,6 +1,9 @@
 ## kolledata
 
-[![Build Status](https://travis-ci.org/kollemate/kolledata.svg?branch=master)](https://travis-ci.org/kollemate/kolledata)
+[![buildstatus](http://img.shields.io/travis/kollemate/kolledata.svg?style=flat)](https://travis-ci.org/kollemate/kolledata)
+[![githubissues](http://img.shields.io/github/issues/kollemate/kolledata.svg?style=flat)](https://github.com/kollemate/kolledata/issues)
+[![release](http://img.shields.io/github/release/kollemate/kolledata.svg?style=flat)](https://github.com/kollemate/kolledata/releases)
+[![license](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](http://badges.mit-license.org/)
 
 #### 1. Install node
 
