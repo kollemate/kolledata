@@ -3,6 +3,7 @@
 [![buildstatus](http://img.shields.io/travis/kollemate/kolledata.svg?style=flat)](https://travis-ci.org/kollemate/kolledata)
 [![githubissues](http://img.shields.io/github/issues/kollemate/kolledata.svg?style=flat)](https://github.com/kollemate/kolledata/issues)
 [![release](http://img.shields.io/github/release/kollemate/kolledata.svg?style=flat)](https://github.com/kollemate/kolledata/releases)
+[![dependencies](http://img.shields.io/david/kollemate/kolledata.svg?style=flat)](https://david-dm.org/kollemate/kolledata)
 [![license](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/kollemate/kolledata/master/LICENSE)
 
 #### 1. Install node
