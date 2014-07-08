@@ -13,7 +13,7 @@ read -e USERNAME
 echo "That user's password for accessing the database? (Probably root as well)"
 read -e PASSWORD
 
-echo "What's your MySQL port? (default is 8889)"
+echo "What's your MySQL port? (default is 3306)"
 read -e PORT
 
 
@@ -21,7 +21,7 @@ read -e PORT
 # 1. install npm and bower dependencies
 
 echo "1. Installing necessary dependencies through npm and bower"
-npm install
+npm install         # also installs dev-dependencies
 bower install
 
 
@@ -31,12 +31,20 @@ bower install
 echo "2. Creating MySQL config file"
 cp -n example_mysqlconfig.js mysqlconfig.js
 
+# TODO: Editing JSON in bash is super simple, just like editing basically *anything* else... AWK \o/
 
 
 # 3. setup the databases if not there already
 
 echo "3. Setting up the databases"
-# mysql -u $USERNAME -p $PASSWORD -h $HOST < database/scripts/setup.sql
+while true; do
+    read -p "Do you want to set up the kolledata MySQL database? (y/n)" yn
+    case $yn in
+        [Yy]* ) mysql -u $USERNAME -p $PASSWORD -h $HOST < database/scripts/setup.sql; break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
 
 while true; do
     read -p "Do you want to pre-fill the database with some sample entries? (y/n)" yn
