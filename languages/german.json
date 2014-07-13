@@ -63,6 +63,10 @@
         "title" : "Importieren von Daten in die Datenbank.",
         "alertInfoTitle" : "Achtung!",
         "alertInfoText" : "Nutzen Sie diese Funktion nur wenn sie sich sicher sind, was sie tun.",
+        "alertErrorTitle" : "Import fehlgeschlagen!",
+        "alertErrorText" : "Die Daten aus der CSV-Datei konnten nicht in die Datenbank importiert werden.",
+        "alertSuccessTitle" : "Import erfolgreich!",
+        "alertSuccessText" : "Die Daten aus der CSV-Datei wurden erfolgreich in die Datenbank importiert.",
         "importButtonText" : "IMPORTIEREN"
     },
 

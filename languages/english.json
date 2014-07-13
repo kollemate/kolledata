@@ -63,6 +63,10 @@
         "title" : "Import data into the database.",
         "alertInfoTitle" : "Attention!",
         "alertInfoText" : "Only use this function if you know what you are doing.",
+        "alertErrorTitle" : "Import failed!",
+        "alertErrorText" : "The import of the data from the CSV file was unsuccessful.",
+        "alertSuccessTitle" : "Import successful!",
+        "alertSuccessText" : "The data from the CSV file has been successfully imported into the database.",
         "importButtonText" : "IMPORT"
     },
 

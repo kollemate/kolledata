@@ -3,13 +3,34 @@ extends layout
 block content
     p.lead
         = dict === undefined ? 'ERROR' : dict.get('import', 'title')
-    .alert.alert-warning
-        h4
-            = dict === undefined ? 'ERROR' : dict.get('import', 'alertInfoTitle')
-        p
-            = dict === undefined ? 'ERROR' : dict.get('import', 'alertInfoText')
-            
+    //- --------------------
+    //- Handles the different info and error boxes, depeding on the actions of the user:
+    //- --------------------
+    //- The default info box, if the import page is accessed by the url
+    - if (state === undefined || state === "info") {
+        .alert.alert-warning
+            h4
+                = dict === undefined ? 'ERROR' : dict.get('import', 'alertInfoTitle')
+            p
+                = dict === undefined ? 'ERROR' : dict.get('import', 'alertInfoText')
+    //- The success box - if a csv file selected by the user has been successfully imported into the database
+    - } else if (state === 'success') {
+        .alert.alert-success
+            h4
+                = dict === undefined ? 'ERROR' : dict.get('import', 'alertSuccessTitle')
+            p
+                = dict === undefined ? 'ERROR' : dict.get('import', 'alertSuccessText')
+    //- The generic error box - is the csv file couldn't be imported due to an unspecific error
+    - } else if (state === 'error') {
+        .alert.alert-danger
+            h4
+                = dict === undefined ? 'ERROR' : dict.get('import', 'alertErrorTitle')
+            p
+                = dict === undefined ? 'ERROR' : dict.get('import', 'alertErrorText')
+    - }
+    //- --------------------
+    
     form(action='/import', method='post', enctype='multipart/form-data')
-        input(type='file', name='csvFile')
+        input(type='file', name='csvFile', required)
         button.btn.btn-info.btn-xs(type='submit')
             = dict === undefined ? 'IMPORT' : dict.get('import', 'importButtonText')
