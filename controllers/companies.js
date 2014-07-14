@@ -3,10 +3,11 @@ var mysql = require('mysql');
 
 module.exports = function(db) {
 
-    module.index = function(req, res) {
+    module.index = function(req, res, next) {
         var sql = 'SELECT * FROM kd_company;';
         db.query(sql, function(err, rows, fields) {
-            if (err) throw err;
+            if (err)
+                return next('db error');
             var dict = lang.getDictionaryFromRequestHeader(req);
 
             res.render('companies/companies', {
@@ -17,7 +18,7 @@ module.exports = function(db) {
         });
     };
 
-    module.addCompany = function(req, res) {
+    module.addCompany = function(req, res, next) {
         var name = req.body.name;
         var url = req.body.url;
         var email = req.body.email;
@@ -27,7 +28,8 @@ module.exports = function(db) {
         var inserts = [name, url, memo];
         sql = mysql.format(sql, inserts);
         db.query(sql, function(err, rows){
-            if (err) throw err;
+            if (err)
+                return next('db error');
 
             var sql = 'INSERT INTO kolledata.kd_email (em_person_id, em_email, em_timestamp) VALUES (?, ?, NOW());';
             var inserts = [rows.insertId, email];

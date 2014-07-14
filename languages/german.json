@@ -72,7 +72,8 @@
 
     "errors" : {
         "flavorText" : "Sie sollten nun in Panik verfallen und wild mit dem Armen wedelnd im Raum herumlaufen.",
+        "msgDb" : "Interner Fehler: Die Verbindung zur Datenbank ist fehlgeschlagen!",
         "msg404" : "Die angeforderte Seite \"%0\" existiert nicht!",
-        "msg500" : "Ein unbekannter Fehler ist aufgetreten!"
+        "msg500" : "Ein unbekannter interner Fehler ist aufgetreten!"
     }
 }

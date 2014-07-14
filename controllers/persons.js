@@ -6,18 +6,20 @@ module.exports = function(db) {
     // http://stackoverflow.com/a/23584255/1843020
 
     // get all persons and join their company IDs with the actual names
-    module.index = function(req, res) {
+    module.index = function(req, res, next) {
         var sql = 'SELECT * FROM kd_person \
         LEFT OUTER JOIN kd_company \
         ON kd_person.per_company = kd_company.com_id;';
 
         db.query(sql, function(err, rows, fields) {
-            if (err) throw err;
+            if (err)
+                return next('db error');
             var persons = rows;
 
             var sql = 'SELECT * FROM kd_company;';
             db.query(sql, function(err, rows, fields){
-                if (err) throw err;
+                if (err)
+                    return next('db error');
                 var companies = rows;
                 var dict = lang.getDictionaryFromRequestHeader(req);
 
@@ -31,10 +33,11 @@ module.exports = function(db) {
         });
     };
 
-    module.newIndex = function(req, res) {
+    module.newIndex = function(req, res, next) {
         var sql = 'SELECT com_name FROM kd_company';
         db.query(sql, function(err, rows){
-            if (err) throw err;
+            if (err)
+                return next('db error');
             var dict = lang.getDictionaryFromRequestHeader(req);
             
             res.render('persons/newperson', {
@@ -45,7 +48,7 @@ module.exports = function(db) {
         });
     };
 
-    module.findID = function(req, res) {
+    module.findID = function(req, res, next) {
         var firstName = req.body.firstName;
         var lastName = req.body.lastName;
 
@@ -55,14 +58,15 @@ module.exports = function(db) {
         sql = mysql.format(sql, inserts);
 
         db.query(sql, function(err, rows){
-            if (err) throw err;
+            if (err)
+                return next('db error');
 
             res.set('Content-Type', 'text/json');
             res.send(rows);
         });
     };
 
-    module.addPerson = function(req, res) {
+    module.addPerson = function(req, res, next) {
         var firstName = req.body.firstName;
         var lastName = req.body.lastName;
         var url = req.body.url;
@@ -95,7 +99,8 @@ module.exports = function(db) {
             var inserts = [lastName, firstName, url, memo, company];
             sql = mysql.format(sql, inserts);
             db.query(sql, function(err, rows){
-                if (err) throw err;
+                if (err)
+                    return next('db error');
 
                 // add email to the just changed row (rows.insertId is the id of the just added row)
                 var sql = 'INSERT INTO kolledata.kd_email \
@@ -104,21 +109,24 @@ module.exports = function(db) {
                 var inserts = [rows.insertId, email];
                 sql = mysql.format(sql, inserts);
                 db.query(sql, function(err){
-                    if (err) throw err;
+                    if (err)
+                        return next('db error');
 
                     // get all persons joined with their respective company names
                     var sql = 'SELECT * FROM kd_person \
                     LEFT OUTER JOIN kd_company \
                     ON kd_person.per_company = kd_company.com_id;';
                     db.query(sql, function(err, rows, fields) {
-                        if (err) throw err;
+                        if (err)
+                            return next('db error');
                         var persons = rows;
 
                         // get all companies to pass on to jade so that the dropdown
                         // in the add persons modal can be displayed
                         var sql = 'SELECT * FROM kd_company;';
                         db.query(sql, function(err, rows, fields){
-                            if (err) throw err;
+                            if (err)
+                                return next('db error');
                             var companies = rows;
 
                             res.redirect('/persons');
@@ -129,7 +137,7 @@ module.exports = function(db) {
         });
     };
 
-    module.delete = function(req, res) {
+    module.delete = function(req, res, next) {
         var per_id = req.body.per_id;
 
         var sql = 'DELETE FROM kolledata.kd_person \
@@ -137,7 +145,8 @@ module.exports = function(db) {
         var inserts = [per_id];
         sql = mysql.format(sql, inserts);
         db.query(sql, function(err){
-            if (err) throw err;
+            if (err)
+                return next('db error');
 
             // redirect to /persons after deleting the entry to rerender the view
             res.redirect('/persons');
@@ -145,7 +154,7 @@ module.exports = function(db) {
     };
 
     // dynamic search function
-    module.searchPerson = function(req, res) {
+    module.searchPerson = function(req, res, next) {
         var search = req.body.searchInput;
         search = '%' + search + '%';
 
@@ -159,12 +168,14 @@ module.exports = function(db) {
         sql = mysql.format(sql, inserts);
 
         db.query(sql, function(err, rows, fields) {
-            if (err) throw err;
+            if (err)
+                return next('db error');
             var persons = rows;
 
             var sql = 'SELECT * FROM kd_company;';
             db.query(sql, function(err, rows, fields){
-                if (err) throw err;
+                if (err)
+                    return next('db error');
                 var companies = rows;
                 var dict = lang.getDictionaryFromRequestHeader(req);
 
@@ -178,7 +189,7 @@ module.exports = function(db) {
         });
     };
 
-    module.sortColumns = function(req, res) {
+    module.sortColumns = function(req, res, next) {
         var column = req.body.sortColumn;
         var order = req.body.sortOrder;
 
@@ -230,12 +241,14 @@ module.exports = function(db) {
         }
 
         db.query(sql, function(err, rows, fields) {
-            if (err) throw err;
+            if (err)
+                return next('db error');
             var persons = rows;
 
             var sql = 'SELECT * FROM kd_company;';
             db.query(sql, function(err, rows, fields){
-                if (err) throw err;
+                if (err)
+                    return next('db error');
                 var companies = rows;
                 var dict = lang.getDictionaryFromRequestHeader(req);
 
@@ -252,7 +265,7 @@ module.exports = function(db) {
     };
 
     // edit memo field
-    module.editMemo = function(req, res) {
+    module.editMemo = function(req, res, next) {
         var memo = req.body.memo;
         var id = req.body.id;
 
@@ -263,7 +276,8 @@ module.exports = function(db) {
         sql = mysql.format(sql, inserts);
 
         db.query(sql, function(err, rows, fields) {
-            if (err) throw err;
+            if (err)
+                return next('db error');
 
             res.writeHead(200, { 'Content-Type': 'application/json'});
             res.end(JSON.stringify({ memo: memo, id : id }));

@@ -23,6 +23,27 @@ module.exports = function() {
         res.status(404);
         showErrorPage(res, 404, dict.get('errors', 'msg404', req.url), 'requested url: ' + req.url, dict);
     };
+    
+    /**
+     * Handles database errors, which are identified by the err parameter being a string
+     * containing the text 'db error'. If thats not the case, a generic error is triggered
+     * instead.
+     * Displays the error page with the generic 500 error and an info, that the connection
+     * to the database has failed.
+     *
+     * @method errDb
+     * @param {object} [err] Node error object.
+     * @param {object} [req] Node req object.
+     * @param {object} [res] Node response object.
+     * @param {method} [next] Method to call the next route or error.
+     */
+    module.errDb = function(err, req, res, next) {
+        if (err === undefined || err !== 'db error')
+            return next();
+        var dict = lang.getDictionaryFromRequestHeader(req);
+        res.status(500);
+        showErrorPage(res, 500, dict.get('errors', 'msgDb', req.url), 'Database error', dict);
+    };
 
     /**
      * Generic error handler, which handles all errors not already handled by other measn.
@@ -32,7 +53,7 @@ module.exports = function() {
      * @param {object} [err] Node error object.
      * @param {object} [req] Node req object.
      * @param {object} [res] Node response object.
-     * @param {method} [next] Method to call the next error.
+     * @param {method} [next] Method to call the next route or error.
      */
     module.generic = function errorHandler(err, req, res, next) {
         var dict = lang.getDictionaryFromRequestHeader(req);
@@ -74,11 +95,11 @@ module.exports = function() {
      * @param {object} [app] The express object which is used to register the routes.
      */
     module.registerDebugRoutes = function(app) {
-        app.get('/400', function(req, res) {
+        app.get('/err404', function(req, res) {
             next();
         });
-        app.get('/500', function(req, res) {
-            next(new Error());
+        app.get('/err500', function(req, res) {
+            next(new Error(), req, res);
         });
     };
 

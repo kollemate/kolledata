@@ -3,14 +3,15 @@ var mysql = require('mysql');
 
 module.exports = function(db) {
 
-    module.index = function(req, res) {
+    module.index = function(req, res, next) {
         var per_id = req.params.id;
 
         var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id WHERE per_id = ?';
         var inserts = [per_id];
         sql = mysql.format(sql, inserts);
         db.query(sql, function(err, rows, fields){
-            if (err) throw err;
+            if (err)
+                return next('db error');
 
             var person = rows;
 
@@ -18,7 +19,8 @@ module.exports = function(db) {
             var inserts = [per_id];
             sql = mysql.format(sql, inserts);
             db.query(sql, function(err, rows, fields){
-                if (err) throw err;
+                if (err)
+                    return next('db error');
 
                 var emails = rows;
                 var dict = lang.getDictionaryFromRequestHeader(req);
@@ -33,14 +35,15 @@ module.exports = function(db) {
         });
     };
 
-    module.editIndex = function(req, res) {
+    module.editIndex = function(req, res, next) {
         var per_id = req.params.id;
 
         var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id WHERE per_id = ?';
         var inserts = [per_id];
         sql = mysql.format(sql, inserts);
         db.query(sql, function(err, rows, fields){
-            if (err) throw err;
+            if (err)
+                return next('db error');
 
             var person = rows;
 
@@ -48,14 +51,16 @@ module.exports = function(db) {
             var inserts = [per_id];
             sql = mysql.format(sql, inserts);
             db.query(sql, function(err, rows, fields){
-                if (err) throw err;
+                if (err)
+                    return next('db error');
 
                 var emails = rows;
 
 
                 var sql = 'SELECT com_name FROM kd_company;';
                 db.query(sql, function(err, rows, fields){
-                    if (err) throw err;
+                    if (err)
+                        return next('db error');
 
                     var companies = rows;
                     var dict = lang.getDictionaryFromRequestHeader(req);
@@ -72,7 +77,7 @@ module.exports = function(db) {
         });
     };
 
-    module.edit = function(req, res) {
+    module.edit = function(req, res, next) {
         var per_id = req.params.id;
         var name = req.body.name;
         var firstName = req.body.firstName;
@@ -108,7 +113,8 @@ module.exports = function(db) {
                         var inserts = [per_id, oldemails[i]];
                         sql = mysql.format(sql, inserts);
                         db.query(sql, function(err){
-                            if (err) throw err;
+                            if (err)
+                                return next('db error');
                         });
                     }
                     if (emails[i] !== oldemails[i]) {
@@ -118,7 +124,8 @@ module.exports = function(db) {
                         var inserts = [emails[i], per_id, oldemails[i]];
                         sql = mysql.format(sql, inserts);
                         db.query(sql, function(err){
-                            if (err) throw err;
+                            if (err)
+                                return next('db error');
                         });
                     }
                 };
@@ -131,7 +138,7 @@ module.exports = function(db) {
     };
 
     // edit memo field
-    module.editMemo = function(req, res) {
+    module.editMemo = function(req, res, next) {
         var memo = req.body.memo;
         var id = req.body.id;
 
@@ -140,7 +147,8 @@ module.exports = function(db) {
         sql = mysql.format(sql, inserts);
 
         db.query(sql, function(err, rows, fields) {
-            if (err) throw err;
+            if (err)
+                return next('db error');
 
             res.redirect('/persons/' + id);
         });

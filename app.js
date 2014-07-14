@@ -105,6 +105,7 @@ app.get('/makecoffee', homeController.coffee);
 errorController.registerDebugRoutes(app);
 
 app.use(errorController.err404);
+app.use(errorController.errDb);
 app.use(errorController.generic);
 
 /**
