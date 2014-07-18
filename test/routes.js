@@ -71,8 +71,7 @@ describe('GET some pages', function(){
 
 
 describe('test a new single user', function(){
-    //fill me in POST request to /persons/new... somehow
-    var test_id = 26;
+    var test_id;
 
     var testperson = {
         firstName: 'Max',
@@ -97,10 +96,22 @@ describe('test a new single user', function(){
                 // testing the redirect to /persons doesn't feel right,
                 // is this really the kind of redirect we want to be using for this?
                 // 302 is actually 'moved temporarily'...
+        });
+    });
 
-            // test_id = request(kd)
-            //     .post('/persons/find')
-            //     .send(testperson_name);
+    describe('POST to /persons/find to get ID of new person', function(){
+        it('should return 200 OK', function(done){
+            request(kd)
+                .post('/persons/find')
+                .send(testperson_name)
+                .end(function(err, res) {
+                    if (err) {
+                        return done(err);
+                    } else {
+                        test_id = JSON.parse(res.text)[0].per_id;
+                        console.log('ID is: ', test_id);
+                    }
+                });
         });
     });
 
