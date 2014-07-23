@@ -5,30 +5,30 @@ module.exports = function() {
     const _numberOfColumns = 24;
     
     const _headers = {
-        Nr : 0,
-        Anrede : 1,
-        Titel : 2,
-        Vorname : 3,
-        Name : 4,
-        Firma : 5,
-        Abteilung : 6,
-        Straße : 7,
-        PLZ : 8,
-        Ort : 9,
-        Bemerkung : 10,
-        Telefon : 11,
-        Telefax : 12,
-        EMail : 13,
-        KontoNr : 14,
-        BLZ : 15,
-        IBAN : 16,
-        BIC : 17,
-        Bankname : 18,
-        Steuernummer : 19,
-        UStIdNr : 20,
-        Telefon2 : 21,
-        Web : 22,
-        Vermittler : 23
+        Nr : 0,             // - ignored -
+        Anrede : 1,         // kd_person.per_salutation
+        Titel : 2,          // kd_person.per_academic_title
+        Vorname : 3,        // kd_person.per_firstname
+        Name : 4,           // kd_person.per_name
+        Firma : 5,          // kd_company.com_name
+        Abteilung : 6,      // kd_person.per_department
+        Strasse : 7,        // kd_company.com_address
+        PLZ : 8,            // kd_company.com_postcode
+        Ort : 9,            // kd_company.com_city
+        Bemerkung : 10,     // kd_person.per_memo
+        Telefon : 11,       // kd_phone.ph_phone, kd_company.com_phone1
+        Telefax : 12,       // kd_person.per_fax, kd_company.com_fax
+        EMail : 13,         // kd_email.email, kd_company.com_email1
+        KontoNr : 14,       // kd_bank_accounts.ba_account_cumber
+        BLZ : 15,           // kd_bank_accounts.ba_bank_code
+        IBAN : 16,          // kd_bank_accounts.ba_IBAN
+        BIC : 17,           // kd_bank_accounts.ba_BIC
+        Bankname : 18,      // kd_bank_accounts.ba_bank_name
+        Steuernummer : 19,  // kd_bank_accounts.ba_tax_number
+        UStIdNr : 20,       // kd_bank_accounts,ba_sales_tax_ident_number
+        Telefon2 : 21,      // kd_phone.ph_phone, kd_company.com_phone2
+        Web : 22,           // kd_person.per_url, kd_company.com_url
+        Vermittler : 23     // kd_person.per_referredBy
     }
 
     module.index = function(req, res) {
@@ -121,6 +121,47 @@ module.exports = function() {
         // --------------------
         console.log('|- csv inport finished successfully\n');
         return 'success';
+    }
+    
+    function parseLine(line) {
+        var sql =
+        // declare the person id variable which will be used later
+            'DECLARE @personID INT; '
+        // Insert all company data
+            + 'INSERT INTO kd_company (com_name, com_email1, com_phone1, com_phone2, com_fax, '
+            + 'com_city, com_postcode, com_address, com_url, com_timestamp'
+            + ') VALUES ('
+            + line[_headers.Firma] + ', ' + line[_headers.EMail] + ', ' + line[_headers.Telefon]
+            + ', ' + line[_headers.Telefon2] + ', ' + line[_headers.Telefax] + ', '
+            + line[_headers.Ort] + ', ' + line[_headers.PLZ] + ', ' + line[_headers.Strasse] + ', '
+            + line[_headers.Web] + ', NOW()); '
+        // insert all person data
+            + 'INSERT INTO kd_person (per_salutation, per_academic_title, per_name, per_firstname, '
+            + 'per_fax, per_url, per_memo, per_company, per_department, per_referedBy, ' +
+            + 'per_timestamp'
+            + ') VALUES ('
+            + line[_headers.Anrede] + ', ' + line[_headers.Titel] + ', ' + line[_headers.Name]
+            + ', ' + line[_headers.Vorname] + ', ' + line[_headers.Telefax] + ', '
+            + line[_headers.Web] + ', ' + libe[_headers.Bemerkung] + ', (SELECT LAST_INSERT_ID()), '
+            + line[_headers.Abteilung] + ', ' + line[_headers.Vermittler] + ', NOW()); '
+        // store the persons id in an sql variable so it can be used for email and phone
+            + 'SET @personId = SELECT_LAST_INSERT_ID(); ';
+        // insert persons phone data, if existing
+        if (line[_headers.Telefon] != '')
+            sql += 'INSERT INTO kd_phone (ph_person_id, ph_phone, ph_timestamp'
+                + ') VALUES ('
+                + '@personId, ' + line[_headers.Telefon] + ', NOW()); ';
+        if (line[_headers.Telefon2] != '')
+            sql += 'INSERT INTO kd_phone (ph_person_id, ph_phone, ph_timestamp'
+                + ') VALUES ('
+                + '@personId, ' + line[_headers.Telefon2] + ', NOW()); ';
+        // insert the persons email data if existing
+        if (line[_headers.EMail] != '')
+            sql += 'INSERT INTO kd_email (em_person_id, em_email, em_timestamp)'
+                + ') VALUES ('
+                + '@personId, ' + line[_headers.EMail] + ', NOW()); ';
+        // finally the line has been parsed, what a fun
+        return sql;
     }
 
     return module;
