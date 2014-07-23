@@ -16,7 +16,7 @@ The original MySQL and [MariaDB](https://mariadb.org/) have been tested and work
 
 #### 3. Clone the repo
 
-```
+```bash
 $ git clone https://github.com/kollemate/kolledata.git && cd kolledata
 ```
 
@@ -24,20 +24,20 @@ $ git clone https://github.com/kollemate/kolledata.git && cd kolledata
 
 If you don't have Bower installed you might need to run ```sudo npm install -g bower``` first.
 
-```
+```bash
 $ npm install
 $ bower install
 ```
 
 #### 5. Create MySQL config
 
-```
+```bash
 $ cp example_mysqlconfig.js mysqlconfig.js
 ```
 
 edit ```mysqlconfig.js``` to match your settings
 
-```
+```js
 exports.config = {
     host: "host",
     // port: "port",
@@ -51,36 +51,32 @@ The port line can be uncommented if your MySQL port is not the standard `3306`.
 
 #### 6. Start your MySQL server
 
-If your distribution uses systemd, type:
+If your linux distribution uses systemd, use one of the following commands if you want to start the MySQL server at boot.
 
-```
+```bash
 $ sudo systemctl restart mysqld.service
-```
-
-or
-
-
-```
 $ sudo systemctl enable mysqld.service
 ```
-if you want to start the MySQL server at boot.
+
+Or... you know, just start your MAMP, XAMPP or whatever right now.
+
 
 
 #### 7. Setup the kolledata database
 
-```
+```bash
 $ mysql -u USERNAME -p -h HOST < database/scripts/setup.sql
 ```
 
 You might want to add some example data as well:
 
-```
+```bash
 $ mysql -u USERNAME -p -h HOST < database/scripts/insertExampleData.sql
 ```
 
 #### 8. Start the server
 
-```
+```bash
 node app.js
 ```
 
