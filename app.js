@@ -58,7 +58,6 @@ var personsController = require('./controllers/persons')(db);
 var singleController = require('./controllers/person')(db);
 var companiesController = require('./controllers/companies')(db);
 var importController = require('./controllers/import')();
-var apiController = require('./controllers/api')(db);
 var errorController = require('./controllers/error')();
 
 /**
@@ -88,10 +87,6 @@ app.get('/import', importController.index);
 app.post('/import', importController.handleUpload);
 
 app.get('/about', homeController.about);
-
-app.get('/api/package', apiController.package);
-app.get('/api/persons', apiController.allPersons);
-app.get('/api/companies', apiController.allCompanies);
 
 app.get('/makecoffee', homeController.coffee);
 
