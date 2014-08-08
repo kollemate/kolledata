@@ -1,6 +1,7 @@
 #! /bin/sh
 
 echo "1. Creating MySQL config file"
+cd ../config/
 cp -n example_mysqlconfig.js mysqlconfig.js
 
 sed '2s/"host"/"127.0.0.1"/' mysqlconfig.js > tmpconfig.js

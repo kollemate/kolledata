@@ -29,7 +29,7 @@ bower install
 # 2. create mysql config
 
 echo "2. Creating MySQL config file"
-cp -n example_mysqlconfig.js mysqlconfig.js
+cp -n ../config/example_mysqlconfig.js ../config/mysqlconfig.js
 
 # TODO: Editing JSON in bash is super simple, just like editing basically *anything* else... AWK \o/
 

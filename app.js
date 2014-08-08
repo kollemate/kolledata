@@ -1,6 +1,6 @@
 var express = require('express');
 var mysql = require('mysql');
-var mysqlconfig = require('./mysqlconfig');
+var mysqlconfig = require('./config/mysqlconfig');
 var path = require('path');
 var connectAssets = require('connect-assets');
 

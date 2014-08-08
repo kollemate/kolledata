@@ -32,10 +32,10 @@ $ bower install
 #### 5. Create MySQL config
 
 ```bash
-$ cp example_mysqlconfig.js mysqlconfig.js
+$ cp ./config/example_mysqlconfig.js ./config/mysqlconfig.js
 ```
 
-edit ```mysqlconfig.js``` to match your settings
+edit ```./config/mysqlconfig.js``` to match your settings
 
 ```js
 exports.config = {
