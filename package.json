@@ -5,6 +5,7 @@
   "license": "MIT",
   "main": "app.js",
   "dependencies": {
+    "MD5": "^1.2.1",
     "busboy": "^0.2.7",
     "connect-assets": "^3.0.0-beta2",
     "express": "~3.5.1",

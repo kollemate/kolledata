@@ -1,5 +1,6 @@
 // this is needed for mysql.format prepared statements, not db connections
 var mysql = require('mysql');
+var md5 = require('MD5');
 
 module.exports = function(db) {
 
@@ -25,10 +26,13 @@ module.exports = function(db) {
                 var emails = rows;
                 var dict = lang.getDictionaryFromRequestHeader(req);
 
+                var gravatar = 'http://gravatar.com/avatar/' + md5(rows[0].em_email) + '?s=50';
+
                 res.render('persons/person', {
                     title: person[0]['per_firstname'] + ' ' + person[0]['per_name'],
                     results: person,
                     emails: emails,
+                    gravatar: gravatar,
                     dict: dict
                 });
             });
