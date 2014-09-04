@@ -57,7 +57,7 @@ var homeController = require('./controllers/home')();
 var personsController = require('./controllers/persons')(db);
 var singleController = require('./controllers/person')(db);
 var companiesController = require('./controllers/companies')(db);
-var importController = require('./controllers/import')();
+var importController = require('./controllers/import')(db);
 var errorController = require('./controllers/error')();
 
 /**
