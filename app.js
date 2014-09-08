@@ -3,6 +3,8 @@ var mysql = require('mysql');
 var mysqlconfig = require('./config/mysqlconfig');
 var path = require('path');
 var connectAssets = require('connect-assets');
+var favicon = require('serve-favicon');
+var bodyParser = require('body-parser');
 
 /**
  * Create MySQL Server with config data
@@ -29,13 +31,13 @@ module.exports = app;
 app.set('port', process.env.PORT || 8080);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(express.favicon(__dirname + '/public/images/favicon.ico'));
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(connectAssets({
     paths: ['public/css', 'public/js', 'bower_components'],
     helperContext: app.locals
 }));
-app.use(express.urlencoded());
-app.use(express.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 // This is used for url parsing in the middle of a jade template
 app.locals.url = require('url');
