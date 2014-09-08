@@ -24,14 +24,7 @@ block content
                 div.list-group-item
                     label.control-label(for='email0')
                         = dict === undefined ? 'ERROR' : dict.get('persons', 'email')
-                    - if(emails.length == 0) {
-                        input.form-control(type='email',id='emails[0]',name='emails[0]',value='')
-                    - } else {
-                        - for (var i = 0; i < emails.length; i++) {
-                            input.form-control(type='email',id='emails[' + i + ']',name='emails[' + i + ']',value=emails[i]['em_email'],onblur='validateEmail()')
-                            input.form-control(type='hidden',id='oldemails[' + i + ']',name='oldemails[' + i + ']',value=emails[i]['em_email'])
-                        - }
-                    - }
+                    input.form-control(type='email',id='emails[0]',name='emails[0]',value=results[0]['per_email1'])
 
             div.list-group.form-group
                 div.list-group-item

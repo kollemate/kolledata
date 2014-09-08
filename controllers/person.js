@@ -18,10 +18,10 @@ module.exports = function(db) {
 
             var dict = lang.getDictionaryFromRequestHeader(req);
 
-            var gravatar = 'http://gravatar.com/avatar/' + md5(person[0].per_email1) + '?s=50';
+            var gravatar = 'http://gravatar.com/avatar/' + md5(person[0]['per_email1']) + '?s=50';
 
             res.render('persons/person', {
-                title: person[0].per_firstname + ' ' + person[0].per_name,
+                title: person[0]['per_firstname'] + ' ' + person[0]['per_name'],
                 results: person,
                 gravatar: gravatar,
                 dict: dict
@@ -47,13 +47,14 @@ module.exports = function(db) {
                     return next('db error');
 
                 var companies = rows;
+
                 var dict = lang.getDictionaryFromRequestHeader(req);
 
                 res.render('persons/editPerson', {
-                title: person[0]['per_firstname'] + ' ' + person[0]['per_name'] + ' bearbeiten',
-                results: person,
-                companies: companies,
-                dict: dict
+                    title: person[0]['per_firstname'] + ' ' + person[0]['per_name'] + ' bearbeiten',
+                    results: person,
+                    companies: companies,
+                    dict: dict
                 });
             });
         });
