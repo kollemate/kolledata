@@ -14,27 +14,17 @@ module.exports = function(db) {
             if (err)
                 return next('db error');
 
-            var person = rows;
+            var person = rows[0];
 
-            var sql = 'SELECT em_email FROM kolledata.kd_email WHERE em_person_id = ?';
-            var inserts = [per_id];
-            sql = mysql.format(sql, inserts);
-            db.query(sql, function(err, rows, fields){
-                if (err)
-                    return next('db error');
+            var dict = lang.getDictionaryFromRequestHeader(req);
 
-                var emails = rows;
-                var dict = lang.getDictionaryFromRequestHeader(req);
+            var gravatar = 'http://gravatar.com/avatar/' + md5(rows.per_email) + '?s=50';
 
-                var gravatar = 'http://gravatar.com/avatar/' + md5(rows[0].em_email) + '?s=50';
-
-                res.render('persons/person', {
-                    title: person[0]['per_firstname'] + ' ' + person[0]['per_name'],
-                    results: person,
-                    emails: emails,
-                    gravatar: gravatar,
-                    dict: dict
-                });
+            res.render('persons/person', {
+                title: person.per_firstname + ' ' + person.per_name,
+                results: person,
+                gravatar: gravatar,
+                dict: dict
             });
         });
     };
@@ -51,31 +41,19 @@ module.exports = function(db) {
 
             var person = rows;
 
-            var sql = 'SELECT em_email FROM kolledata.kd_email WHERE em_person_id = ?';
-            var inserts = [per_id];
-            sql = mysql.format(sql, inserts);
+            var sql = 'SELECT com_name FROM kd_company;';
             db.query(sql, function(err, rows, fields){
                 if (err)
                     return next('db error');
 
-                var emails = rows;
+                var companies = rows;
+                var dict = lang.getDictionaryFromRequestHeader(req);
 
-
-                var sql = 'SELECT com_name FROM kd_company;';
-                db.query(sql, function(err, rows, fields){
-                    if (err)
-                        return next('db error');
-
-                    var companies = rows;
-                    var dict = lang.getDictionaryFromRequestHeader(req);
-
-                    res.render('persons/editPerson', {
-                        title: person[0]['per_firstname'] + ' ' + person[0]['per_name'] + ' bearbeiten',
-                        results: person,
-                        emails: emails,
-                        companies: companies,
-                        dict: dict
-                    });
+                res.render('persons/editPerson', {
+                title: person[0]['per_firstname'] + ' ' + person[0]['per_name'] + ' bearbeiten',
+                results: person,
+                companies: companies,
+                dict: dict
                 });
             });
         });
@@ -109,35 +87,8 @@ module.exports = function(db) {
             sql = mysql.format(sql, inserts);
             db.query(sql, function(err, rows, fields){
 
-                for (var i = 0; i < emails.length; i++) {
-                    if (emails[i] === '') {
-                        var sql = 'START TRANSACTION; \
-                        DELETE FROM kd_email WHERE em_person_id = ? AND em_email = ?; \
-                        COMMIT;';
-                        var inserts = [per_id, oldemails[i]];
-                        sql = mysql.format(sql, inserts);
-                        db.query(sql, function(err){
-                            if (err)
-                                return next('db error');
-                        });
-                    }
-                    if (emails[i] !== oldemails[i]) {
-                        var sql = 'START TRANSACTION; \
-                        UPDATE kd_email SET em_email = ?, em_timestamp = NOW() WHERE em_person_id = ? AND em_email = ?; \
-                        COMMIT;';
-                        var inserts = [emails[i], per_id, oldemails[i]];
-                        sql = mysql.format(sql, inserts);
-                        db.query(sql, function(err){
-                            if (err)
-                                return next('db error');
-                        });
-                    }
-                };
-
                 res.redirect('/persons/' + per_id);
             });
-
-
         });
     };
 

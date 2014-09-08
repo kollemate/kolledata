@@ -9,11 +9,11 @@ block content
                 .pull-left
                     img(src=gravatar, alt='gravatar')
                 h3
-                    =results[0]['per_firstname']
+                    =results['per_firstname']
                     =' '
-                    =results[0]['per_name']
+                    =results['per_name']
                         .pull-right
-                            form(method='get',action='/persons/' + results[0]['per_id'] + '/edit')
+                            form(method='get',action='/persons/' + results['per_id'] + '/edit')
                                 button.btn.btn-info.btn-xs(type='submit')
                                     = dict === undefined ? 'ERROR' : dict.get('persons', 'editButtonText')
 
@@ -23,7 +23,7 @@ block content
                     strong
                         = dict === undefined ? 'ERROR' : dict.get('persons', 'url')
                 h5.list-group-item-text
-                    =results[0]['per_url']
+                    =results['per_url']
 
         div.list-group
             div.list-group-item
@@ -31,13 +31,7 @@ block content
                     strong
                         = dict === undefined ? 'ERROR' : dict.get('persons', 'email')
                 h5.list-group-item-text
-                    - if(emails.length == 0) {
-                        | no mail available
-                    - } else {
-                    -   for (var i = 0; i < emails.length; i++) {
-                            p=emails[i]['em_email']
-                    -   }
-                    - }
+                    =results['per_email1'];
 
 
         div.list-group
@@ -46,7 +40,7 @@ block content
                     strong
                         = dict === undefined ? 'ERROR' : dict.get('persons', 'company')
                 h5.list-group-item-text
-                    =results[0]['com_name']
+                    =results['com_name']
 
         p
         form(method='get',action='/persons/')
@@ -59,9 +53,9 @@ block content
                 h5.list-group-item-heading
                     strong
                         = dict === undefined ? 'ERROR' : dict.get('persons', 'memo')
-                form(method='post',action='/persons/' + results[0]['per_id'] + '/editMemo')
-                    input.hidden.form-control(type='text',id='id',name='id',value=results[0]['per_id'])
-                    textarea.memotextarea.form-control(id='memo',name='memo')=results[0]['per_memo']
+                form(method='post',action='/persons/' + results['per_id'] + '/editMemo')
+                    input.hidden.form-control(type='text',id='id',name='id',value=results['per_id'])
+                    textarea.memotextarea.form-control(id='memo',name='memo')=results['per_memo']
                     p
                     button.btn.btn-info.btn-xs(type='submit')
                         = dict === undefined ? 'ERROR' : dict.get('persons', 'saveButtonText')
