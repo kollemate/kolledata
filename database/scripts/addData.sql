@@ -33,23 +33,5 @@ VALUES (
   1
 );
   
--- Email
-INSERT INTO kolledata.kd_email (em_person_id, em_email, em_timestamp)
-VALUES (
-  -- the following number is referencing the ID of the person, whose emailaddress this is e.g. 1
-  1,
-  'EMAILADDRESS',
-  NOW()
-);
-
--- Phone
-INSERT INTO kolledata.kd_phone (ph_person_id, ph_phone, ph_timestamp)
-VALUES (
-  -- the following number is referencing the ID of the person, whose phonenumber this is e.g. 1
-  1,
-  'PHONENUMBER',
-  NOW()
-);
-
 -- (2) To make sure no one executes this and inserts useless data
 ROLLBACK;
