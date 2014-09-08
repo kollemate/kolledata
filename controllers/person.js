@@ -14,14 +14,14 @@ module.exports = function(db) {
             if (err)
                 return next('db error');
 
-            var person = rows[0];
+            var person = rows;
 
             var dict = lang.getDictionaryFromRequestHeader(req);
 
-            var gravatar = 'http://gravatar.com/avatar/' + md5(rows.per_email) + '?s=50';
+            var gravatar = 'http://gravatar.com/avatar/' + md5(person[0].per_email1) + '?s=50';
 
             res.render('persons/person', {
-                title: person.per_firstname + ' ' + person.per_name,
+                title: person[0].per_firstname + ' ' + person[0].per_name,
                 results: person,
                 gravatar: gravatar,
                 dict: dict
