@@ -93,7 +93,6 @@ module.exports = function(db) {
             var sql = 'INSERT INTO kd_person (per_name, per_firstname, per_url, per_memo, per_email1, per_email2, per_timestamp, per_company) VALUES (?, ?, ?, ?, ?, ?, NOW(), ?)';
             var inserts = [lastName, firstName, url, memo, email1, email2, company];
             sql = mysql.format(sql, inserts);
-            console.log(sql);
             db.query(sql, function(err, rows){
                 if (err)
                     return next('db error');
