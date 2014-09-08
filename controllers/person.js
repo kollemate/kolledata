@@ -17,8 +17,11 @@ module.exports = function(db) {
             var person = rows;
 
             var dict = lang.getDictionaryFromRequestHeader(req);
-
-            var gravatar = 'http://gravatar.com/avatar/' + md5(person[0]['per_email1']) + '?s=50';
+            
+            if (person[0]['per_email1'] === undefined)
+                var gravatar = 'http://gravatar.com/avatar/' + md5(0) + '?s=50';
+            else
+                var gravatar = 'http://gravatar.com/avatar/' + md5(person[0]['per_email1']) + '?s=50';
 
             res.render('persons/person', {
                 title: person[0]['per_firstname'] + ' ' + person[0]['per_name'],
@@ -66,12 +69,8 @@ module.exports = function(db) {
         var firstName = req.body.firstName;
         var url = req.body.url;
         var company = req.body.company;
-        var emails = req.body.emails;
-        var oldemails = req.body.oldemails;
-
-        //console.log(req.body);
-
-        // seriously.. fuck emails.
+        var email1 = req.body.email1;
+        var email2 = req.body.email2;
 
         var sql = 'SELECT com_id FROM kd_company WHERE com_name = ?;';
         var inserts = [company];
@@ -83,8 +82,8 @@ module.exports = function(db) {
                 company = rows[0].com_id;
             }
 
-            var sql = 'UPDATE kd_person SET per_name = ?, per_firstname = ?, per_url = ?, per_company = ?, per_timestamp = NOW() WHERE per_id = ?;';
-            var inserts = [name, firstName, url, company, per_id];
+            var sql = 'UPDATE kd_person SET per_name = ?, per_firstname = ?, per_url = ?, per_company = ?, per_email1 = ?, per_email2 = ?,per_timestamp = NOW() WHERE per_id = ?;';
+            var inserts = [name, firstName, url, company, email1, email2, per_id];
             sql = mysql.format(sql, inserts);
             db.query(sql, function(err, rows, fields){
 
