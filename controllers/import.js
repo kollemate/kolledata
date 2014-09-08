@@ -1,9 +1,33 @@
+/**
+ * Responsible for importing CSV files into the database.
+ *
+ * @class import
+ * @constructor
+ */
 module.exports = function(db) {
-
+    /**
+     * The busboy instance for handling file transfers.
+     *
+     * @property Busboy
+     * @type object
+     */
     var Busboy = require('busboy');
-    
+    /**
+     * Constant integer that dertermines the number of columns in the csv file, this should allways
+     * match with the number of properties in the _header object below.
+     *
+     * @property _numberOfColumns
+     * @type int
+     * @final
+     */
     const _numberOfColumns = 24;
-    
+    /**
+     * Object that contains the column number of each attribute field for easier access.
+     *
+     * @property _headers
+     * @type object
+     * @final
+     */
     const _headers = {
         Nr : 0,             // - ignored -
         Anrede : 1,         // kd_person.per_salutation
@@ -16,9 +40,9 @@ module.exports = function(db) {
         PLZ : 8,            // kd_company.com_postcode
         Ort : 9,            // kd_company.com_city
         Bemerkung : 10,     // kd_person.per_memo
-        Telefon : 11,       // kd_phone.ph_phone, kd_company.com_phone1
+        Telefon : 11,       // kd_person.per_phone1, kd_company.com_phone1
         Telefax : 12,       // kd_person.per_fax, kd_company.com_fax
-        EMail : 13,         // kd_email.email, kd_company.com_email1
+        EMail : 13,         // kd_person.per_email, kd_company.com_email1
         KontoNr : 14,       // kd_bank_accounts.ba_account_cumber
         BLZ : 15,           // kd_bank_accounts.ba_bank_code
         IBAN : 16,          // kd_bank_accounts.ba_IBAN
@@ -26,16 +50,29 @@ module.exports = function(db) {
         Bankname : 18,      // kd_bank_accounts.ba_bank_name
         Steuernummer : 19,  // kd_bank_accounts.ba_tax_number
         UStIdNr : 20,       // kd_bank_accounts,ba_sales_tax_ident_number
-        Telefon2 : 21,      // kd_phone.ph_phone, kd_company.com_phone2
+        Telefon2 : 21,      // kd_person.per_phone2, kd_company.com_phone2
         Web : 22,           // kd_person.per_url, kd_company.com_url
         Vermittler : 23     // kd_person.per_referredBy
     }
-
+    /**
+     * Default handler for get requests.
+     *
+     * @method index
+     * @param {object} [req] Node req object.
+     * @param {object} [res] Node response object.
+     */
     module.index = function(req, res) {
         var dict = lang.getDictionaryFromRequestHeader(req);
         res.render('import', { title: 'Import', dict: dict });
     };
-
+    /**
+     * Default handler for post requests.
+     * Handles the CSV file upload.
+     *
+     * @method handleUpload
+     * @param {object} [req] Node req object.
+     * @param {object} [res] Node response object.
+     */
     module.handleUpload = function(req, res) {
         var busboy = new Busboy({ headers: req.headers });
         // this will contain the result of the parsing of the csv file and will be passed
@@ -47,22 +84,27 @@ module.exports = function(db) {
         // and the mimetype will always be an octet-stream, because we receive a stream of bytes.
         // So, we will proceed by simply trying to parse the data stream.
         busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-            file.on('data', function(data) { parseResult = parseData(data); });
+            file.on('data', function(data) { parseResult = parseData(req, res, data); });
         });
         
-        // after all has been finished render the page with the correct notification
+        // after all has been finished by busboy, do nothing since we have to wait for the
+        // database to signal that everything went fine.
         busboy.on('finish', function() {
-            //res.writeHead(303, { Connection: 'close', Location: '/import' });
-            var dict = lang.getDictionaryFromRequestHeader(req);
-            res.render('import', { title: 'Import', dict: dict, state: parseResult});
-            res.end();
         });
         
         req.pipe(busboy);
     };
-    
-    function parseData(data) {
-        console.log('csv import has been started ...');
+    /**
+     * Parses the data from the CSV file. Creates an SQL query containing all the data from
+     * the file and sends the query to the database.
+     *
+     * @method parseData
+     * @param {object} [req] Node req object.
+     * @param {object} [res] Node response object.
+     * @param {string} [data] A string representing the data of the CSV file.
+     */
+    function parseData(req, res, data) {
+        console.log('CSV import has been started ...');
         // convert the byte array to a string
         // (there might probably be a better way to do this)
         var stringData = "";
@@ -87,10 +129,11 @@ module.exports = function(db) {
         // check if the number of lines/columns is correct
         if (headerLine.length != _numberOfColumns) {
             // TODO: print error page
-            console.log('>>> file didn\'t have the right number of columns.')
-            console.log('>>> (expected ' + _numberOfColumns + ', got ' + _headerLine.length + ')');
-            console.log('>>> aborting csv import...\n');
-            return 'error';
+            console.log(' > file didn\'t have the right number of columns.')
+            console.log(' > (expected ' + _numberOfColumns + ', got ' + _headerLine.length + ')');
+            console.log(' > CSV import aborted!\n');
+            renderPage(req, res, 'error');
+            return;
         }
         // check for every column of the first header line, if they match the expected header
         // string as defined in 'headerStrings'. If they don't match, the csv file is considered
@@ -102,11 +145,11 @@ module.exports = function(db) {
             'Bankname','Steuernummer','USt-IdNr.','Telefon2','Web', 'Vermittler'];
         for (var i = 0; i < _numberOfColumns; i++)
             if (headerStrings[i] != headerLine[i]) {
-                // TODO: print error page
-                console.log('>>> unexpected column header at column ' + i);
-                console.log('>>> (expected ' + headerStrings[i] + ', got' + headerLine[i] + ')');
-                console.log('>>> aborting csv import...\n');
-                return 'error';
+                console.log(' > unexpected column header at column ' + i);
+                console.log(' > (expected ' + headerStrings[i] + ', got' + headerLine[i] + ')');
+                console.log(' > CSV import aborted!\n');
+                renderPage(req, res, 'error');
+                return;
             }
         // --------------------
         
@@ -117,66 +160,77 @@ module.exports = function(db) {
         for (var i = 1; i < lines.length; i++) {
             queryText += parseLine(lines[i]);
         }
+        console.log('>>> The CSV file was parsed successfully...');
         // --------------------
         
-        //TODO: sanitize csv data...
-        //TODO: Handle async database query
+        // TODO: sanitize csv data...
+        // Because of the asynchronous nature of node.js, we have the shove the req and res
+        // objects all the way to here, because only in the asynchronous callback of the
+        // database query we will know if the whole import was successful or not and therefore
+        // determine, if we must render an error or success page for the user ... what joy
         db.query(queryText, function(err, rows, fields){
             if (err) {
-                console.log('>>> could not send query to the database:');
+                console.log(' > ... but could not send query to the database:');
                 console.log(err);
-                console.log('>>> aborting csv import...\n');
-                return 'error';
+                console.log(' > CSV import aborted!\n');
+                renderPage(req, res, 'error');
+            } else {
+                console.log(' > ... and was successfully inserted into the database');
+                console.log(' > CSV import finished!');
+                renderPage(req, res, 'success');
             }
         });
-        
-        console.log('>>> ... and finished successfully\n');
-        return 'success';
     }
-    
+    /**
+     * Parses a single line of the CSV file an creates the corresponding SQL query for that line.
+     *
+     * @method parseLine
+     * @param {string} [line] A string representing the line of the CSV file.
+     * @return {string} The resulting SQL Query for the line.
+     */
     function parseLine(line) {
         if (line == '')
             return '';
         line = line.split(';')
         var sql =
-        // declare the person id variable which will be used later
-            ''
-        // Insert all company data
-            + 'INSERT INTO kd_company (com_name, com_email1, com_phone1, com_phone2, com_fax, '
+        // insert all company data
+              'INSERT INTO kd_company (com_name, com_email1, com_phone1, com_phone2, com_fax, '
             + 'com_city, com_postcode, com_address, com_url, com_memo, com_timestamp'
             + ') VALUES (\''
-            + line[_headers.Firma] + '\', \'' + line[_headers.EMail] + '\', \'' + line[_headers.Telefon]
-            + '\', \'' + line[_headers.Telefon2] + '\', \'' + line[_headers.Telefax] + '\', \''
-            + line[_headers.Ort] + '\', \'' + line[_headers.PLZ] + '\', \'' + line[_headers.Strasse] + '\', \''
+            + line[_headers.Firma] + '\', \'' + line[_headers.EMail] + '\', \''
+            + line[_headers.Telefon] + '\', \'' + line[_headers.Telefon2] + '\', \''
+            + line[_headers.Telefax] + '\', \'' + line[_headers.Ort] + '\', \''
+            + line[_headers.PLZ] + '\', \'' + line[_headers.Strasse] + '\', \''
             + line[_headers.Web] + '\', \'\', NOW()); '
         // insert all person data
+        // NOTE: the field for the referee is ignored, because it very likely contains non
+        // atomic data which would require further processing (and a lot of guesswork)
             + 'INSERT INTO kd_person (per_salutation, per_academic_title, per_name, per_firstname, '
-            + 'per_fax, per_url, per_memo, per_company, per_department, per_referredBy, '
-            + 'per_timestamp'
+            + 'per_fax, per_email1, per_phone1, per_phone2, per_url, per_memo, per_company, '
+            + 'per_department, per_referredBy, per_timestamp'
             + ') VALUES (\''
-            + line[_headers.Anrede] + '\', \'' + line[_headers.Titel] + '\', \'' + line[_headers.Name]
-            + '\', \'' + line[_headers.Vorname] + '\', \'' + line[_headers.Telefax] + '\', \''
-            + line[_headers.Web] + '\', \'' + line[_headers.Bemerkung] + '\', LAST_INSERT_ID(), \''
-            + line[_headers.Abteilung] + '\', 0, NOW()); '
-            //+ line[_headers.Abteilung] + '\', ' + line[_headers.Vermittler] + ', NOW()); '
-        // store the persons id in an sql variable so it can be used for email and phone
-            + 'SET @personId = LAST_INSERT_ID(); ';
-        // insert persons phone data, if existing
-        if (line[_headers.Telefon] != '')
-            sql += 'INSERT INTO kd_phone (ph_person_id, ph_phone, ph_timestamp'
-                + ') VALUES ('
-                + '@personId, \'' + line[_headers.Telefon] + '\', NOW()); ';
-        if (line[_headers.Telefon2] != '')
-            sql += 'INSERT INTO kd_phone (ph_person_id, ph_phone, ph_timestamp'
-                + ') VALUES ('
-                + '@personId, \'' + line[_headers.Telefon2] + '\', NOW()); ';
-        // insert the persons email data if existing
-        if (line[_headers.EMail] != '')
-            sql += 'INSERT INTO kd_email (em_person_id, em_email, em_timestamp'
-                + ') VALUES ('
-                + '@personId, \'' + line[_headers.EMail] + '\', NOW()); ';
+            + line[_headers.Anrede] + '\', \'' + line[_headers.Titel] + '\', \''
+            + line[_headers.Name] + '\', \'' + line[_headers.Vorname] + '\', \''
+            + line[_headers.Telefax] + '\', \'' + line[_headers.EMail] + '\', \''
+            + line[_headers.Telefon] + '\', \'' + line[_headers.Telefon2] + '\', \''
+            + line[_headers.Web] + '\', \'' +  line[_headers.Bemerkung]
+            + '\', LAST_INSERT_ID(), \'' + line[_headers.Abteilung] + '\', 0, NOW()); '
         // finally the line has been parsed, what a fun
         return sql;
+    }
+    /**
+     * Helper method for rendering the request response page.
+     *
+     * @method renderPage
+     * @param {object} [req] Node req object.
+     * @param {object} [res] Node response object.
+     * @param {string} [result] The result of the import which should be displayed.
+     *   Possible values are 'success' and 'error'.
+     */
+    function renderPage(req, res, result) {
+        var dict = lang.getDictionaryFromRequestHeader(req);
+        res.render('import', { title: 'Import', dict: dict, state: result});
+        res.end();
     }
 
     return module;

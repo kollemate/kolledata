@@ -46,8 +46,8 @@ module.exports = function() {
      * %0, the second %1 and so on.
      *
      * @method dictGet
-     * @param {string} category The category of the string that should be got.
-     * @param {string} key The key within the category which should be got.
+     * @param {string} [category] The category of the string that should be got.
+     * @param {string} [key] The key within the category which should be got.
      * @return {string} the retrieved language string.
      */
     var dictGet = function(category, key) {
@@ -69,7 +69,7 @@ module.exports = function() {
      * Load the language file with the specified IETF language tag
      * 
      * @method load
-     * @param {string} tag The IETF language tag of the dictionary that should be loaded
+     * @param {string} [tag] The IETF language tag of the dictionary that should be loaded
      * @return {boolean} TRUE if the file for the specified tag was successfully loaded,
      *  otherwise FALSE
      */
@@ -105,7 +105,7 @@ module.exports = function() {
      * the default dictionary is returned instead.
      *
      * @method getDictionary
-     * @param {string} tag The IETF language tag of the dictionary that should be got.
+     * @param {string} [tag] The IETF language tag of the dictionary that should be got.
      * @return {object} The desired dictionary or the default dictionary.
      */
     module.getDictionary = function(tag) {
@@ -129,7 +129,7 @@ module.exports = function() {
      * is supported, the default dictionary is returned instead.
      *
      * @method getDictionaryFromRequestHeader
-     * @param {object} req The request object, containing the request headers.
+     * @param {object} [req] The request object, containing the request headers.
      * @return {object} An appropriate dictionary for the preferred languages or the default
      *  dictionary if no other could be found.
      */
@@ -170,9 +170,9 @@ module.exports = function() {
      * (Internally this simply calls the get method of the dictionary.)
      *
      * @method getString 
-     * @param {string} tag The IETF language tag of the dictionary from which the string should be got.
-     * @param {string} category The category of the string that should be got.
-     * @param {string} key The key within the category which should be got.
+     * @param {string} [tag] The IETF language tag of the dictionary from which the string should be got.
+     * @param {string} [category] The category of the string that should be got.
+     * @param {string} [key] The key within the category which should be got.
      * @return {string} the retrieved language string.
      */
     module.getString = function(tag, category, key) {
