@@ -7,9 +7,7 @@ module.exports = function(db) {
 
     // get all persons and join their company IDs with the actual names
     module.index = function(req, res, next) {
-        var sql = 'SELECT * FROM kd_person \
-        LEFT OUTER JOIN kd_company \
-        ON kd_person.per_company = kd_company.com_id;';
+        var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id;';
 
         db.query(sql, function(err, rows, fields) {
             if (err)
@@ -39,7 +37,7 @@ module.exports = function(db) {
             if (err)
                 return next('db error');
             var dict = lang.getDictionaryFromRequestHeader(req);
-            
+
             res.render('persons/newperson', {
                 title: 'Add New Person',
                 companies: rows,
@@ -52,8 +50,7 @@ module.exports = function(db) {
         var firstName = req.body.firstName;
         var lastName = req.body.lastName;
 
-        var sql = 'SELECT per_id from kd_person \
-        WHERE per_firstname = ? AND per_name = ?;';
+        var sql = 'SELECT per_id from kd_person WHERE per_firstname = ? AND per_name = ?;';
         var inserts = [firstName, lastName];
         sql = mysql.format(sql, inserts);
 
@@ -70,7 +67,8 @@ module.exports = function(db) {
         var firstName = req.body.firstName;
         var lastName = req.body.lastName;
         var url = req.body.url;
-        var email = req.body.email;
+        var email1 = req.body.email1;
+        var email2 = req.body.email2;
         var memo = req.body.memo;
         var company = req.body.company;
 
@@ -81,8 +79,7 @@ module.exports = function(db) {
         }
 
         // get company id of chosen company from add new person dropdown
-        var sql = 'SELECT com_id FROM kd_company \
-        WHERE com_name = ?;';
+        var sql = 'SELECT com_id FROM kd_company WHERE com_name = ?;';
         var inserts = [company];
         sql = mysql.format(sql, inserts);
         db.query(sql, function(err,rows,fields){
@@ -93,44 +90,30 @@ module.exports = function(db) {
             }
 
             // insert person with the now correct company into the database
-            var sql = 'INSERT INTO kd_person \
-            (per_name, per_firstname, per_url, per_memo, per_timestamp, per_company) \
-            VALUES (?, ?, ?, ?, NOW(), ?)';
-            var inserts = [lastName, firstName, url, memo, company];
+            var sql = 'INSERT INTO kd_person (per_name, per_firstname, per_url, per_memo, per_email1, per_email2, per_timestamp, per_company) VALUES (?, ?, ?, ?, ?, ?, NOW(), ?)';
+            var inserts = [lastName, firstName, url, memo, email1, email2, company];
             sql = mysql.format(sql, inserts);
+            console.log(sql);
             db.query(sql, function(err, rows){
                 if (err)
                     return next('db error');
 
-                // add email to the just changed row (rows.insertId is the id of the just added row)
-                var sql = 'INSERT INTO kolledata.kd_email \
-                (em_person_id, em_email, em_timestamp) \
-                VALUES (?, ?, NOW());';
-                var inserts = [rows.insertId, email];
-                sql = mysql.format(sql, inserts);
-                db.query(sql, function(err){
+                // get all persons joined with their respective company names
+                var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id;';
+                db.query(sql, function(err, rows, fields) {
                     if (err)
                         return next('db error');
+                    var persons = rows;
 
-                    // get all persons joined with their respective company names
-                    var sql = 'SELECT * FROM kd_person \
-                    LEFT OUTER JOIN kd_company \
-                    ON kd_person.per_company = kd_company.com_id;';
-                    db.query(sql, function(err, rows, fields) {
+                    // get all companies to pass on to jade so that the dropdown
+                    // in the add persons modal can be displayed
+                    var sql = 'SELECT * FROM kd_company;';
+                    db.query(sql, function(err, rows, fields){
                         if (err)
                             return next('db error');
-                        var persons = rows;
+                        var companies = rows;
 
-                        // get all companies to pass on to jade so that the dropdown
-                        // in the add persons modal can be displayed
-                        var sql = 'SELECT * FROM kd_company;';
-                        db.query(sql, function(err, rows, fields){
-                            if (err)
-                                return next('db error');
-                            var companies = rows;
-
-                            res.redirect('/persons');
-                        });
+                        res.redirect('/persons');
                     });
                 });
             });
@@ -140,8 +123,7 @@ module.exports = function(db) {
     module.delete = function(req, res, next) {
         var per_id = req.body.per_id;
 
-        var sql = 'DELETE FROM kolledata.kd_person \
-        WHERE per_id=?;';
+        var sql = 'DELETE FROM kolledata.kd_person WHERE per_id=?;';
         var inserts = [per_id];
         sql = mysql.format(sql, inserts);
         db.query(sql, function(err){
@@ -158,12 +140,7 @@ module.exports = function(db) {
         var search = req.body.searchInput;
         search = '%' + search + '%';
 
-        var sql = 'SELECT * FROM kd_person \
-        LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id \
-        WHERE per_name LIKE ? \
-        OR per_firstname LIKE ? \
-        OR per_url LIKE ? \
-        OR com_name LIKE ?;';
+        var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id WHERE per_name LIKE ? OR per_firstname LIKE ? OR per_url LIKE ? OR com_name LIKE ?;';
         var inserts = [search, search, search, search];
         sql = mysql.format(sql, inserts);
 
@@ -269,9 +246,7 @@ module.exports = function(db) {
         var memo = req.body.memo;
         var id = req.body.id;
 
-        var sql = 'UPDATE kd_person \
-        SET per_memo = ? \
-        WHERE per_id = ?;';
+        var sql = 'UPDATE kd_person SET per_memo = ? WHERE per_id = ?;';
         var inserts = [memo, id];
         sql = mysql.format(sql, inserts);
 
