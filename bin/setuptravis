@@ -14,5 +14,5 @@ mv tmpconfig3.js mysqlconfig.js
 # Never ever... EVER judge me on something I write in my bash scripts!
 
 echo "2. Setting up the databases"
-mysql -u root -h 127.0.0.1 < database/scripts/setup.sql
-mysql -u root -h 127.0.0.1 < database/scripts/insertExampleData.sql
+mysql -u root -h 127.0.0.1 < ../database/scripts/setup.sql
+mysql -u root -h 127.0.0.1 < ../database/scripts/insertExampleData.sql
