@@ -18,7 +18,7 @@ module.exports = function(db) {
 
             var dict = lang.getDictionaryFromRequestHeader(req);
             
-            if (person[0]['per_email1'] === undefined)
+            if (person[0]['per_email1'] === null)
                 var gravatar = 'http://gravatar.com/avatar/' + md5(0) + '?s=50';
             else
                 var gravatar = 'http://gravatar.com/avatar/' + md5(person[0]['per_email1']) + '?s=50';
