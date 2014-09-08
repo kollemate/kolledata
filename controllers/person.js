@@ -21,7 +21,7 @@ module.exports = function(db) {
             if (person[0].per_email1 === null)
                 gravatar = 'http://gravatar.com/avatar/' + md5(0) + '?s=50';
             else
-                gravatar = 'http://gravatar.com/avatar/' + md5(person[0].per_email1) + '?s=50';
+                gravatar = 'http://gravatar.com/avatar/' + md5(person[0].per_email1) + '?s=100';
 
             res.render('persons/person', {
                 title: person[0].per_firstname + ' ' + person[0].per_name,

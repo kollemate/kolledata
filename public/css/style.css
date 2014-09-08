@@ -30,3 +30,10 @@ textarea.input {
 .mouse_pointer {
     cursor: pointer;
 }
+
+#gravatar {
+    margin: 5px;
+    margin-right: 10px;
+    width: 50px;
+    height: auto;
+}
