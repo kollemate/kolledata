@@ -21,12 +21,32 @@ block content
                 - } else {
                     i.fa.fa-sort.sort_icons
                 - }
+            - if (column === "per_email1") var per_email1_order = order;
+            th.mouse_pointer(onClick='sortColumns(\'per_email1\', \'' + per_email1_order + '\')')
+                = dict === undefined ? 'ERROR' : dict.get('persons', 'email')
+                - if (per_email1_order === "ASC") {
+                    i.fa.fa-sort-asc.sort_icons
+                - } else if (per_email1_order === "DESC") {
+                    i.fa.fa-sort-desc.sort_icons
+                - } else {
+                    i.fa.fa-sort.sort_icons
+                - }
             - if (column === "per_url") var per_url_order = order;
             th.mouse_pointer(onClick='sortColumns(\'per_url\', \'' + per_url_order + '\')')
                 = dict === undefined ? 'ERROR' : dict.get('persons', 'url')
                 - if (per_url_order === "ASC") {
                     i.fa.fa-sort-asc.sort_icons
                 - } else if (per_url_order === "DESC") {
+                    i.fa.fa-sort-desc.sort_icons
+                - } else {
+                    i.fa.fa-sort.sort_icons
+                - }
+            - if (column === "per_phone1") var per_phone1_order = order;
+            th.mouse_pointer(onClick='sortColumns(\'per_phone1\', \'' + per_phone1_order + '\')')
+                = dict === undefined ? 'ERROR' : dict.get('persons', 'phone')
+                - if (per_phone1_order === "ASC") {
+                    i.fa.fa-sort-asc.sort_icons
+                - } else if (per_phone1_order === "DESC") {
                     i.fa.fa-sort-desc.sort_icons
                 - } else {
                     i.fa.fa-sort.sort_icons
@@ -42,19 +62,19 @@ block content
                     i.fa.fa-sort.sort_icons
                 - }
             th
-                = dict === undefined ? 'ERROR' : dict.get('persons', 'edit')
                 i.fa.fa-undo.sort_icons.pull-right.mouse_pointer(onClick='sortColumns(\'unsort\', \'unsort\')')
         - for (var i = 0; i < results.length; i++) {
             tr
                 td
-                    =results[i]['per_name']
+                    =results[i].per_name
                     =', '
-                    =results[i]['per_firstname']
+                    =results[i].per_firstname
+                td=results[i].per_email1
                 td
-                    a(href=results[i]['per_url'])
-                        span=            url.parse(results[i]['per_url']).hostname
-                        span.text-muted= url.parse(results[i]['per_url']).path
-                td=results[i]['com_name']
+                    a(href=results[i].per_url)
+                        span=url.parse(results[i].per_url).hostname
+                td=results[i].per_phone1
+                td=results[i].com_name
                 td
                     //-----------
                     //- BUTTONS

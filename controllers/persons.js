@@ -180,10 +180,20 @@ module.exports = function(db) {
                 LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id \
                 ORDER BY per_name;';
                 break;
+            case "per_email1":
+                var sql = 'SELECT * FROM kd_person \
+                LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id \
+                ORDER BY per_email1;';
+                break;
             case "per_url":
                 var sql = 'SELECT * FROM kd_person \
                 LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id \
                 ORDER BY per_url;';
+                break;
+            case "per_phone1":
+                var sql = 'SELECT * FROM kd_person \
+                LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id \
+                ORDER BY per_phone1;';
                 break;
             case "com_name":
                 var sql = 'SELECT * FROM kd_person \
