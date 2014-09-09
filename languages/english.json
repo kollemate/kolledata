@@ -11,7 +11,7 @@
     "alerts" : {
         "editSuccessTitle" : "Awesome!",
         "editSuccessText" : "The dataset has been successfully updated with the database.",
-        "editFailTitle" : "Upps!",
+        "editFailTitle" : "Oops!",
         "editFailText" : "Something went wrong."
     },
 
@@ -39,13 +39,14 @@
         "url" : "URL",
         "company" : "COMPANY",
         "email" : "E-MAIL",
+        "phone": "PHONE",
         "edit" : "EDIT",
         "memo" : "MEMO",
         "infoButtonText" : "INFO",
         "editButtonText" : "EDIT",
         "cancelButtonText" : "CANCEL",
         "saveButtonText" : "SAVE",
-        "addButtonText" : "ADD NEW ENTRY",
+        "addButtonText" : "ADD NEW PERSON",
         "backButtonText" : "BACK"
     },
 
@@ -55,8 +56,17 @@
         "url" : "URL",
         "adress" : "ADRESS",
         "edit": "EDIT",
+        "email": "E-MAIL",
+        "phone": "PHONE",
+        "fax": "FAX",
+        "memo" : "MEMO",
         "deleteConfirmText" : "Do you really want to delete this company?",
-        "infoButtonText" : "INFO"
+        "infoButtonText" : "INFO",
+        "editButtonText" : "EDIT",
+        "cancelButtonText" : "CANCEL",
+        "saveButtonText" : "SAVE",
+        "addButtonText" : "ADD NEW COMPANY",
+        "backButtonText" : "BACK"
     },
 
     "import" : {

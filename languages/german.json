@@ -50,7 +50,7 @@
         "editButtonText" : "EDITIEREN",
         "cancelButtonText" : "ABBRECHEN",
         "saveButtonText" : "SPEICHERN",
-        "addButtonText" : "NEUEN EINTRAG HINZUFÜGEN",
+        "addButtonText" : "NEUE PERSON HINZUFÜGEN",
         "backButtonText" : "ZURÜCK"
     },
 
@@ -65,7 +65,12 @@
         "fax": "FAX",
         "memo" : "MEMO",
         "deleteConfirmText" : "Wollen Sie diese Firma wirklich löschen?",
-        "infoButtonText" : "INFO"
+        "infoButtonText" : "INFO",
+        "editButtonText" : "EDITIEREN",
+        "cancelButtonText" : "ABBRECHEN",
+        "saveButtonText" : "SPEICHERN",
+        "addButtonText" : "NEUE FIRMA HINZUFÜGEN",
+        "backButtonText" : "ZURÜCK"
     },
 
     "import" : {
