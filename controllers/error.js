@@ -84,9 +84,14 @@ module.exports = function() {
         res.render('error', { error: err, dict: dict });
         console.log('! Error ' + status + ': ' + logMsg);
     }
-
-    // registers a number of debug routes which can be used to test
-    // the corresponding error handlers.
+    
+    module.registerErrorHandlers = function(app, registerDebugRoutes) {
+        if (registerDebugRoutes !== undefined || registerDebugRoutes === true)
+            this.registerDebugRoutes(app);
+        app.use(this.err404);
+        app.use(this.errDb);
+        app.use(this.generic);
+    }
     /**
      * Registers a number of debug routes which can be used to test the corresponding error
      * handlers. This should be used for debug purposes only and not be part of the release build.

@@ -51,7 +51,7 @@ app.locals.url = require('url');
  * Multi Language Support
  */
 
-// create the language module and store a reference in to global
+// create the language module and store a reference in the global
 // namespace using the identifier 'lang', so it can be accessed
 // from everywhere within the application
 global.lang = require('./controllers/lang')();
@@ -105,14 +105,9 @@ app.get('/makecoffee', homeController.coffee);
  * Error Handling
  */
 
-// NOTE: Only for debug purposes, remove from release build
-// registers a number of debug routes which can be used to
-// test the error handling
-errorController.registerDebugRoutes(app);
-
-app.use(errorController.err404);
-//app.use(errorController.errDb);
-//app.use(errorController.generic);
+// Registers all error handlers for the application
+// NOTE: if you want the error handler debug routes, set the second parameter to true
+//errorController.registerErrorHandlers(app, false);
 
 /**
  * Run server
