@@ -39,6 +39,11 @@ app.use(connectAssets({
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+var env = process.env.NODE_ENV || 'development';
+if ('development' == env) {
+    app.locals.pretty = true;
+}
+
 // This is used for url parsing in the middle of a jade template
 app.locals.url = require('url');
 
