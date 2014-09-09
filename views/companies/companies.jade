@@ -3,11 +3,6 @@ extends ../layout
 block content
     //- include partials/alerts
 
-    .alert.alert-warning
-        h4 Disclaimer
-        p
-            | This page is still far from finished. We're getting there.
-
     p.lead.col-lg-10.nopadding
         = dict === undefined ? 'ERROR' : dict.get('companies', 'title')
 
@@ -30,8 +25,8 @@ block content
                     =results[i]['com_name']
                 td
                     a(href=results[i]['com_url'])
-                        span=            url.parse(results[i]['com_url']).hostname
-                        span.text-muted= url.parse(results[i]['com_url']).path
+                        span=            url.parse(results[i].com_url).hostname
+                        span.text-muted= url.parse(results[i].com_url).path
                 td=results[i]['com_adress']
                 td
                     //-----------
@@ -39,17 +34,17 @@ block content
                     //-----------
                     .pull-right
                         button.btn.btn-info.btn-xs.showmemo(type='button')
-                            - if (results[i]['com_memo'].length > 0) {
+                            - if (results[i].com_memo.length > 0) {
                                 span.symbolbutton ▼
                             - } else {
                                 span.symbolbutton ✚
                             - }
-                        input.hidden(type='text',id='id',name='id',value=results[i]['com_id'])
+                        input.hidden(type='text',id='id',name='id',value=results[i].com_id)
                     .pull-right
                         form(method='post',action='/companies/delete',)
-                            button.btn.btn-danger.btn-xs(type='submit', name='com_id', value=results[i]['com_id'], onClick="return confirm('Wollen Sie diese Firma wirklich löschen?')") ✘
+                            button.btn.btn-danger.btn-xs(type='submit', name='com_id', value=results[i].com_id, onClick="return confirm('Wollen Sie diese Firma wirklich löschen?')") ✘
                     .pull-right
-                        form(method='get',action='/companies/' + results[i]['com_id'])
+                        form(method='get',action='/companies/' + results[i].com_id)
                             button.btn.btn-primary.btn-xs(type='submit')
                                 = dict === undefined ? 'ERROR' : dict.get('companies', 'infoButtonText')
         - }

@@ -59,6 +59,7 @@ var homeController = require('./controllers/home')();
 var personsController = require('./controllers/persons')(db);
 var singleController = require('./controllers/person')(db);
 var companiesController = require('./controllers/companies')(db);
+var singleCompanyController = require('./controllers/company')(db);
 var importController = require('./controllers/import')(db);
 var errorController = require('./controllers/error')();
 
@@ -84,6 +85,7 @@ app.post('/persons/:id/editMemo', singleController.editMemo);
 
 app.get('/companies', companiesController.index);
 app.post('/companies', companiesController.addCompany);
+app.get('/companies/:id', singleCompanyController.index);
 
 app.get('/import', importController.index);
 app.post('/import', importController.handleUpload);

@@ -39,6 +39,7 @@
         "url" : "URL",
         "company" : "FIRMA",
         "email" : "E-MAIL",
+        "phone": "TELEFON",
         "edit" : "EDITIEREN",
         "memo" : "MEMO",
         "infoButtonText" : "INFO",
@@ -55,6 +56,10 @@
         "url" : "URL",
         "adress" : "ADRESSE",
         "edit": "EDITIEREN",
+        "email": "E-MAIL",
+        "phone": "TELEFON",
+        "fax": "FAX",
+        "memo" : "MEMO",
         "deleteConfirmText" : "Wollen Sie diese Firma wirklich löschen?",
         "infoButtonText" : "INFO"
     },
