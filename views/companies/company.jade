@@ -1,0 +1,77 @@
+extends ../layout
+
+block content
+    //- include partials/alerts
+
+    .col-md-5
+        div.panel.panel-primary
+            div.panel-heading
+                .pull-left
+                h4
+                    =results[0].com_name
+                        .pull-right
+                            form(method='get',action='/companies/' + results[0].com_id + '/edit')
+                                button.btn.btn-info.btn-xs(type='submit')
+                                    = dict === undefined ? 'ERROR' : dict.get('companies', 'edit')
+
+        div.list-group
+            div.list-group-item
+                h5.list-group-item-heading
+                    strong
+                        = dict === undefined ? 'ERROR' : dict.get('companies', 'adress')
+                h5.list-group-item-text
+                    p=results[0].com_address
+                    p=results[0].com_postcode + ' ' + results[0].com_city
+
+        div.list-group
+            div.list-group-item
+                h5.list-group-item-heading
+                    strong
+                        = dict === undefined ? 'ERROR' : dict.get('companies', 'url')
+                h5.list-group-item-text
+                    =results[0].com_url
+
+        div.list-group
+            div.list-group-item
+                h5.list-group-item-heading
+                    strong
+                        = dict === undefined ? 'ERROR' : dict.get('companies', 'phone')
+                h5.list-group-item-text
+                    =results[0].com_phone1
+                h5.list-group-item-text
+                    =results[0].com_phone2
+
+        div.list-group
+            div.list-group-item
+                h5.list-group-item-heading
+                    strong
+                        = dict === undefined ? 'ERROR' : dict.get('companies', 'fax')
+                h5.list-group-item-text
+                    =results[0].com_fax
+
+        div.list-group
+            div.list-group-item
+                h5.list-group-item-heading
+                    strong
+                        = dict === undefined ? 'ERROR' : dict.get('companies', 'email')
+                h5.list-group-item-text
+                    =results[0].com_email1
+                h5.list-group-item-text
+                    =results[0].com_email2
+        p
+        form(method='get',action='/companies/')
+            button.btn.btn-info.btn-xs(type='submit')
+                = dict === undefined ? 'ERROR' : dict.get('persons', 'backButtonText')
+
+    .col-md-7
+        div.list-group
+            div.list-group-item.memotextdiv
+                h5.list-group-item-heading
+                    strong
+                        = dict === undefined ? 'ERROR' : dict.get('companies', 'memo')
+                form(method='post',action='/persons/' + results[0].com_id + '/editMemo')
+                    input.hidden.form-control(type='text',id='id',name='id',value=results[0].com_id)
+                    textarea.memotextarea.form-control(id='memo',name='memo')=results[0].com_memo
+                    p
+                    button.btn.btn-info.btn-xs(type='submit')
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'saveButtonText')

@@ -9,11 +9,11 @@ block content
                 .pull-left
                     img(id='gravatar', src=gravatar, alt='gravatar')
                 h3
-                    =results[0]['per_firstname']
+                    =results[0].per_firstname
                     =' '
-                    =results[0]['per_name']
+                    =results[0].per_name
                         .pull-right
-                            form(method='get',action='/persons/' + results[0]['per_id'] + '/edit')
+                            form(method='get',action='/persons/' + results[0].per_id + '/edit')
                                 button.btn.btn-info.btn-xs(type='submit')
                                     = dict === undefined ? 'ERROR' : dict.get('persons', 'editButtonText')
 
