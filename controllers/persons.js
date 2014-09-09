@@ -50,7 +50,7 @@ module.exports = function(db) {
         var firstName = req.body.firstName;
         var lastName = req.body.lastName;
 
-        var sql = 'SELECT per_id from kd_person WHERE per_firstname = ? AND per_name = ?;';
+        var sql = 'SELECT per_id FROM kd_person WHERE per_firstname = ? AND per_name = ?;';
         var inserts = [firstName, lastName];
         sql = mysql.format(sql, inserts);
 
