@@ -68,7 +68,49 @@ module.exports = function(db) {
         });
     };
 
+    module.delete = function(req, res, next) {
+        var com_id = req.body.com_id;
 
+        var sql = 'DELETE FROM kd_company WHERE com_id=?;'
+        var inserts = [com_id];
+        mysql.format(sql, inserts);
+        db.query(sql, function (err){
+            if (err)
+                return next('db error');
+
+            res.redirect('companies');
+        });
+    };
+
+    module.searchCompany = function(req, res, next) {
+        var search = req.body.searchInput;
+        search = '%' + search + '%';
+
+        var sql = 'SELECT * FROM kd_company WHERE com_name LIKE ? OR com_email1 LIKE ? OR com_email2 LIKE ? OR com_url LIKE ?;';
+        var inserts = [search, search, search, search];
+        mysql.format(sql, inserts);
+        db.query(sql, function(err, rows){
+            if (err)
+                return next('db error');
+
+            var companies = rows;
+            var dict = lang.getDictionaryFromRequestHeader(req);
+
+            res.render('companies/companies', {
+                title: 'Companies',
+                results: companies,
+                dict: dict
+            });
+        });
+    };
+
+    module.sortColumns = function(req, res, next) {
+        //TODO: implement me
+    };
+
+    module.editMemo = function(req, res, next) {
+        //TODO: implement me
+    };
 
     return module;
 };

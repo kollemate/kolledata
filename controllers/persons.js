@@ -122,7 +122,7 @@ module.exports = function(db) {
     module.delete = function(req, res, next) {
         var per_id = req.body.per_id;
 
-        var sql = 'DELETE FROM kolledata.kd_person WHERE per_id=?;';
+        var sql = 'DELETE FROM kd_person WHERE per_id=?;';
         var inserts = [per_id];
         sql = mysql.format(sql, inserts);
         db.query(sql, function(err){
