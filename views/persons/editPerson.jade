@@ -4,48 +4,94 @@ block content
     //- include partials/alerts
 
     .col-md-5
-        form.form-horizontal(method='post',action='/persons/' + results[0]['per_id'] + '/edit')
+        form.form-horizontal(method='post',action='/persons/' + results[0].per_id + '/edit')
             div.panel.panel-primary.form-group
                 div.panel-heading
                     label.control-label(for='firstName')
                         = dict === undefined ? 'ERROR' : dict.get('persons', 'firstName')
-                    input.form-control(type='text',id='firstName',name='firstName',value=results[0]['per_firstname'])
+                    input.form-control(type='text',id='firstName',name='firstName',value=results[0].per_firstname)
                     label.control-label(for='name')
                         = dict === undefined ? 'ERROR' : dict.get('persons', 'lastName')
-                    input.form-control(type='text',id='name',name='name',value=results[0]['per_name'])
+                    input.form-control(type='text',id='name',name='name',value=results[0].per_name)
 
-            div.list-group.form-group(id='urlgroup')
+            div.list-group.form-group(id='addressgroup')
                 div.list-group-item
-                    label.control-label(for='url')
-                        = dict === undefined ? 'ERROR' : dict.get('persons', 'url')
-                    input.form-control(type='text',id='url',name='url',value=results[0]['per_url'],onblur='validateURL()')
+                    label.control-label(for='address')
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'adress')
+                    p
+                    label.control-label(for='address')
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'street')
+                    input.form-control(type='text',id='address',name='address',value=results[0].per_address)
+                    label.control-label(for='postcode')
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'postcode')
+                            input.form-control(type='text',id='postcode',name='postcode',value=results[0].per_postcode)
+                    label.control-label(for='city')
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'city')
+                            input.form-control(type='text',id='city',name='city',value=results[0].per_city)
+                    label.control-label(for='country')
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'country')
+                    input.form-control(type='text',id='country',name='country',value=results[0].per_country)
+
+            div.list-group.form-group(id='phonegroup')
+                div.list-group-item
+                    label.control-label(for='phone1')
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'phone')
+                    input.form-control(type='text',id='phone1',name='phone1',value=results[0].per_phone1)
+                    input.form-control(type='text',id='phone2',name='phone2',value=results[0].per_phone2)
+                    p
+                    label.control-label(for='fax')
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'fax')
+                    input.form-control(type='text',id='fax',name='fax',value=results[0].per_fax)
 
             div.list-group.form-group(id='emailgroup')
                 div.list-group-item
                     label.control-label(for='email1')
                         = dict === undefined ? 'ERROR' : dict.get('persons', 'email')
-                    input.form-control(type='email',id='email1',name='email1',value=results[0]['per_email1'])
-                    input.form-control(type='email',id='email2',name='email2',value=results[0]['per_email2'])
+                    input.form-control(type='email',id='email1',name='email1',value=results[0].per_email1, onblur='validateEmail()')
+                    input.form-control(type='email',id='email2',name='email2',value=results[0].per_email2, onblur='validateEmail()')
+
+            div.list-group.form-group(id='urlgroup')
+                div.list-group-item
+                    label.control-label(for='url')
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'url')
+                    input.form-control(type='text',id='url',name='url',value=results[0].per_url,onblur='validateURL()')
+            
+            div.list-group.form-group
+                div.list-group-item
+                    label.control-label(for='category')
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'category')
+                    select.form-control(id='category',name='category')
+                        option - N/A -
+                        - for (var i = 0; i < categories.length; i++) {
+                            - if (categories[i].cat_name === results[0].cat_name) {
+                                option(selected='selected')=categories[i].cat_name
+                            - } else {
+                                option=categories[i].cat_name
+                            - }
+                        - }
 
             div.list-group.form-group
                 div.list-group-item
-                    label.control-label(for='url')
+                    label.control-label(for='company')
                         = dict === undefined ? 'ERROR' : dict.get('persons', 'company')
                     select.form-control(id='company',name='company')
                         option - N/A -
                         - for (var i = 0; i < companies.length; i++) {
-                            - if (companies[i]['com_name'] === results[0]['com_name']) {
-                                option(selected='selected')=companies[i]['com_name']
+                            - if (companies[i].com_name=== results[0].com_name) {
+                                option(selected='selected')=companies[i].com_name
                             - } else {
-                                option=companies[i]['com_name']
+                                option=companies[i].com_name
                             - }
                         - }
+                    label.control-label(for='department')
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'department')
+                    input.form-control(type='text',id='department',name='department',value=results[0].per_department)
             .pull-left
                 button.btn.btn-info.btn-xs(type='submit',id='submitbtn')
                     = dict === undefined ? 'ERROR' : dict.get('persons', 'saveButtonText')
 
         .pull-left
-            form(method='get',action='/persons/' + results[0]['per_id'])
+            form(method='get',action='/persons/' + results[0].per_id)
                 button.btn.btn-xs(type='submit')
                     = dict === undefined ? 'ERROR' : dict.get('persons', 'cancelButtonText')
 
@@ -55,9 +101,9 @@ block content
                 h5.list-group-item-heading
                     strong
                         = dict === undefined ? 'ERROR' : dict.get('persons', 'memo')
-                form(method='post',action='/persons/' + results[0]['per_id'] + '/editMemo')
-                    input.hidden.form-control(type='text',id='id',name='id',value=results[0]['per_id'])
-                    textarea.memotextarea.form-control(id='memo',name='memo')=results[0]['per_memo']
+                form(method='post',action='/persons/' + results[0].per_id + '/editMemo')
+                    input.hidden.form-control(type='text',id='id',name='id',value=results[0].per_id)
+                    textarea.memotextarea.form-control(id='memo',name='memo')=results[0].per_memo
                     p
                     button.btn.btn-info.btn-xs(type='submit')
                         = dict === undefined ? 'ERROR' : dict.get('persons', 'saveButtonText')

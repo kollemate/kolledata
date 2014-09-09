@@ -37,3 +37,7 @@ textarea.input {
     width: 50px;
     height: auto;
 }
+
+#footer {
+    margin-top: 20px;
+}

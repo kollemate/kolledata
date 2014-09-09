@@ -32,12 +32,10 @@ block content
                     strong
                         = dict === undefined ? 'ERROR' : dict.get('persons', 'phone')
                 h5.list-group-item-text
-                    =results[0].per_phone2
+                    =results[0].per_phone1
                 h5.list-group-item-text
                     =results[0].per_phone2
-
-        div.list-group
-            div.list-group-item
+                p
                 h5.list-group-item-heading
                     strong
                         = dict === undefined ? 'ERROR' : dict.get('persons', 'fax')
@@ -88,7 +86,6 @@ block content
         form(method='get',action='/persons/')
             button.btn.btn-info.btn-xs(type='submit')
                 = dict === undefined ? 'ERROR' : dict.get('persons', 'backButtonText')
-
     .col-md-7
         div.list-group
             div.list-group-item.memotextdiv
