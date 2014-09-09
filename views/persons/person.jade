@@ -9,9 +9,8 @@ block content
                 .pull-left
                     img(id='gravatar', src=gravatar, alt='gravatar')
                 h3
-                    =results[0].per_firstname
-                    =' '
-                    =results[0].per_name
+                    = (results[0].per_salutation === null ? '' : results[0].per_salutation + ' ') + (results[0].per_academic_title === null ? '' : results[0].per_academic_title + ' ')
+                    = results[0].per_firstname + ' ' + results[0].per_name
                         .pull-right
                             form(method='get',action='/persons/' + results[0].per_id + '/edit')
                                 button.btn.btn-info.btn-xs(type='submit')
@@ -21,19 +20,11 @@ block content
             div.list-group-item
                 h5.list-group-item-heading
                     strong
-                        = dict === undefined ? 'ERROR' : dict.get('persons', 'url')
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'adress')
                 h5.list-group-item-text
-                    =results[0].per_url
-
-        div.list-group
-            div.list-group-item
-                h5.list-group-item-heading
-                    strong
-                        = dict === undefined ? 'ERROR' : dict.get('persons', 'email')
-                h5.list-group-item-text
-                    =results[0].per_email1
-                h5.list-group-item-text
-                    =results[0].per_email2
+                    p=results[0].per_address
+                    p=results[0].per_postcode + ' ' + results[0].per_city
+                    p=results[0].per_country
 
         div.list-group
             div.list-group-item
@@ -49,9 +40,49 @@ block content
             div.list-group-item
                 h5.list-group-item-heading
                     strong
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'fax')
+                h5.list-group-item-text
+                    =results[0].per_fax
+
+        div.list-group
+            div.list-group-item
+                h5.list-group-item-heading
+                    strong
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'email')
+                h5.list-group-item-text
+                    =results[0].per_email1
+                h5.list-group-item-text
+                    =results[0].per_email2
+
+        div.list-group
+            div.list-group-item
+                h5.list-group-item-heading
+                    strong
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'url')
+                h5.list-group-item-text
+                    =results[0].per_url
+
+        div.list-group
+            div.list-group-item
+                h5.list-group-item-heading
+                    strong
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'category')
+                h5.list-group-item-text
+                    =results[0].cat_name
+
+        div.list-group
+            div.list-group-item
+                h5.list-group-item-heading
+                    strong
                         = dict === undefined ? 'ERROR' : dict.get('persons', 'company')
                 h5.list-group-item-text
                     =results[0].com_name
+                p
+                h5.list-group-item-heading
+                    strong
+                        = dict === undefined ? 'ERROR' : dict.get('persons', 'department')
+                h5.list-group-item-text
+                    =results[0].per_department
 
         p
         form(method='get',action='/persons/')

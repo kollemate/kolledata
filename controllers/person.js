@@ -35,7 +35,7 @@ module.exports = function(db) {
     module.editIndex = function(req, res, next) {
         var per_id = req.params.id;
 
-        var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id WHERE per_id = ?';
+        var sql = 'SELECT * FROM kd_person LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id LEFT OUTER JOIN kd_category ON kd_person.per_category = kd_category.cat_id WHERE per_id = ?';
         var inserts = [per_id];
         sql = mysql.format(sql, inserts);
         db.query(sql, function(err, rows, fields){
