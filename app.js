@@ -89,7 +89,9 @@ app.post('/persons/:id/edit', singleController.edit);
 app.post('/persons/:id/editMemo', singleController.editMemo);
 
 app.get('/companies', companiesController.index);
-app.post('/companies', companiesController.addCompany);
+app.get('/companies/new', companiesController.newIndex);
+app.post('/companies/new', companiesController.addCompany);
+app.post('/companies/find', companiesController.findID);
 app.get('/companies/:id', singleCompanyController.index);
 
 app.get('/import', importController.index);
