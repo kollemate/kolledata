@@ -44,15 +44,20 @@ module.exports = function(db) {
 
     module.addCompany = function(req, res, next) {
         var name = req.body.name;
-        var url = req.body.url;
         var email1 = req.body.email1;
         var email2 = req.body.email2;
         var phone1 = req.body.phone1;
         var phone2 = req.body.phone2;
+        var fax = req.body.fax;
+        var country = req.body.country;
+        var city = req.body.city;
+        var postcode = req.body.postcode;
+        var address = req.body.address;
+        var url = req.body.url;
         var memo = req.body.memo;
 
-        var sql = 'INSERT INTO kd_company (com_name, com_url, com_email1, com_email2, com_phone1, com_phone2, com_memo, com_timestamp) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())';
-        var inserts = [name, url, email1, email2, phone1, phone2, memo];
+        var sql = 'INSERT INTO kd_company (com_name, com_email1, com_email2, com_phone1, com_phone2, com_fax, com_country, com_city, com_postcode, com_address, com_url, com_memo, com_timestamp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())';
+        var inserts = [name, email1, email2, phone1, phone2, fax, country, city, postcode, address, url, memo];
         sql = mysql.format(sql, inserts);
         console.log(sql);
         db.query(sql, function(err, rows){
