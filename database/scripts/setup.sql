@@ -134,7 +134,6 @@ CREATE TABLE kolledata.kd_bank_accounts_history (
 
 CREATE TABLE kolledata.kd_category (
   cat_id INT NOT NULL AUTO_INCREMENT,
-  cat_person_id INT,
   cat_name VARCHAR(50),
   cat_memo TEXT,
   PRIMARY KEY (cat_id)
