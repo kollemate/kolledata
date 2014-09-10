@@ -4,7 +4,6 @@ var mysql = require('mysql');
 module.exports = function(db) {
 
     module.index = function(req, res, next) {
-
         var com_id = req.params.id;
 
         var sql = 'SELECT * FROM kd_company WHERE com_id = ?;';
@@ -18,6 +17,27 @@ module.exports = function(db) {
             res.render('companies/company', {
                 title: rows[0].com_name,
                 results: rows,
+                dict: dict
+            });
+        });
+    };
+
+    module.editIndex = function(req, res, next) {
+        var com_id = req.params.id;
+
+        var sql = 'SELECT * FROM kd_company WHERE com_id = ?;';
+        var inserts = [com_id];
+        mysql.format(sql, inserts);
+        db.query(sql, function(err, rows) {
+            if (err)
+                return next('db error');
+
+            var company = rows;
+            var dict = lang.getDictionaryFromRequestHeader(req);
+
+            res.render('/companies/editCompany', {
+                title: "Edit " + company[0].com_name,
+                results: company,
                 dict: dict
             });
         });
