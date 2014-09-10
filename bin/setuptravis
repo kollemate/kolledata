@@ -1,5 +1,8 @@
 #! /bin/sh
 
+npm install bower
+node_modules/bower/bin/bower install
+
 echo "1. Creating MySQL config file"
 cd config/
 cp -n example_mysqlconfig.js mysqlconfig.js

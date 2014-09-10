@@ -22,8 +22,6 @@ read -e PORT
 
 echo "1. Installing necessary dependencies through npm and bower"
 npm install         # also installs dev-dependencies
-npm install bower
-node_modules/bower/bin/bower install
 
 
 
