@@ -140,6 +140,10 @@ module.exports = function() {
         // supporting them. Assuming the languages have been ordered by their q values, we can get
         // away with not actually checking these, just taking the tags into account.
         
+        // if the browser sends no request headers, the default language is choosen
+        if (req.headers["accept-language"] === undefined)
+            return this.getDictionary('default');
+
         // first split the string at the semicolon to get only the language tags, than split these
         // again by commas to get them in an array which is iterateable
         var tags = req.headers["accept-language"].split(';')[0].split(',');
