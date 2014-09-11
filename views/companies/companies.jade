@@ -18,7 +18,8 @@ block content
             th
                 = dict === undefined ? 'ERROR' : dict.get('companies', 'adress')
             th
-                = dict === undefined ? 'ERROR' : dict.get('companies', 'edit')
+                .pull-right
+                    = dict === undefined ? 'ERROR' : dict.get('companies', 'edit')
         - for (var i = 0; i < results.length; i++) {
             tr
                 td
@@ -42,7 +43,7 @@ block content
                         input.hidden(type='text',id='id',name='id',value=results[i].com_id)
                     .pull-right
                         form(method='post',action='/companies/delete',)
-                            button.btn.btn-danger.btn-xs(type='submit', name='com_id', value=results[i].com_id, onClick="return confirm('Wollen Sie diese Firma wirklich löschen?')") ✘
+                            button.btn.btn-danger.btn-xs(type='submit', name='com_id', value=results[i].com_id, onClick="return confirm('#{dict === undefined ? 'ERROR' : dict.get('companies', 'deleteConfirmText')}')") ✘
                     .pull-right
                         form(method='get',action='/companies/' + results[i].com_id)
                             button.btn.btn-primary.btn-xs(type='submit')
