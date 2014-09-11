@@ -19,14 +19,14 @@ block content
                 div.list-group-item
                     label.control-label(for='url')
                         = dict === undefined ? 'ERROR' : dict.get('persons', 'url')
-                    input.form-control(type='text',id='url',name='url',placeholder='http://kolle-mate.de',onblur='validateURL()')
+                    input.form-control(type='text',id='url',name='url',placeholder='http://kolle-mate.de',pattern='^http[s]?\://([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$')
 
             div.list-group.form-group(id='emailgroup')
                 div.list-group-item
                     label.control-label(for='email')
                         = dict === undefined ? 'ERROR' : dict.get('persons', 'email')
-                    input.form-control(type='email',id='email1',name='email1',placeholder='max@mustermann.de',onblur='validateEmail()')
-                    input.form-control(type='email',id='email2',name='email2',placeholder='max@example.com',onblur='validateEmail()')
+                    input.form-control(type='email',id='email1',name='email1',placeholder='max@mustermann.de')
+                    input.form-control(type='email',id='email2',name='email2',placeholder='max@example.com')
 
             div.list-group.form-group
                 div.list-group-item
