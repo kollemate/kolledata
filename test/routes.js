@@ -3,14 +3,6 @@ var assert = require('assert');
 var kd = require('../app.js');
 
 describe('GET some pages', function(){
-    describe('waiting for server setup', function() {
-        it('should return 200 OK', function(done) {
-            request(kd)
-                .get('/')
-                .expect(200, done);
-        });
-    });
-
     describe('GET /', function() {
         it('should return 200 OK', function(done) {
             request(kd)
@@ -51,15 +43,6 @@ describe('GET some pages', function(){
         });
     });
 
-    describe('GET /api/persons', function() {
-        it('should return 200 OK', function(done) {
-            request(kd)
-                .get('/api/persons')
-                .expect('Content-Type', /json/)
-                .expect(200, done);
-        });
-    });
-
     describe('GET /doesntexist', function(){
         it('should return 404 NOT FOUND', function(done){
             request(kd)
@@ -71,8 +54,6 @@ describe('GET some pages', function(){
 
 
 describe('test a new single user', function(){
-    var test_id;
-
     var testperson = {
         firstName: 'Max',
         lastName: 'Mustermann',
@@ -99,55 +80,53 @@ describe('test a new single user', function(){
         });
     });
 
-    describe('POST to /persons/find to get ID of new person', function(){
-        it('should return 200 OK', function(done){
-            request(kd)
-                .post('/persons/find')
-                .send(testperson_name)
-                .end(function(err, res) {
-                    if (err) {
-                        return done(err);
-                    } else {
-                        test_id = JSON.parse(res.text)[0].per_id;
-                        console.log('ID is: ', test_id);
-                    }
-                });
-        });
-    });
+    // POST the name to /persons/find to get the ID for further tests
+    request(kd)
+    .post('/persons/find')
+    .send(testperson_name)
+    .end(function(err, res) {
+        if (err) {
+            return done(err);
+        } else {
+            var test_id = JSON.parse(res.text)[0].per_id;
+        }
 
-    describe('GET /persons/' + test_id, function() {
-        var urlpath = '/persons/' + test_id;
-        it('should return 200 OK', function(done){
-            request(kd)
+        // I just want to point out at this point that there's
+        // nothing I hate more in the world than async code.
+
+        describe('GET /persons/' + test_id, function() {
+            var urlpath = '/persons/' + test_id;
+            it('should return 200 OK', function(done){
+                request(kd)
                 .get(urlpath)
                 .expect(200, done);
+            });
         });
-    });
 
-    describe('GET /persons/' + test_id + '/edit', function() {
-        var urlpath = '/persons/' + test_id + '/edit';
-        it('should return 200 OK', function(done){
-            request(kd)
+        describe('GET /persons/' + test_id + '/edit', function() {
+            var urlpath = '/persons/' + test_id + '/edit';
+            it('should return 200 OK', function(done){
+                request(kd)
                 .get(urlpath)
                 .expect(200, done);
+            });
         });
-    });
 
-    //TODO: edit something on testperson
-    // don't forget to check if the edits actually came through
+        // TODO: edit something on testperson
+        // don't forget to check if the edits actually came through
 
-    describe('POST /persons/delete', function(){
-        it('should return 200 OK', function(done){
+        describe('POST /persons/delete', function(){
+            it('should return 200 OK', function(done){
 
-            var send_id = {
-                per_id: test_id
-            };
+                var send_id = {
+                    per_id: test_id
+                };
 
-            request(kd)
+                request(kd)
                 .post('/persons/delete')
                 .send(send_id)
                 .expect(302, done);
+            });
         });
     });
-
 });
