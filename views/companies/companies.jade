@@ -17,9 +17,6 @@ block content
                 = dict === undefined ? 'ERROR' : dict.get('companies', 'url')
             th
                 = dict === undefined ? 'ERROR' : dict.get('companies', 'adress')
-            th
-                .pull-right
-                    = dict === undefined ? 'ERROR' : dict.get('companies', 'edit')
         - for (var i = 0; i < results.length; i++) {
             tr
                 td
@@ -51,7 +48,8 @@ block content
         - }
 
     p
-        button.btn.btn-default.btn-sm.btn-block(type='button',id='newentrybtn',data-toggle='modal',data-target='#detailmodal') ADD NEW ENTRY
+        button.btn.btn-default.btn-sm.btn-block(type='button',id='newentrybtn',data-toggle='modal',data-target='#detailmodal') 
+            = dict === undefined ? 'ERROR' : dict.get('companies', 'addButtonText')
 
     .modal.fade(tabindex='-1',role='dialog',aria-labelledby='Infos',aria-hidden='true',id='detailmodal')
         .modal-dialog
