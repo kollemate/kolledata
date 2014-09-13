@@ -81,6 +81,7 @@ describe('test a new single user', function(){
     });
 
     // POST the name to /persons/find to get the ID for further tests
+    var test_id;
     request(kd)
     .post('/persons/find')
     .send(testperson_name)
@@ -88,7 +89,7 @@ describe('test a new single user', function(){
         if (err) {
             return done(err);
         } else {
-            var test_id = JSON.parse(res.text)[0].per_id;
+            test_id = JSON.parse(res.text)[0].per_id;
         }
 
         // I just want to point out at this point that there's

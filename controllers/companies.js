@@ -105,7 +105,56 @@ module.exports = function(db) {
     };
 
     module.sortColumns = function(req, res, next) {
-        //TODO: implement me
+        var column = req.body.sortColumn;
+        var order = req.body.sortOrder;
+
+        var sql;
+
+        switch (column) {
+            case "com_name":
+                sql = "SELECT * FROM kd_company ORDER BY com_name";
+                break;
+            case "com_email1":
+                sql = "SELECT * FROM kd_company ORDER BY com_email1"
+                break;
+            case "com_phone1":
+                sql = "SELECT * FROM kd_company ORDER BY com_phone1"
+                break;
+            case "com_url":
+                sql = "SELECT * FROM kd_company ORDER BY com_url"
+                break;
+        }
+
+        if (order != 'ASC' && order != 'DESC' && order != 'unsort') {
+            order = 'ASC';
+        }
+
+        if (order != 'unsort') {
+            sql = sql.substr(0, sql.length-1) + " " + order + ';';
+        }
+
+        if (order == 'ASC') {
+            order = 'DESC';
+        } else if (order == 'DESC') {
+            order = 'ASC';
+        } else if (order == 'unsort') {
+            order = 'undefined';
+        }
+
+        db.query(sql, function(err, rows) {
+            if (err)
+                return next('db error');
+
+            var dict = lang.getDictionaryFromRequestHeader(req);
+
+            res.render('companies/companies', {
+                title: 'Companies',
+                results: rows,
+                column: column,
+                order: order,
+                dict: dict
+            });
+        });
     };
 
     module.editMemo = function(req, res, next) {
