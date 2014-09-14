@@ -100,7 +100,7 @@ block content
                             button.btn.btn-primary.btn-xs(type='submit')
                                 = dict === undefined ? 'ERROR' : dict.get('persons', 'infoButtonText')
             tr.memo(id='memo_'+results[i]['per_id'])
-                td(colspan='4').well
+                td(colspan='6').well
                     p.input.col-lg-11=results[i]['per_memo']
                     .col-lg-3.pull-right
                         .pull-right.editbutton
