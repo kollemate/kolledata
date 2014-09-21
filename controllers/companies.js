@@ -71,7 +71,7 @@ module.exports = function(db) {
     module.delete = function(req, res, next) {
         var com_id = req.body.com_id;
 
-        var sql = 'DELETE FROM kd_company WHERE com_id=?;'
+        var sql = 'DELETE FROM kd_company WHERE com_id=?;';
         var inserts = [com_id];
         mysql.format(sql, inserts);
         db.query(sql, function (err){
@@ -115,13 +115,13 @@ module.exports = function(db) {
                 sql = "SELECT * FROM kd_company ORDER BY com_name";
                 break;
             case "com_email1":
-                sql = "SELECT * FROM kd_company ORDER BY com_email1"
+                sql = "SELECT * FROM kd_company ORDER BY com_email1";
                 break;
             case "com_phone1":
-                sql = "SELECT * FROM kd_company ORDER BY com_phone1"
+                sql = "SELECT * FROM kd_company ORDER BY com_phone1";
                 break;
             case "com_url":
-                sql = "SELECT * FROM kd_company ORDER BY com_url"
+                sql = "SELECT * FROM kd_company ORDER BY com_url";
                 break;
         }
 
@@ -158,7 +158,20 @@ module.exports = function(db) {
     };
 
     module.editMemo = function(req, res, next) {
-        //TODO: implement me
+        var memo = req.body.memo;
+        var id = req.body.id;
+
+        var sql = 'UPDATE kd_company SET com_memo = ? WHERE com_id = ?;';
+        var inserts = [memo, id];
+        mysql.format(sql, inserts);
+        db.query(sql, function(err, rows){
+            if (err)
+                return next('db error');
+
+            res.writeHead(200, { 'Content-Type': 'application/json'});
+            res.end(JSON.stringify({ memo: memo, id : id }));
+            res.end();
+        });
     };
 
     return module;
