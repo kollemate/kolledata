@@ -12,7 +12,7 @@ module.exports = function() {
      * For this function to work, it's important that it's the last route registered
      * within the app, so it only gets called after every other possible route has
      * failed.
-     * 
+     *
      * @method err404
      * @param {object} [req] Node reqest object.
      * @param {object} [res] Node response object.
@@ -23,7 +23,7 @@ module.exports = function() {
         res.status(404);
         showErrorPage(res, 404, dict.get('errors', 'msg404', req.url), 'requested url: ' + req.url, dict);
     };
-    
+
     /**
      * Handles database errors, which are identified by the err parameter being a string
      * containing the text 'db error'. If thats not the case, a generic error is triggered
@@ -84,14 +84,14 @@ module.exports = function() {
         res.render('error', { error: err, dict: dict });
         console.log('! Error ' + status + ': ' + logMsg);
     }
-    
+
     module.registerErrorHandlers = function(app, registerDebugRoutes) {
         if (registerDebugRoutes !== undefined || registerDebugRoutes === true)
             this.registerDebugRoutes(app);
         app.use(this.err404);
         app.use(this.errDb);
         app.use(this.generic);
-    }
+    };
     /**
      * Registers a number of debug routes which can be used to test the corresponding error
      * handlers. This should be used for debug purposes only and not be part of the release build.

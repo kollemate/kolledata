@@ -20,12 +20,12 @@ module.exports = function() {
     const _paths = {
         en : './languages/english.json',
         de : './languages/german.json',
-        
+
         // The path to the default dictionary, which is used if the requested
         // dictionary wasn't found.
         default : './languages/english.json'
     };
-    
+
     /**
      * The library object, where all loaded dictionary get stored, indexed by their
      * ETF language tag.
@@ -34,7 +34,7 @@ module.exports = function() {
      * @type object
      */
     var _dicts = { };
-    
+
     /**
      * This methods gets added to each dictionary after it has been loaded.
      * It will try to find the string with the specified category and key.
@@ -64,10 +64,10 @@ module.exports = function() {
             str = str.replace('%' + (i - 2), arguments[i]);
         return str;
     };
-    
+
     /**
      * Load the language file with the specified IETF language tag
-     * 
+     *
      * @method load
      * @param {string} [tag] The IETF language tag of the dictionary that should be loaded
      * @return {boolean} TRUE if the file for the specified tag was successfully loaded,
@@ -98,7 +98,7 @@ module.exports = function() {
             return false;
         }
     };
-    
+
     /**
      * Get the dictionary with the specified IETF language tag. If the dictionary wasn't already
      * loaded, it gets loaded now. If the dictionary for the specified tag couldn't be loaded,
@@ -113,7 +113,7 @@ module.exports = function() {
         if (_dicts[tag] !== undefined)
             return _dicts[tag];
         // otherwise check if its defined and return it, if it was successfully loaded
-        if (_paths[tag] !== undefined && this.loadDictionary(tag) === true)    
+        if (_paths[tag] !== undefined && this.loadDictionary(tag) === true)
             return _dicts[tag];
         // if that also fails, check if at least the default dictionary was loaded,
         // and try to load it, if thats not the case. If this fails we're in trouble,
@@ -122,7 +122,7 @@ module.exports = function() {
             this.loadDictionary('default');
         return _dicts['default'];
     };
-    
+
     /**
      * Gets an appropriate dictionary for the 'accept-language' attribute in the request headers.
      * Tries to find the language that is preferred the most. If none of the preferred languages
@@ -139,7 +139,7 @@ module.exports = function() {
         // so what we need to do is get the language tags out of that string and check, if we're
         // supporting them. Assuming the languages have been ordered by their q values, we can get
         // away with not actually checking these, just taking the tags into account.
-        
+
         // if the browser sends no request headers, the default language is choosen
         if (req.headers["accept-language"] === undefined)
             return this.getDictionary('default');
@@ -155,7 +155,7 @@ module.exports = function() {
             // the special part is ignored
             // so check if there is the character '-', and if thats the case only use the
             // part before the '-' as the actual tag
-            var j = tag.indexOf('-')
+            var j = tag.indexOf('-');
             if (j !== -1)
                 tag = tag.substr(0, j);
             // if the tag is supported, return the corresponding dictionary
@@ -166,14 +166,14 @@ module.exports = function() {
         // if none of the tags was supported, return the default dictionary
         return this.getDictionary('default');
     };
-    
+
     /**
      * Get the language string with the specified category and key from the dictionary with the
      * specified IETF language tag. If the dictionary with the specified key wasn't available,
      * the default dictionary is used instead.
      * (Internally this simply calls the get method of the dictionary.)
      *
-     * @method getString 
+     * @method getString
      * @param {string} [tag] The IETF language tag of the dictionary from which the string should be got.
      * @param {string} [category] The category of the string that should be got.
      * @param {string} [key] The key within the category which should be got.
@@ -193,4 +193,4 @@ module.exports = function() {
     };
 
     return module;
-}
+};
