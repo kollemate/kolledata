@@ -169,43 +169,45 @@ module.exports = function(db) {
         var column = req.body.sortColumn;
         var order = req.body.sortOrder;
 
+        var sql;
+
         switch(column) {
             case "per_firstname":
-                var sql = 'SELECT * FROM kd_person \
+                sql = 'SELECT * FROM kd_person \
                 LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id \
                 ORDER BY per_firstname;';
                 break;
             case "per_name":
-                var sql = 'SELECT * FROM kd_person \
+                sql = 'SELECT * FROM kd_person \
                 LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id \
                 ORDER BY per_name;';
                 break;
             case "per_email1":
-                var sql = 'SELECT * FROM kd_person \
+                sql = 'SELECT * FROM kd_person \
                 LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id \
                 ORDER BY per_email1;';
                 break;
             case "per_url":
-                var sql = 'SELECT * FROM kd_person \
+                sql = 'SELECT * FROM kd_person \
                 LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id \
                 ORDER BY per_url;';
                 break;
             case "per_phone1":
-                var sql = 'SELECT * FROM kd_person \
+                sql = 'SELECT * FROM kd_person \
                 LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id \
                 ORDER BY per_phone1;';
                 break;
             case "com_name":
-                var sql = 'SELECT * FROM kd_person \
+                sql = 'SELECT * FROM kd_person \
                 LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id \
                 ORDER BY com_name;';
                 break;
             case "unsort":
-                var sql = 'SELECT * FROM kd_person \
+                sql = 'SELECT * FROM kd_person \
                 LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id;';
                 break;
             default:
-                var sql = 'SELECT * FROM kd_person \
+                sql = 'SELECT * FROM kd_person \
                 LEFT OUTER JOIN kd_company ON kd_person.per_company = kd_company.com_id;';
                 break;
         }
