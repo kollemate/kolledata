@@ -60,6 +60,7 @@ global.lang = require('./controllers/lang')();
  * Controllers
  */
 
+var accountController = require('./controllers/account')();
 var homeController = require('./controllers/home')();
 var personsController = require('./controllers/persons')(db);
 var singleController = require('./controllers/person')(db);
@@ -74,8 +75,10 @@ var errorController = require('./controllers/error')();
 
 app.get('/', homeController.index);
 
-app.get('/persons', personsController.index);
-app.get('/persons/new', personsController.newIndex);
+app.get('/login', accountController.login);
+
+app.get('/persons', accountController.isAuthenticated, personsController.index);
+app.get('/persons/new', accountController.isAuthenticated, personsController.newIndex);
 app.post('/persons/new', personsController.addPerson);
 app.post('/persons/find', personsController.findID);
 app.post('/persons/delete', personsController.delete);
@@ -83,18 +86,18 @@ app.post('/searchPerson', personsController.searchPerson);
 app.post('/sortColumns', personsController.sortColumns);
 app.post('/editMemo', personsController.editMemo);
 
-app.get('/persons/:id', singleController.index);
-app.get('/persons/:id/edit', singleController.editIndex);
+app.get('/persons/:id', accountController.isAuthenticated, singleController.index);
+app.get('/persons/:id/edit', accountController.isAuthenticated, singleController.editIndex);
 app.post('/persons/:id/edit', singleController.edit);
 app.post('/persons/:id/editMemo', singleController.editMemo);
 
-app.get('/companies', companiesController.index);
-app.get('/companies/new', companiesController.newIndex);
+app.get('/companies', accountController.isAuthenticated, companiesController.index);
+app.get('/companies/new', accountController.isAuthenticated, companiesController.newIndex);
 app.post('/companies/new', companiesController.addCompany);
 app.post('/companies/find', companiesController.findID);
-app.get('/companies/:id', singleCompanyController.index);
+app.get('/companies/:id', accountController.isAuthenticated, singleCompanyController.index);
 
-app.get('/import', importController.index);
+app.get('/import', accountController.isAuthenticated, importController.index);
 app.post('/import', importController.handleUpload);
 
 app.get('/about', homeController.about);

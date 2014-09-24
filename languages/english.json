@@ -93,5 +93,15 @@
         "msgDb" : "Internal error: The connection to the database has failed!",
         "msg404" : "The requested page \"%0\" doesn't exist!",
         "msg500" : "An unknown internal error has occurred!"
+    },
+    
+    "login" : {
+        "title" : "Sign in",
+        "usernameLabel" : "Username",
+        "passwordLabel" : "Password",
+        "autoLoginLabel" : "Sign me in automatically every time I visit kolledata",
+        "loginButtonText" : "Sign in",
+        "createNewAccount" : "Create a new account",
+        "needHelp" : "Need help?"
     }
 }

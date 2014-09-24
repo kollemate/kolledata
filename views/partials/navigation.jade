@@ -26,5 +26,5 @@
                     a(href='/about')
                         = dict === undefined ? 'About' : dict.get('navigation', 'about')
                 li(class=title=='Login'?'active':undefined)
-                    a(href='#')
+                    a(href='/login')
                         = dict === undefined ? 'Login' : dict.get('navigation', 'login')

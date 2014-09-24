@@ -93,5 +93,15 @@
         "msgDb" : "Interner Fehler: Die Verbindung zur Datenbank ist fehlgeschlagen!",
         "msg404" : "Die angeforderte Seite \"%0\" existiert nicht!",
         "msg500" : "Ein unbekannter interner Fehler ist aufgetreten!"
+    },
+    
+    "login" : {
+        "title" : "Anmelden",
+        "usernameLabel" : "Benutzername",
+        "passwordLabel" : "Passwort",
+        "autoLoginLabel" : "Jedes mal automatisch anmelden, wenn ich kolledata besuche",
+        "loginButtonText" : "Anmelden",
+        "createNewAccount" : "Neues Konto erstellen",
+        "needHelp" : "Benötigen Sie Hilfe?"
     }
 }
