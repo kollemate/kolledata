@@ -5,7 +5,7 @@ var path = require('path');
 var connectAssets = require('connect-assets');
 var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
+var cookies = require( "cookies" )
 var session = require('express-session');
 
 /**
@@ -40,7 +40,7 @@ app.use(connectAssets({
 }));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(cookieParser());
+app.use(cookies.express());
 app.use(session({
     secret: 'foobar', // <- this should be a random number or something, but for testing this will be enough
     saveUninitialized: true,
