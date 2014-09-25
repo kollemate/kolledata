@@ -7,7 +7,7 @@ block content
     //- Handles the different info and error boxes, depeding on the actions of the user:
     //- --------------------
     //- The default info box, if the import page is accessed by the url
-    - if (state === undefined || state === "info") {
+    - if (state === undefined || state === 'info') {
         .alert.alert-warning
             h4
                 = dict === undefined ? 'ERROR' : dict.get('import', 'alertInfoTitle')

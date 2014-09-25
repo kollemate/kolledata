@@ -5,12 +5,14 @@ var path = require('path');
 var connectAssets = require('connect-assets');
 var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 
 /**
  * Create MySQL Server with config data
  */
 
-var db = mysql.createConnection(mysqlconfig.config);
+global.db = mysql.createConnection(mysqlconfig.config);
 
 /**
  * Create Express server
@@ -38,6 +40,12 @@ app.use(connectAssets({
 }));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(session({
+    secret: 'foobar', // <- this should be a random number or something, but for testing this will be enough
+    saveUninitialized: true,
+    resave: true
+}));
 
 var env = process.env.NODE_ENV || 'development';
 if ('development' == env) {
@@ -75,7 +83,8 @@ var errorController = require('./controllers/error')();
 
 app.get('/', homeController.index);
 
-app.get('/login', accountController.login);
+app.get('/login', accountController.loginGet);
+app.post('/login', accountController.loginPost);
 
 app.get('/persons', accountController.isAuthenticated, personsController.index);
 app.get('/persons/new', accountController.isAuthenticated, personsController.newIndex);
