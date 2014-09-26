@@ -5,17 +5,15 @@ block content
     - } else if (state === 'info') {
         .alert.alert-info
             h4
-                = 'You need to first login to access this page'
+                = dict === undefined ? 'ERROR' : dict.get('login', 'messageInfo')
     - } else if (state === 'success') {
         .alert.alert-success
             h4
-                = 'You are now logged in'
+                = dict === undefined ? 'ERROR' : dict.get('login', 'messageSuccess')
     - } else if (state === 'failed') {
         .alert.alert-danger
             h4
-                = 'Login error'
-            p
-                = 'please check user name and password'
+                = dict === undefined ? 'ERROR' : dict.get('login', 'messageFailed')
     - }
 
     - if (state === undefined || state != 'success') {

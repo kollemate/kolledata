@@ -102,6 +102,9 @@
         "autoLoginLabel" : "Jedes mal automatisch anmelden, wenn ich kolledata besuche",
         "loginButtonText" : "Anmelden",
         "createNewAccount" : "Neues Konto erstellen",
-        "needHelp" : "Benötigen Sie Hilfe?"
+        "needHelp" : "Benötigen Sie Hilfe?",
+        "messageInfo" : "Sie müssen sich zuerst anmelden um die gewünschte Seite aufruften zu können.",
+        "messageFailed" : "Der eingegebene Benutzername oder das eingegebene Passwort waren falsch. Bitte vergewissern Sie sich das die Daten korrekt sind und versuchen Sie es erneut.",
+        "messageSuccess" : "Die Anmeldedaten waren korrekt. Sie sind nun im System angemeldet."
     }
 }

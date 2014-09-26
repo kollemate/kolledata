@@ -7,6 +7,7 @@ var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
 var cookies = require( "cookies" )
 var session = require('express-session');
+var crypto = require('crypto');
 
 /**
  * Create MySQL Server with config data
@@ -46,6 +47,15 @@ app.use(session({
     saveUninitialized: true,
     resave: true
 }));
+// This is needed to pass information to the jade templates, if the user is currently logged in
+// or not, so that they can show the correct menu options
+app.use(function(req,res,next) {
+    if (req.session !== undefined && req.session.loggedIn !== undefined)
+        res.locals.loggedIn = req.session.loggedIn;
+    else
+        res.locals.loggedIn = false;
+    next();
+});
 
 var env = process.env.NODE_ENV || 'development';
 if ('development' == env) {
@@ -85,6 +95,8 @@ app.get('/', homeController.index);
 
 app.get('/login', accountController.loginGet);
 app.post('/login', accountController.loginPost);
+app.get('/logout', accountController.logoutGet);
+app.get('/createadmin', accountController.createAdmin);
 
 app.get('/persons', accountController.isAuthenticated, personsController.index);
 app.get('/persons/new', accountController.isAuthenticated, personsController.newIndex);

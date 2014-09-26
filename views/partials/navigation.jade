@@ -25,6 +25,11 @@
                 li(class=title=='About'?'active':undefined)
                     a(href='/about')
                         = dict === undefined ? 'About' : dict.get('navigation', 'about')
-                li(class=title=='Login'?'active':undefined)
-                    a(href='/login')
-                        = dict === undefined ? 'Login' : dict.get('navigation', 'login')
+                li(class=title=='About'?'active':undefined)
+                    - if (loggedIn === true) {
+                        a(href='/logout')
+                            = 'Logout'
+                    - } else {
+                        a(href='/login')
+                            = dict === undefined ? 'Login' : dict.get('navigation', 'login')
+                    - }

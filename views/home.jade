@@ -12,3 +12,18 @@ block content
             = dict === undefined ? 'ERROR' : dict.get('home', 'infoText')
         p
             a.btn.btn-primary.btn-lg(href='http://github.com/kollemate/kolledata') GitHub
+
+    .alert.alert-warning
+        h4
+            | Debug information regarding user accounts:
+        p
+            | For now the only method to create the required admin user account is to click 
+            a(href='/createAdmin') this link
+            | once. If the account has been created each further click will result in an error,
+            | which won't disrupt the program flow.
+        p
+            | The data for the admin account is:
+        p username:
+            strong admin
+        p password:
+            strong password

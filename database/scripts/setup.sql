@@ -6,6 +6,14 @@ SET SQL_SAFE_UPDATES=0;
 CREATE DATABASE kolledata;
 
 -- CREATING THE TABLES
+CREATE TABLE kolledata.kd_account (
+  acc_id INT NOT NULL AUTO_INCREMENT,
+  acc_username VARCHAR(50) NOT NULL UNIQUE,
+  acc_password VARCHAR(128) NOT NULL,
+  acc_salt VARCHAR(64) NOT NULL,
+  PRIMARY KEY (acc_id)
+);
+
 CREATE TABLE kolledata.kd_company (
   com_id INT NOT NULL AUTO_INCREMENT,
   com_name VARCHAR(200),

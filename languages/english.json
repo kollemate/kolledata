@@ -102,6 +102,9 @@
         "autoLoginLabel" : "Sign me in automatically every time I visit kolledata",
         "loginButtonText" : "Sign in",
         "createNewAccount" : "Create a new account",
-        "needHelp" : "Need help?"
+        "needHelp" : "Need help?",
+        "messageInfo" : "You need to be logged in to access the requested page.",
+        "messageFailed" : "The entered username or password was wrong. Please make sure that the date is correct and try again.",
+        "messageSuccess" : "The enteres account data was correct. Your are now logged in to the system."
     }
 }
