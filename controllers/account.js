@@ -117,6 +117,7 @@ module.exports = function() {
             // also set the loggedIn var in the local context, so the view can display the correct
             // page content
             res.locals.loggedIn = true;
+            res.locals.username = accData.username;
             return next();
         });
     };
@@ -181,6 +182,7 @@ module.exports = function() {
             // also set the loggedIn var in the local context, so the view can display the correct
             // page content
             res.locals.loggedIn = true;
+            res.locals.username = accData.username;
             // if the user accessed the login page directly, simply show him a message, that the 
             // login was successful
             if (req.session.lastUrl === undefined || req.session.lastUrl === '/login') {
@@ -304,7 +306,7 @@ module.exports = function() {
         hash.update(password + salt, _hashEncoding);
         // and converted to a hex string, which will now contain random chars consisting of the
         // numbers from 0 to 9 and the letters a to f
-    var buffer = hash.digest('hex');
+        var buffer = hash.digest('hex');
         return passwordHash = buffer.toString(_hashEncoding);
     };
     /**

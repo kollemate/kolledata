@@ -5,7 +5,8 @@
         "companies" : "Companies",
         "import" : "Import",
         "about" : "About",
-        "login" : "Login"
+        "login" : "Login",
+        "logout" : "Logout"
     },
 
     "alerts" : {

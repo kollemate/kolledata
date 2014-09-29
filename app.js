@@ -50,10 +50,12 @@ app.use(session({
 // This is needed to pass information to the jade templates, if the user is currently logged in
 // or not, so that they can show the correct menu options
 app.use(function(req,res,next) {
-    if (req.session !== undefined && req.session.loggedIn !== undefined)
+    if (req.session !== undefined && req.session.loggedIn !== undefined) {
         res.locals.loggedIn = req.session.loggedIn;
-    else
+        res.locals.username = req.session.username;
+    } else {
         res.locals.loggedIn = false;
+    }
     next();
 });
 
@@ -100,26 +102,26 @@ app.get('/createadmin', accountController.createAdmin);
 
 app.get('/persons', accountController.isAuthenticated, personsController.index);
 app.get('/persons/new', accountController.isAuthenticated, personsController.newIndex);
-app.post('/persons/new', personsController.addPerson);
-app.post('/persons/find', personsController.findID);
-app.post('/persons/delete', personsController.delete);
-app.post('/searchPerson', personsController.searchPerson);
-app.post('/sortColumns', personsController.sortColumns);
-app.post('/editMemo', personsController.editMemo);
+app.post('/persons/new', accountController.isAuthenticated, personsController.addPerson);
+app.post('/persons/find', accountController.isAuthenticated, personsController.findID);
+app.post('/persons/delete', accountController.isAuthenticated, personsController.delete);
+app.post('/searchPerson', accountController.isAuthenticated, personsController.searchPerson);
+app.post('/sortColumns', accountController.isAuthenticated, personsController.sortColumns);
+app.post('/editMemo', accountController.isAuthenticated, personsController.editMemo);
 
 app.get('/persons/:id', accountController.isAuthenticated, singleController.index);
 app.get('/persons/:id/edit', accountController.isAuthenticated, singleController.editIndex);
-app.post('/persons/:id/edit', singleController.edit);
-app.post('/persons/:id/editMemo', singleController.editMemo);
+app.post('/persons/:id/edit', accountController.isAuthenticated, singleController.edit);
+app.post('/persons/:id/editMemo', accountController.isAuthenticated, singleController.editMemo);
 
 app.get('/companies', accountController.isAuthenticated, companiesController.index);
 app.get('/companies/new', accountController.isAuthenticated, companiesController.newIndex);
-app.post('/companies/new', companiesController.addCompany);
-app.post('/companies/find', companiesController.findID);
+app.post('/companies/new', accountController.isAuthenticated, companiesController.addCompany);
+app.post('/companies/find', accountController.isAuthenticated, companiesController.findID);
 app.get('/companies/:id', accountController.isAuthenticated, singleCompanyController.index);
 
 app.get('/import', accountController.isAuthenticated, importController.index);
-app.post('/import', importController.handleUpload);
+app.post('/import', accountController.isAuthenticated, importController.handleUpload);
 
 app.get('/about', homeController.about);
 

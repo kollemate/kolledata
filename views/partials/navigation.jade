@@ -19,17 +19,43 @@
                     a(href='/companies')
                         = dict === undefined ? 'Companies' : dict.get('navigation', 'companies')
             ul.nav.navbar-nav.navbar-right
+                - if (loggedIn === true) {
+                    li.dropdown
+                        a.dropdown-toggle(href='#', data-toggle='dropdown')
+                            font(size='+1')
+                                i.fa.fa-child
+                            strong
+                                = ' ' + username + ' '
+                            span.caret
+                        ul.dropdown-menu(role='menu')
+                            li
+                                a(href='#')
+                                    i.fa.fa-edit
+                                    |  Change password
+                            li
+                                a(href='#')
+                                    i.fa.fa-users
+                                    |  Create new account
+                            li
+                                a(href='#')
+                                    i.fa.fa-trash-o
+                                    |  Delete account
+                - }
                 li(class=title=='Import'?'active':undefined)
-                    a(href='/import')
-                        = dict === undefined ? 'Import' : dict.get('navigation', 'import')
+                    a(href='/import', data-toggle='tooltip', data-placement='bottom', title='#{dict === undefined ? "Import" : dict.get("navigation", "import")}')
+                        font(size='+1')
+                            i.fa.fa-database
                 li(class=title=='About'?'active':undefined)
-                    a(href='/about')
-                        = dict === undefined ? 'About' : dict.get('navigation', 'about')
+                    a(href='/about', data-toggle='tooltip', data-placement='bottom', title='#{dict === undefined ? "About" : dict.get("navigation", "about")}')
+                        font(size='+1')
+                            i.fa.fa-info-circle
                 li(class=title=='About'?'active':undefined)
                     - if (loggedIn === true) {
-                        a(href='/logout')
-                            = 'Logout'
+                        a(href='/logout', data-toggle='tooltip', data-placement='bottom', title='#{dict === undefined ? "Logout" : dict.get("navigation", "logout")}')
+                            font(size='+1')
+                                i.fa.fa-sign-out
                     - } else {
-                        a(href='/login')
-                            = dict === undefined ? 'Login' : dict.get('navigation', 'login')
+                        a(href='/login', data-toggle='tooltip', data-placement='bottom', title='#{dict === undefined ? "Login" : dict.get("navigation", "login")}')
+                            font(size='+1')
+                                i.fa.fa-sign-in
                     - }
