@@ -202,7 +202,7 @@ module.exports = function() {
     module.switchLanguage = function(req, res, next) {
         var tag = req.params.tag;
         req.session.currDict = tag;
-        res.redirect('/');
+        res.redirect(req.header('Referer') || '/');
     }
 
     /**
