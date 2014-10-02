@@ -15,7 +15,6 @@ module.exports = function(db) {
                 return next('db error');
 
             var person = rows;
-            var dict = lang.getDictionaryFromRequestHeader(req);
             var gravatar = '';
 
             if (person[0].per_email1 === null)
@@ -26,8 +25,7 @@ module.exports = function(db) {
             res.render('persons/person', {
                 title: person[0].per_firstname + ' ' + person[0].per_name,
                 results: person,
-                gravatar: gravatar,
-                dict: dict
+                gravatar: gravatar
             });
         });
     };
@@ -58,14 +56,11 @@ module.exports = function(db) {
 
                     var categories = rows;
 
-                    var dict = lang.getDictionaryFromRequestHeader(req);
-
                     res.render('persons/editPerson', {
                         title: person[0].per_firstname + ' ' + person[0].per_name + ' bearbeiten',
                         results: person,
                         companies: companies,
-                        categories : categories,
-                        dict: dict
+                        categories : categories
                     });
                 });
             });

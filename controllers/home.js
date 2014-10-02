@@ -1,13 +1,11 @@
 module.exports = function() {
 
     module.index = function(req, res) {
-        var dict = lang.getDictionaryFromRequestHeader(req);
-        res.render('home', { title: 'Home', dict: dict });
+        res.render('home', { title: 'Home' });
     };
 
     module.about = function(req, res) {
-        var dict = lang.getDictionaryFromRequestHeader(req);
-        res.render('about', { title: 'About', dict: dict });
+        res.render('about', { title: 'About' });
     };
 
     module.coffee = function(req, res) {

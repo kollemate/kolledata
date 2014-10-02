@@ -19,9 +19,8 @@ module.exports = function() {
      * @param {method} [next] Method to call the next route or error.
      */
     module.err404 = function(req, res, next) {
-        var dict = lang.getDictionaryFromRequestHeader(req);
         res.status(404);
-        showErrorPage(res, 404, dict.get('errors', 'msg404', req.url), 'requested url: ' + req.url, dict);
+        showErrorPage(res, 404, dict.get('errors', 'msg404', req.url), 'requested url: ' + req.url);
     };
 
     /**
@@ -40,9 +39,8 @@ module.exports = function() {
     module.errDb = function(err, req, res, next) {
         if (err === undefined || err !== 'db error')
             return next();
-        var dict = lang.getDictionaryFromRequestHeader(req);
         res.status(500);
-        showErrorPage(res, 500, dict.get('errors', 'msgDb', req.url), 'Database error', dict);
+        showErrorPage(res, 500, dict.get('errors', 'msgDb', req.url), 'Database error');
     };
 
     /**
@@ -56,9 +54,8 @@ module.exports = function() {
      * @param {method} [next] Method to call the next route or error.
      */
     module.generic = function errorHandler(err, req, res, next) {
-        var dict = lang.getDictionaryFromRequestHeader(req);
         res.status(500);
-        showErrorPage(res, 500, dict.get('errors', 'msg500'), 'unknown error', dict);
+        showErrorPage(res, 500, dict.get('errors', 'msg500'), 'unknown error');
     };
 
     /**

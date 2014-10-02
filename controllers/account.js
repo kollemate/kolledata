@@ -87,7 +87,7 @@ module.exports = function() {
      */
     module.isAuthenticated = function(req, res, next) {
         // save the requested url, so the user can be redirected to it later
-        req.session.lastUrl = req.url;
+        req.session.authUrl = req.url;
         // NOTE: Could this be a possible security issue? The content of  the session variable is
         // only accessible at the server side, with the client side only storing the session id.
         // The alternative is comparing the account info with the database every time a page is
@@ -135,7 +135,7 @@ module.exports = function() {
             res.redirect('/');
             return
         }
-        req.session.lastUrl = req.url;
+        req.session.authUrl = req.url;
         renderLoginPage(req, res, 'login');
     };
     /**
@@ -185,13 +185,13 @@ module.exports = function() {
             res.locals.username = accData.username;
             // if the user accessed the login page directly, simply show him a message, that the 
             // login was successful
-            if (req.session.lastUrl === undefined || req.session.lastUrl === '/login') {
+            if (req.session.authUrl === undefined || req.session.authUrl === '/login') {
                 renderLoginPage(req, res, 'success');
                 return;
             }
             // if the user was redirected to the login page while accessing another page, the user
             // is redirected to the previously requested page
-            res.redirect(req.session.lastUrl);
+            res.redirect(req.session.authUrl);
         });
     };
     /**
@@ -344,8 +344,7 @@ module.exports = function() {
      * @param (string) [state] The with which the login page should be displayed.
      */
     function renderLoginPage(req, res, state) {
-        var dict = lang.getDictionaryFromRequestHeader(req);
-        res.render('login', { title: 'Login', dict: dict, state: state});
+        res.render('login', { title: 'Login', state: state});
     };
     
     return module;

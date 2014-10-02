@@ -12,12 +12,10 @@ module.exports = function(db) {
         db.query(sql, function(err, rows, fields) {
             if (err)
                 return next('db error');
-            var dict = lang.getDictionaryFromRequestHeader(req);
 
             res.render('companies/company', {
                 title: rows[0].com_name,
-                results: rows,
-                dict: dict
+                results: rows
             });
         });
     };
@@ -33,12 +31,10 @@ module.exports = function(db) {
                 return next('db error');
 
             var company = rows;
-            var dict = lang.getDictionaryFromRequestHeader(req);
 
             res.render('/companies/editCompany', {
                 title: "Edit " + company[0].com_name,
-                results: company,
-                dict: dict
+                results: company
             });
         });
     };

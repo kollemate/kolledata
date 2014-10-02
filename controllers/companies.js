@@ -8,21 +8,17 @@ module.exports = function(db) {
         db.query(sql, function(err, rows, fields) {
             if (err)
                 return next('db error');
-            var dict = lang.getDictionaryFromRequestHeader(req);
 
             res.render('companies/companies', {
                 title: 'Companies',
-                results: rows,
-                dict: dict
+                results: rows
             });
         });
     };
 
     module.newIndex = function(req, res, next) {
-        var dict = lang.getDictionaryFromRequestHeader(req);
         res.render('companies/newcompany', {
-           title: 'Companies',
-           dict: dict
+           title: 'Companies'
         });
     };
 
@@ -94,12 +90,10 @@ module.exports = function(db) {
                 return next('db error');
 
             var companies = rows;
-            var dict = lang.getDictionaryFromRequestHeader(req);
 
             res.render('companies/companies', {
                 title: 'Companies',
-                results: companies,
-                dict: dict
+                results: companies
             });
         });
     };
@@ -145,14 +139,11 @@ module.exports = function(db) {
             if (err)
                 return next('db error');
 
-            var dict = lang.getDictionaryFromRequestHeader(req);
-
             res.render('companies/companies', {
                 title: 'Companies',
                 results: rows,
                 column: column,
-                order: order,
-                dict: dict
+                order: order
             });
         });
     };

@@ -22,7 +22,7 @@
                 - if (loggedIn === true) {
                     li.dropdown
                         a.dropdown-toggle(href='#', data-toggle='dropdown')
-                            font(size='+1')
+                            font(size='+0')
                                 i.fa.fa-child
                             strong
                                 = ' ' + username + ' '
@@ -41,18 +41,32 @@
                                     i.fa.fa-trash-o
                                     |  Delete account
                 - }
+                li.dropdown
+                    a.dropdown-toggle(href='#', data-toggle='dropdown')
+                        font(size='+0')
+                            i.fa.fa-microphone
+                        strong
+                            = ' ' + dict.tag + ' '
+                        span.caret
+                    ul.dropdown-menu(role='menu')
+                        - for (var i = 0; i < supportedLanguages.length; i++) {
+                            li
+                                 a(href='lang/#{supportedLanguages[i].tag}')
+                                    i.fa.fa-angle-double-right
+                                    = ' ' + supportedLanguages[i].name
+                        - }
                 li(class=title=='Import'?'active':undefined)
                     a(href='/import', data-toggle='tooltip', data-placement='bottom', title='#{dict === undefined ? "Import" : dict.get("navigation", "import")}')
-                        font(size='+1')
+                        font(size='+0')
                             i.fa.fa-database
                 li(class=title=='About'?'active':undefined)
                     a(href='/about', data-toggle='tooltip', data-placement='bottom', title='#{dict === undefined ? "About" : dict.get("navigation", "about")}')
-                        font(size='+1')
+                        font(size='+0')
                             i.fa.fa-info-circle
                 li(class=title=='About'?'active':undefined)
                     - if (loggedIn === true) {
                         a(href='/logout', data-toggle='tooltip', data-placement='bottom', title='#{dict === undefined ? "Logout" : dict.get("navigation", "logout")}')
-                            font(size='+1')
+                            font(size='+0')
                                 i.fa.fa-sign-out
                     - } else {
                         a(href='/login', data-toggle='tooltip', data-placement='bottom', title='#{dict === undefined ? "Login" : dict.get("navigation", "login")}')

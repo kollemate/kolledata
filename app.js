@@ -75,6 +75,8 @@ app.locals.url = require('url');
 // namespace using the identifier 'lang', so it can be accessed
 // from everywhere within the application
 global.lang = require('./controllers/lang')();
+app.locals.supportedLanguages = lang.getSupportedLanguages();
+app.use(lang.getDictionary);
 
 /**
  * Controllers
@@ -119,6 +121,8 @@ app.get('/companies/new', accountController.isAuthenticated, companiesController
 app.post('/companies/new', accountController.isAuthenticated, companiesController.addCompany);
 app.post('/companies/find', accountController.isAuthenticated, companiesController.findID);
 app.get('/companies/:id', accountController.isAuthenticated, singleCompanyController.index);
+
+app.get('/lang/:tag', lang.switchLanguage);
 
 app.get('/import', accountController.isAuthenticated, importController.index);
 app.post('/import', accountController.isAuthenticated, importController.handleUpload);

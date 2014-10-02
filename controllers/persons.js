@@ -19,13 +19,11 @@ module.exports = function(db) {
                 if (err)
                     return next('db error');
                 var companies = rows;
-                var dict = lang.getDictionaryFromRequestHeader(req);
 
                 res.render('persons/persons', {
                     title: 'Persons',
                     results: persons,
-                    companies: companies,
-                    dict: dict
+                    companies: companies
                 });
             });
         });
@@ -36,12 +34,10 @@ module.exports = function(db) {
         db.query(sql, function(err, rows){
             if (err)
                 return next('db error');
-            var dict = lang.getDictionaryFromRequestHeader(req);
 
             res.render('persons/newperson', {
                 title: 'Add New Person',
-                companies: rows,
-                dict: dict
+                companies: rows
             });
         });
     };
@@ -153,13 +149,11 @@ module.exports = function(db) {
                 if (err)
                     return next('db error');
                 var companies = rows;
-                var dict = lang.getDictionaryFromRequestHeader(req);
 
                 res.render('persons/persons', {
                     title: 'Persons',
                     results: persons,
-                    companies: companies,
-                    dict: dict
+                    companies: companies
                 });
             });
         });
@@ -238,15 +232,13 @@ module.exports = function(db) {
                 if (err)
                     return next('db error');
                 var companies = rows;
-                var dict = lang.getDictionaryFromRequestHeader(req);
 
                 res.render('persons/persons', {
                     title: 'Persons',
                     results: persons,
                     companies: companies,
                     column: column,
-                    order: order,
-                    dict: dict
+                    order: order
                 });
             });
         });

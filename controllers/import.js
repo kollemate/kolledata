@@ -62,8 +62,7 @@ module.exports = function(db) {
      * @param {object} [res] Node response object.
      */
     module.index = function(req, res) {
-        var dict = lang.getDictionaryFromRequestHeader(req);
-        res.render('import', { title: 'Import', dict: dict });
+        res.render('import', { title: 'Import'});
     };
     /**
      * Default handler for post requests.
@@ -228,8 +227,7 @@ module.exports = function(db) {
      *   Possible values are 'success' and 'error'.
      */
     function renderPage(req, res, result) {
-        var dict = lang.getDictionaryFromRequestHeader(req);
-        res.render('import', { title: 'Import', dict: dict, state: result});
+        res.render('import', { title: 'Import', state: result});
         res.end();
     }
 
