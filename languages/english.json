@@ -6,7 +6,10 @@
         "import" : "Import",
         "about" : "About",
         "login" : "Login",
-        "logout" : "Logout"
+        "logout" : "Logout",
+        "changePassword" : "Change password",
+        "deleteAccount" : "Delete account",
+        "createAccount" : "Create new account"
     },
 
     "alerts" : {
@@ -105,7 +108,29 @@
         "createNewAccount" : "Create a new account",
         "needHelp" : "Need help?",
         "messageInfo" : "You need to be logged in to access the requested page.",
-        "messageFailed" : "The entered username or password was wrong. Please make sure that the date is correct and try again.",
+        "messageFailed" : "The entered username or password was wrong. Please make sure that the data is correct and try again.",
         "messageSuccess" : "The enteres account data was correct. Your are now logged in to the system."
+    },
+    
+    "changePassword" : {
+        "title" : "Change password for user ",
+        "oldPasswordLabel" : "Enter old password",
+        "newPasswordLabel" : "Enter new password",
+        "confirmPasswordLabel" : "Confirm new password",
+        "submitButtonText" : "Change password",
+        "mesageOldPasswordWrong" : "The old password you have entered was wrong. Please make sure that the data is correct and try again.",
+        "messageConfirmWrong" : "The new password and it's confirmation don't match. Please try again.",
+        "messageSuccess" : "Your password was changed successfully."
+    },
+    
+    "createAccount" : {
+        "title" : "Create a new account",
+        "usernameLabel" : "Enter the desired username",
+        "passwordLabel" : "Enter the desired password",
+        "confirmPasswordLabel" : "Confirm the password",
+        "submitButtonText" : "Create account",
+        "messageConfirmWrong" : "The password and it's confirmation don't match. Please try again.",
+        "messageUsernameDuplicate" : "The username does already exist, please choose another one.",
+        "messageSuccess" : "The account was created successfully."
     }
 }

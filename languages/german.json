@@ -6,7 +6,10 @@
         "import" : "Import",
         "about" : "Über",
         "login" : "Login",
-        "logout" : "Logout"
+        "logout" : "Logout",
+        "changePassword" : "Passwort ändern",
+        "deleteAccount" : "Account löschen",
+        "createAccount" : "Neuen Account erstellen"
     },
 
     "alerts" : {
@@ -107,5 +110,27 @@
         "messageInfo" : "Sie müssen sich zuerst anmelden um die gewünschte Seite aufruften zu können.",
         "messageFailed" : "Der eingegebene Benutzername oder das eingegebene Passwort waren falsch. Bitte vergewissern Sie sich das die Daten korrekt sind und versuchen Sie es erneut.",
         "messageSuccess" : "Die Anmeldedaten waren korrekt. Sie sind nun im System angemeldet."
+    },
+    
+    "changePassword" : {
+        "title" : "Passwort ändern für Nutzer ",
+        "oldPasswordLabel" : "Altes Passwort eingeben",
+        "newPasswordLabel" : "Neues Passwort eingeben",
+        "confirmPasswordLabel" : "Neues Passwort bestätigen",
+        "submitButtonText" : "Passwort ändern",
+        "mesageOldPasswordWrong" : "Das von Ihnen eigegebene alte Passwort war falsch. Bitte vergewissern Sie sich das die Daten korrekt sind und versuchen Sie es erneut.",
+        "messageConfirmWrong" : "Das neue Passwort und dessen Bestätigung weichen voneinander ab. Bitte wiederholen Sie die Eingabe.",
+        "messageSuccess" : "Ihr Passwort wurde erfolgreich geändert."
+    },
+    
+    "createAccount" : {
+        "title" : "Neuen Account erstellen",
+        "usernameLabel" : "Gewünschten Benuzternamen eingeben",
+        "passwordLabel" : "Gewünschtes Passwort eingeben",
+        "confirmPasswordLabel" : "Passwort bestätigen",
+        "submitButtonText" : "Account erstellen",
+        "messageConfirmWrong" : "Das neue Passwort und dessen Bestätigung weichen voneinander ab. Bitte wiederholen Sie die Eingabe.",
+        "messageUsernameDuplicate" : "Der gewählte Benutzername existiert bereits, bitte wählen Sie einen anderen.",
+        "messageSuccess" : "Der Account wurde erfolgreich erstellt."
     }
 }

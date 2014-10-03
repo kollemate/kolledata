@@ -29,22 +29,27 @@
                             span.caret
                         ul.dropdown-menu(role='menu')
                             li
-                                a(href='#')
+                                a(href='/account/changePassword')
                                     i.fa.fa-edit
-                                    |  Change password
+                                    |  
+                                    = dict === undefined ? 'Change password' : dict.get('navigation', 'changePassword')
                             li
-                                a(href='#')
+                                a(href='/account/create')
                                     i.fa.fa-users
-                                    |  Create new account
+                                    |  
+                                    = dict === undefined ? 'Create new account' : dict.get('navigation', 'createAccount')
                             li
-                                a(href='#')
+                                a(href='/account/remove')
                                     i.fa.fa-trash-o
-                                    |  Delete account
+                                    |  
+                                    = dict === undefined ? 'Delete account' : dict.get('navigation', 'deleteAccount')
                 - }
                 li.dropdown
                     a.dropdown-toggle(href='#', data-toggle='dropdown')
                         font(size='+0')
-                            i.fa.fa-microphone
+                            i.fa.fa-language
+                            //i.fa.fa-microphone
+                            //i.fa.fa-comment
                         strong
                             = ' ' + dict.tag + ' '
                         span.caret

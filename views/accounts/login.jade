@@ -1,4 +1,4 @@
-extends layout
+extends ../layout
 
 block content
     - if (state === undefined || state === 'login') {
@@ -31,12 +31,12 @@ block content
                                     label(for='username')
                                         h5
                                             = dict === undefined ? 'ERROR' : dict.get('login', 'usernameLabel')
-                                    input.form-control(type='text', id='username', name='username' required)
+                                    input.form-control(type='text', id='username', name='username', required)
                                 .form-group
                                     label(for='password')
                                         h5
                                             = dict === undefined ? 'ERROR' : dict.get('login', 'passwordLabel')
-                                    input.form-control(type='password', id='password', name='password')
+                                    input.form-control(type='password', id='password', name='password', required)
                                 .form-group
                                     .checkbox
                                         label

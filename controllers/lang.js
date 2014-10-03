@@ -61,7 +61,7 @@ module.exports = function() {
             throw 'ERROR - dict.get: No category or key specified';
         // if category and key were defined, but are not part of the dictionary, also throw an error
         if (this[category] === undefined || this[category][key] === undefined)
-            throw 'ERROR - dict.get: The specified category or key wasn\'t found in the dictionary';
+            throw 'ERROR - dict.get: The specified key \"' + key + '\" in category \"' + category + '\" wasn\'t found in the dictionary';
         var str = this[category][key];
         // replace every var identifier (%0, %1 etc.) in the language string with the string
         // specified in the additional arguments (>2)
@@ -146,7 +146,6 @@ module.exports = function() {
             if (_paths[tag] !== undefined)
                 return this.getDictionaryFromTag(tag);
         }
-		console.log('default config');
         // if none of the tags was supported, return the default dictionary
         return this.getDictionaryFromTag('default');
     };

@@ -218,6 +218,22 @@ module.exports = function() {
         req.session.destroy();
         res.redirect('/login');
     }
+    
+    module.changePasswordGet = function(req, res, next) {
+        res.render('Accounts/changePassword', { title: 'Change Password'});
+    }
+    
+    module.changePasswordPost = function(req, res, next) {
+        res.render('Accounts/changePassword', { title: 'Change Password'});
+    }
+    
+    module.createAccountGet = function(req, res, next) {
+        res.render('Accounts/createAccount', { title: 'Create Account'});
+    }
+    
+    module.createAccountPost = function(req, res, next) {
+        res.render('Accounts/createAccount', { title: 'Create Account'});
+    }
     /**
      * Tries to read the account info cookie and return it's content. If the cookie couldn't be
      * read or doesn't exist, undefined is returned instead.
@@ -344,7 +360,7 @@ module.exports = function() {
      * @param (string) [state] The with which the login page should be displayed.
      */
     function renderLoginPage(req, res, state) {
-        res.render('login', { title: 'Login', state: state});
+        res.render('Accounts/login', { title: 'Login', state: state});
     };
     
     return module;

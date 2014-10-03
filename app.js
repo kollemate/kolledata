@@ -100,6 +100,10 @@ app.get('/', homeController.index);
 app.get('/login', accountController.loginGet);
 app.post('/login', accountController.loginPost);
 app.get('/logout', accountController.logoutGet);
+app.get('/account/changePassword', accountController.isAuthenticated, accountController.changePasswordGet);
+app.post('/account/changePassword', accountController.isAuthenticated, accountController.changePasswordPost);
+app.get('/account/create', accountController.isAuthenticated, accountController.createAccountGet);
+app.post('/account/create', accountController.isAuthenticated, accountController.createAccountPost);
 app.get('/createadmin', accountController.createAdmin);
 
 app.get('/persons', accountController.isAuthenticated, personsController.index);
