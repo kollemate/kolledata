@@ -104,6 +104,8 @@ app.get('/account/changePassword', accountController.isAuthenticated, accountCon
 app.post('/account/changePassword', accountController.isAuthenticated, accountController.changePasswordPost);
 app.get('/account/create', accountController.isAuthenticated, accountController.createAccountGet);
 app.post('/account/create', accountController.isAuthenticated, accountController.createAccountPost);
+app.get('/account/delete', accountController.isAuthenticated, accountController.deleteAccountGet);
+app.post('/account/delete', accountController.isAuthenticated, accountController.deleteAccountPost);
 app.get('/createadmin', accountController.createAdmin);
 
 app.get('/persons', accountController.isAuthenticated, personsController.index);

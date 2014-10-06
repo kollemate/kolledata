@@ -132,5 +132,12 @@
         "messageConfirmWrong" : "The password and it's confirmation don't match. Please try again.",
         "messageUsernameDuplicate" : "The username does already exist, please choose another one.",
         "messageSuccess" : "The account was created successfully."
-    }
+    },
+	
+	"deleteAccount" : {
+		"title" : "Delete account ",
+		"message" : "Are you sure you want to delete the account?",
+		"submitButtonText" : "Yes",
+		"abortButtonText" : "No"
+	}
 }

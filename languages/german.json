@@ -107,7 +107,7 @@
         "loginButtonText" : "Anmelden",
         "createNewAccount" : "Neues Konto erstellen",
         "needHelp" : "Benötigen Sie Hilfe?",
-        "messageInfo" : "Sie müssen sich zuerst anmelden um die gewünschte Seite aufruften zu können.",
+        "messageInfo" : "Sie müssen sich zuerst anmelden um die gewünschte Seite aufrufen zu können.",
         "messageFailed" : "Der eingegebene Benutzername oder das eingegebene Passwort waren falsch. Bitte vergewissern Sie sich das die Daten korrekt sind und versuchen Sie es erneut.",
         "messageSuccess" : "Die Anmeldedaten waren korrekt. Sie sind nun im System angemeldet."
     },
@@ -132,5 +132,12 @@
         "messageConfirmWrong" : "Das neue Passwort und dessen Bestätigung weichen voneinander ab. Bitte wiederholen Sie die Eingabe.",
         "messageUsernameDuplicate" : "Der gewählte Benutzername existiert bereits, bitte wählen Sie einen anderen.",
         "messageSuccess" : "Der Account wurde erfolgreich erstellt."
-    }
+    },
+	
+	"deleteAccount" : {
+		"title" : "Löschen des Accounts ",
+		"message" : "Wollen Sie den Account wirklich löschen?",
+		"submitButtonText" : "Ja",
+		"abortButtonText" : "Nein"
+	}
 }

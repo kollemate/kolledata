@@ -6,6 +6,8 @@
  * @constructor
  */
 module.exports = function() {
+	// TODO: Reimplement password encryption with OAuth
+
     /**
      * Constant integer that determines the maximum age in milliseconds of the account info cookie.
      * A value if 2592000000 for example would correspond to a lifetime of one month.
@@ -218,22 +220,191 @@ module.exports = function() {
         req.session.destroy();
         res.redirect('/login');
     }
-    
+    /**
+     * Displays the change password page.
+     *
+     * @method changePasswordGet
+     * @param {object} [req] Node req object.
+     * @param {object} [res] Node response object.
+     * @param (object) [next] Node next object.
+     */   
     module.changePasswordGet = function(req, res, next) {
         res.render('Accounts/changePassword', { title: 'Change Password'});
     }
-    
+    /**
+     * Checks if the old password of the user was correct and the new password
+	 * and it's confirmation match. Creates a new salt for the account, hashes
+	 * the password and stores it in the database. Also updates the session
+	 * variables accordingly.
+     *
+     * @method changePasswordPost
+     * @param {object} [req] Node req object.
+     * @param {object} [res] Node response object.
+     * @param (object) [next] Node next object.
+     */
     module.changePasswordPost = function(req, res, next) {
-        res.render('Accounts/changePassword', { title: 'Change Password'});
+		var username = req.session.username;
+		var oldPassword = req.body.oldPassword;
+		var password1 = req.body.newPassword;
+		var password2 = req.body.confirmPassword;
+		// check first if the new passwords and it's confirmation match,
+		// because this requires no db query
+		if (password1 != password2) {
+			res.render('Accounts/changePassword', { title: 'Change Password', state: 'confirmWrong'});
+			return next();
+		}
+		// next, get the account data from the database
+		getAccountData(username, function(err, accData) {
+			if (err)
+				return next('db error');
+			// and check if the hash of the entered old password matches the hash
+			// stored in the database
+			var oldPwdHash = getPasswordHash(oldPassword, accData.salt);
+			if (oldPwdHash != accData.passwordHash) {
+				res.render('Accounts/changePassword', { title: 'Change Password', state: 'wrongPassword'});
+				return next();
+			}
+			// if thats the case, we can store the new password, for which we also
+			// need a new salt (well, technically we could reuse the old one, but
+			// creating a new one is better)
+			createSalt(function(salt) {
+				var newPwdHash = createPasswordHash(password1, salt);
+				var sql = 'UPDATE kd_account SET acc_password = ?, acc_salt = ? WHERE username = \'' + username + '\';';
+				var data = [newPwdHash, salt];
+				db.query(sql, data, function(err, rows, fields) {
+					if (err)
+						return next('db error');
+					// if everything went fine, update the session variable and show the user
+					// a corresponding success message
+					req.session.password = newPwdHash;
+					res.render('Accounts/changePassword', { title: 'Change Password', sate: 'success'});
+				});
+			});
+			
+		});
     }
-    
+    /**
+     * Checks if the current user is the admin and displays a the
+	 * create new account page if thats the case.
+     *
+     * @method createAccountGet
+     * @param {object} [req] Node req object.
+     * @param {object} [res] Node response object.
+     * @param (object) [next] Node next object.
+     */
     module.createAccountGet = function(req, res, next) {
+		// only the admin account is allowed to create new accounts, so display
+		// a corresponding message if any other user tries to create one
+		if (req.session.username != 'admin') {
+			res.render('Accounts/createAccount', { title: 'Create Account', state: 'adminError' });
+			return next();
+		}
         res.render('Accounts/createAccount', { title: 'Create Account'});
     }
-    
+    /**
+     * Checks if the current user is the admin, if the entered username
+	 * is not already in the database and if the entered password and it's
+	 * confirmation match. If thats the case, a new salt is created, the
+	 * password is hashed and a new entry for the account is added to the
+	 * database.
+     *
+     * @method createAccountPost
+     * @param {object} [req] Node req object.
+     * @param {object} [res] Node response object.
+     * @param (object) [next] Node next object.
+     */
     module.createAccountPost = function(req, res, next) {
-        res.render('Accounts/createAccount', { title: 'Create Account'});
+		// only the admin account is allowed to create new accounts, so display
+		// a corresponding message if any other user tries to create one
+		if (req.session.username != 'admin') {
+			res.render('Accounts/createAccount', { title: 'Create Account', state: 'adminError' });
+			return next();
+		}
+		var username = req.body.username;
+		var password1 = req.body.password;
+		var password2 = req.body.confirmPassword;
+		// first check if the entered password and its confirmation match, because that
+		// requires no database query
+		if (password1 != password2) {
+			res.render('Accounts/createAccount', { title: 'Create Account', state: 'confirmWrong' });
+			return next();
+		}
+		// next, check if the entered username is not already in the database
+		var sql1 = 'SELECT FROM kd_account WHERE acc_uasername = \'' + username + '\';';
+		db.query(sql1, function (err, rows, fields) {
+			if (err)
+				return next('db error');
+			// if the username is not in the db, the query should return exactly zero rows,
+			// if it's in the db, the query should return exactly one row
+			if (rows.length != 0) {
+				res.render('Accounts/createAccount',  { title: 'Create Account', state: 'usernameDuplicate' });
+				return next();
+			}
+			// after we've made sure the username is unique, we need to create some salt
+			// for the new account
+			createSalt(function(salt) {
+				// and hash the password with the newly created salt
+				var passwordHash = getPasswordHash(password1, salt);
+				var sql = 'INSERT INTO kd_account (acc_username, acc_password, acc_salt) VALUES (\''
+					+ username + '\', \'' + passwordHash + '\', \'' + salt + '\');';
+				// so that we can finally add a new entry to the database,
+				// so much asynchronous fun....
+				db.query(sql2, function(err, rows, fields) {
+					if (err)
+						return next('db error');
+					res.render('Accounts/createAccount', { title: 'Create Account', state: 'success'});
+				});
+			});
+		});
     }
+    /**
+     * Checks if the current user is not admin (which can't be deleted) and displays
+	 * a confirmation page, if thats not the case.
+     *
+     * @method deleteAccountGet
+     * @param {object} [req] Node req object.
+     * @param {object} [res] Node response object.
+     * @param (object) [next] Node next object.
+     */
+	module.deleteAccountGet = function(req, res, next) {
+		// the admin account can't be removed, so if a user tries that, display
+		// a corresponding error message
+		if (req.session.username == 'admin') {
+			res.render('Accounts/deleteAccount', { title: 'Delete Account', state: 'adminError' });
+			return next();
+		}
+		// otherwise display a conformation page to make sure the user isn't
+		// accidentally deleting the account
+		res.render('Accounts/deleteAccount', { title: 'Delete Account', state: 'confirm' });
+	}
+    /**
+     * If the current user is not the admin and the user has confirmed the removal,
+	 * the corresponding account is removed from the database and the user gets
+	 * redirected to the login page.
+     *
+     * @method deleteAccountPost
+     * @param {object} [req] Node req object.
+     * @param {object} [res] Node response object.
+     * @param (object) [next] Node next object.
+     */
+	module.deleteAccountPost = function(req, res, next) {
+		// the admin account can't be removed, so if a user tries that, display
+		// a corresponding error message
+		if (req.session.username == 'admin') {
+			res.render('Accounts/deleteAccount', { title: 'Delete Account', state: 'adminError' });
+			return next();
+		}
+		// if the account was any other than the admin account, and the user confirmed the removal,
+		// the corresponding entry is deleted from the database
+		var sql = 'DELETE FROM kd_account WHERE kd_username = \'' + req.session.username + '\';';
+		db.query(sql, function(err, rows,fields) {
+			if (err)
+				return next('db error');
+			deleteCookie(res);
+			req.session.destroy();
+			res.redirect('/login');
+		});
+	}
     /**
      * Tries to read the account info cookie and return it's content. If the cookie couldn't be
      * read or doesn't exist, undefined is returned instead.
@@ -285,7 +456,7 @@ module.exports = function() {
      *  object and the second one ise the account info object.
      */
     function getAccountData(username, callback) {
-        var sql = 'SELECT * FROM kd_account WHERE kd_account.acc_username = \'' + username + '\'';
+        var sql = 'SELECT * FROM kd_account WHERE kd_account.acc_username = \'' + username + '\';';
         db.query(sql, function(err, rows, fields) {
             // pass database error to the callback so the calling function can deal with it
             // appropriately
@@ -332,7 +503,7 @@ module.exports = function() {
      *  has been created. The only parameter of the function is a string which contains the created
      *  salt.
      */
-    function CreateSalt(callback) {
+    function createSalt(callback) {
         var hashSaltLength = 64;
         // using sha 256 will result in a 64 byte has, which is exactly the same length as the
         // corresponding field in the database
