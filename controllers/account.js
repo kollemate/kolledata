@@ -42,8 +42,8 @@ module.exports = function() {
      */
     const _hashEncoding = 'utf-8';
     /**
-     * Debug method for creating the admin account, this method will only work if there is
-     * currently no existing admin account, otherwise the database query will simply fail.
+     * Dev method for creating the admin account, this method will remove the existing
+     * admin account if there is on and create a new one with the deault password.
      *
      * @method createAdmin
      * @param {object} [req] Node req object.
@@ -61,17 +61,25 @@ module.exports = function() {
             var salt = saltHash.digest('hex').toString(_hashEncoding);
             console.log('salt: ' + salt);
             
-            var hash = crypto.createHash(_hashAlgorithm);
-            hash.update('password' + salt, _hashEncoding);
-            var buffer = hash.digest('hex');
-            var passwordHash = buffer.toString(_hashEncoding);
-            console.log('pass: ' + passwordHash);
+            var hash1 = crypto.createHash('sha256');
+            hash1.update('password', _hashEncoding);
+            var buffer1 = hash1.digest('hex');
+            var passwordHash1 = buffer1.toString(_hashEncoding);
+            console.log('pass1: ' + passwordHash1);
             
-            var sql = 'INSERT INTO kd_account (acc_username, acc_password, acc_salt) VALUES (\''
-                + 'admin' + '\', \'' + passwordHash + '\', \'' + salt + '\');';
+            var hash2 = crypto.createHash('sha512');
+            hash2.update(passwordHash1 + salt, _hashEncoding);
+            var buffer2 = hash2.digest('hex');
+            var passwordHash2 = buffer2.toString(_hashEncoding);
+            console.log('pass2: ' + passwordHash2);
+            
+            var sql = 'DELETE FROM kd_account WHERE acc_username = \'admin\'; INSERT INTO kd_account (acc_username, acc_password, acc_salt) VALUES (\''
+                + 'admin' + '\', \'' + passwordHash2 + '\', \'' + salt + '\');';
             db.query(sql, function(err, rows, fields) {
-                if (err)
+                if (err) {
+                    console.log(err);
                     return next('db error');
+                    }
                 renderLoginPage(req, res, 'login');
             });
         });
@@ -249,7 +257,7 @@ module.exports = function() {
 		var password2 = req.body.confirmPassword;
 		// check first if the new passwords and it's confirmation match,
 		// because this requires no db query
-		if (password1 != password2) {
+		if (password1 !== password2) {
 			res.render('Accounts/changePassword', { title: 'Change Password', state: 'confirmWrong'});
 			return next();
 		}
@@ -260,7 +268,7 @@ module.exports = function() {
 			// and check if the hash of the entered old password matches the hash
 			// stored in the database
 			var oldPwdHash = getPasswordHash(oldPassword, accData.salt);
-			if (oldPwdHash != accData.passwordHash) {
+			if (oldPwdHash != accData.password) {
 				res.render('Accounts/changePassword', { title: 'Change Password', state: 'wrongPassword'});
 				return next();
 			}
@@ -268,16 +276,17 @@ module.exports = function() {
 			// need a new salt (well, technically we could reuse the old one, but
 			// creating a new one is better)
 			createSalt(function(salt) {
-				var newPwdHash = createPasswordHash(password1, salt);
-				var sql = 'UPDATE kd_account SET acc_password = ?, acc_salt = ? WHERE username = \'' + username + '\';';
+				var newPwdHash = getPasswordHash(password1, salt);
+				var sql = 'UPDATE kd_account SET acc_password = ?, acc_salt = ? WHERE acc_username = \'' + username + '\';';
 				var data = [newPwdHash, salt];
 				db.query(sql, data, function(err, rows, fields) {
-					if (err)
+					if (err) {
 						return next('db error');
+                    }
 					// if everything went fine, update the session variable and show the user
 					// a corresponding success message
 					req.session.password = newPwdHash;
-					res.render('Accounts/changePassword', { title: 'Change Password', sate: 'success'});
+					res.render('Accounts/changePassword', { title: 'Change Password', state: 'success'});
 				});
 			});
 			
@@ -321,7 +330,7 @@ module.exports = function() {
 			return next();
 		}
 		var username = req.body.username;
-		var password1 = req.body.password;
+		var password1 = req.body.newPassword;
 		var password2 = req.body.confirmPassword;
 		// first check if the entered password and its confirmation match, because that
 		// requires no database query
@@ -330,14 +339,14 @@ module.exports = function() {
 			return next();
 		}
 		// next, check if the entered username is not already in the database
-		var sql1 = 'SELECT FROM kd_account WHERE acc_uasername = \'' + username + '\';';
+		var sql1 = 'SELECT * FROM kd_account WHERE acc_username = \'' + username + '\';';
 		db.query(sql1, function (err, rows, fields) {
 			if (err)
 				return next('db error');
 			// if the username is not in the db, the query should return exactly zero rows,
 			// if it's in the db, the query should return exactly one row
 			if (rows.length != 0) {
-				res.render('Accounts/createAccount',  { title: 'Create Account', state: 'usernameDuplicate' });
+				res.render('Accounts/createAccount', { title: 'Create Account', state: 'usernameDuplicate' });
 				return next();
 			}
 			// after we've made sure the username is unique, we need to create some salt
@@ -345,13 +354,15 @@ module.exports = function() {
 			createSalt(function(salt) {
 				// and hash the password with the newly created salt
 				var passwordHash = getPasswordHash(password1, salt);
-				var sql = 'INSERT INTO kd_account (acc_username, acc_password, acc_salt) VALUES (\''
+				var sql2 = 'INSERT INTO kd_account (acc_username, acc_password, acc_salt) VALUES (\''
 					+ username + '\', \'' + passwordHash + '\', \'' + salt + '\');';
 				// so that we can finally add a new entry to the database,
 				// so much asynchronous fun....
 				db.query(sql2, function(err, rows, fields) {
-					if (err)
+					if (err) {
+                        console.log(err);
 						return next('db error');
+                    }
 					res.render('Accounts/createAccount', { title: 'Create Account', state: 'success'});
 				});
 			});
@@ -396,7 +407,7 @@ module.exports = function() {
 		}
 		// if the account was any other than the admin account, and the user confirmed the removal,
 		// the corresponding entry is deleted from the database
-		var sql = 'DELETE FROM kd_account WHERE kd_username = \'' + req.session.username + '\';';
+		var sql = 'DELETE FROM kd_account WHERE acc_username = \'' + req.session.username + '\';';
 		db.query(sql, function(err, rows,fields) {
 			if (err)
 				return next('db error');
@@ -507,10 +518,10 @@ module.exports = function() {
         var hashSaltLength = 64;
         // using sha 256 will result in a 64 byte has, which is exactly the same length as the
         // corresponding field in the database
-        var hashSaltAlgorithm = 'sha-256';
+        var hashSaltAlgorithm = 'sha256';
     
         var crypto = require('crypto');
-        crypto.randomBytes(_hashSaltLength, function(ex, buf) {
+        crypto.randomBytes(hashSaltLength, function(ex, buf) {
             // convert the data to a string - the string will contain mostly garbage, but it's
             // just used to feed the hash function, so this shouldn't be a problem
             var saltBuff = buf.toString(_hashEncoding);

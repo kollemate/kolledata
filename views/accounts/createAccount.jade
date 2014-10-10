@@ -1,29 +1,52 @@
 extends ../layout
 
 block content
-    .col-md-4.col-md-offset-4
-        //.modal-content
-        .panel.panel-default
-            .panel-heading
-                = dict === undefined ? 'ERROR' : dict.get('createAccount', 'title')
-            .panel-body
-                form(action='/account/createAccount', method='post')
-                    fieldset
-                        .form-group
-                            label(for='username')
-                                h5
-                                    = dict === undefined ? 'ERROR' : dict.get('createAccount', 'usernameLabel')
-                            input.form-control(type='text', id='username', name='username', required)
-                        .form-group
-                            label(for='newPassword')
-                                h5
-                                    = dict === undefined ? 'ERROR' : dict.get('createAccount', 'passwordLabel')
-                            input.form-control(type='password', id='newPassword', name='newPassword', required)
-                        .form-group
-                            label(for='confirmPassword')
-                                h5
-                                    = dict === undefined ? 'ERROR' : dict.get('createAccount', 'confirmPasswordLabel')
-                            input.form-control(type='password', id='confirmPassword', name='confirmPassword', required)
-                        .form-group
-                            button.btn.btn-primary.btn-block(type='submit')
-                                = dict === undefined ? 'ERROR' : dict.get('createAccount', 'submitButtonText')
+    - if (state === undefinded) {
+    - } else if (state === 'success') {
+        .alert.alert-success
+            h4
+                = dict === undefined ? 'ERROR' : dict.get('createAccount', 'messageSuccess')
+    - } else if (state === 'usernameDuplicate') {
+        .alert.alert-danger
+            h4
+                = dict === undefined ? 'ERROR' : dict.get('createAccount', 'messageUsernameDuplicate')
+    - } else if (state === 'confirmWrong') {
+        .alert.alert-danger
+            h4
+                = dict === undefined ? 'ERROR' : dict.get('createAccount', 'messageConfirmWrong')
+    - } else if (state === 'adminError') {
+        .alert.alert-danger
+            h4
+                = dict === undefined ? 'ERROR' : dict.get('createAccount', 'messageAdminError')
+    - }
+    
+    - if (state !== 'success' && state !== 'adminError') {
+        .col-md-4.col-md-offset-4
+            //.modal-content
+            .panel.panel-default
+                .panel-heading
+                    = dict === undefined ? 'ERROR' : dict.get('createAccount', 'title')
+                .panel-body
+                    form(action='/account/create', method='post')
+                        fieldset
+                            .form-group
+                                label(for='username')
+                                    h5
+                                        = dict === undefined ? 'ERROR' : dict.get('createAccount', 'usernameLabel')
+                                input.form-control(type='text', id='username', name='username', required)
+                            .form-group
+                                label(for='newPwdPlain')
+                                    h5
+                                        = dict === undefined ? 'ERROR' : dict.get('createAccount', 'passwordLabel')
+                                input.form-control(type='password', id='newPwdPlain', name='newPwdPlain', required, onChange='setPwdHash(\'newPwdPlain\', \'newPassword\')')
+                                input.form-control(type='hidden', id='newPassword', name='newPassword', value='')
+                            .form-group
+                                label(for='confirmPwdHash')
+                                    h5
+                                        = dict === undefined ? 'ERROR' : dict.get('createAccount', 'confirmPasswordLabel')
+                                input.form-control(type='password', id='confirmPwdHash', name='confirmPwdHash', required, onChange='setPwdHash(\'confirmPwdHash\', \'confirmPassword\')')
+                                input.form-control(type='hidden', id='confirmPassword', name='confirmPassword', value='')
+                            .form-group
+                                button.btn.btn-primary.btn-block(type='submit')
+                                    = dict == undefined ? 'ERROR' : dict.get('createAccount', 'submitButtonText')
+    - }

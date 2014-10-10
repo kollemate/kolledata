@@ -12,8 +12,10 @@
 
 //= require ../../bower_components/jquery/dist/jquery.min
 //= require bootstrap.min
+//= require sha
 //= require main
 //= require memo
 //= require sort
 //= require search
 //= require style
+//= require accData

@@ -25,7 +25,7 @@ block content
                             strong
                                 = dict === undefined ? 'ERROR' : dict.get('login', 'title')
                     .panel-body
-                        form(action='/login', method='post')
+                        form(action="\login", method="post")
                             fieldset
                                 .form-group
                                     label(for='username')
@@ -33,10 +33,11 @@ block content
                                             = dict === undefined ? 'ERROR' : dict.get('login', 'usernameLabel')
                                     input.form-control(type='text', id='username', name='username', required)
                                 .form-group
-                                    label(for='password')
+                                    label(for='pwdPlain')
                                         h5
                                             = dict === undefined ? 'ERROR' : dict.get('login', 'passwordLabel')
-                                    input.form-control(type='password', id='password', name='password', required)
+                                    input.form-control(type='password', id='pwdPlain', name='pwdPlain', required, onChange='setPwdHash(\'pwdPlain\', \'password\')')
+                                    input.form-control(type='hidden', id='password', name='password', value='')
                                 .form-group
                                     .checkbox
                                         label

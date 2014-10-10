@@ -106,7 +106,7 @@ app.get('/account/create', accountController.isAuthenticated, accountController.
 app.post('/account/create', accountController.isAuthenticated, accountController.createAccountPost);
 app.get('/account/delete', accountController.isAuthenticated, accountController.deleteAccountGet);
 app.post('/account/delete', accountController.isAuthenticated, accountController.deleteAccountPost);
-app.get('/createadmin', accountController.createAdmin);
+app.get('/createadmin', accountController.createAdmin); // <= Dev method, should be removed at release
 
 app.get('/persons', accountController.isAuthenticated, personsController.index);
 app.get('/persons/new', accountController.isAuthenticated, personsController.newIndex);

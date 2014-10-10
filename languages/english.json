@@ -129,6 +129,7 @@
         "passwordLabel" : "Enter the desired password",
         "confirmPasswordLabel" : "Confirm the password",
         "submitButtonText" : "Create account",
+        "messageAdminError" : "Only the admin is allowed to create new accounts",
         "messageConfirmWrong" : "The password and it's confirmation don't match. Please try again.",
         "messageUsernameDuplicate" : "The username does already exist, please choose another one.",
         "messageSuccess" : "The account was created successfully."
