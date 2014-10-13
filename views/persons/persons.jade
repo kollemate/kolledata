@@ -91,8 +91,8 @@ block content
                         input.hidden(type='text',id='id',name='id',value=results[i]['per_id'])
                     .pull-right
                         form(method='post',action='/persons/delete',)
-                            - var personshortdesc = { name: results[i]['per_name'] , firstname: results[i]['per_firstname'] }
-                            button.btn.btn-danger.btn-xs(type='submit', name='per_id', value=results[i]['per_id'], onClick="return confirm('Wollen Sie #{personshortdesc.firstname} #{personshortdesc.name} wirklich löschen?')")
+                            - var msgTxt = dict === undefined ? 'ERROR' : dict.get('persons', 'deleteDialogText', results[i]['per_firstname'], results[i]['per_name'])
+                            button.btn.btn-danger.btn-xs(type='submit', name='per_id', value=results[i]['per_id'], onClick="return confirm('#{msgTxt}')")
                                 span.symbolbutton
                                     i.fa.fa-times
                     .pull-right

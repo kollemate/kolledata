@@ -66,7 +66,7 @@ module.exports = function() {
         // replace every var identifier (%0, %1 etc.) in the language string with the string
         // specified in the additional arguments (>2)
         for (var i = 2; i < arguments.length; i++)
-            str = str.replace('%' + (i - 2), arguments[i]);
+            str = str.replace('%' + (i - 1), arguments[i]);
         return str;
     };
 

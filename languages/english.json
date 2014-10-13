@@ -59,7 +59,8 @@
         "cancelButtonText" : "CANCEL",
         "saveButtonText" : "SAVE",
         "addButtonText" : "ADD NEW PERSON",
-        "backButtonText" : "BACK"
+        "backButtonText" : "BACK",
+        "deleteDialogText" : "Are you sure you want to delete %1 %2?"
     },
 
     "companies" : {
@@ -78,7 +79,8 @@
         "cancelButtonText" : "CANCEL",
         "saveButtonText" : "SAVE",
         "addButtonText" : "ADD NEW COMPANY",
-        "backButtonText" : "BACK"
+        "backButtonText" : "BACK",
+        "deleteDialogText" : "Are you sure you want to delete %1?"
     },
 
     "import" : {

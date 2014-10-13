@@ -38,13 +38,13 @@ block content
                                 label(for='newPwdPlain')
                                     h5
                                         = dict === undefined ? 'ERROR' : dict.get('createAccount', 'passwordLabel')
-                                input.form-control(type='password', id='newPwdPlain', name='newPwdPlain', required, onChange='setPwdHash(\'newPwdPlain\', \'newPassword\')')
+                                input.form-control(type='password', id='newPwdPlain', required, onChange='setPwdHash(\'newPwdPlain\', \'newPassword\')')
                                 input.form-control(type='hidden', id='newPassword', name='newPassword', value='')
                             .form-group
                                 label(for='confirmPwdHash')
                                     h5
                                         = dict === undefined ? 'ERROR' : dict.get('createAccount', 'confirmPasswordLabel')
-                                input.form-control(type='password', id='confirmPwdHash', name='confirmPwdHash', required, onChange='setPwdHash(\'confirmPwdHash\', \'confirmPassword\')')
+                                input.form-control(type='password', id='confirmPwdHash', required, onChange='setPwdHash(\'confirmPwdHash\', \'confirmPassword\')')
                                 input.form-control(type='hidden', id='confirmPassword', name='confirmPassword', value='')
                             .form-group
                                 button.btn.btn-primary.btn-block(type='submit')

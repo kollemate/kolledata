@@ -59,7 +59,8 @@
         "cancelButtonText" : "ABBRECHEN",
         "saveButtonText" : "SPEICHERN",
         "addButtonText" : "NEUE PERSON HINZUFÜGEN",
-        "backButtonText" : "ZURÜCK"
+        "backButtonText" : "ZURÜCK",
+        "deleteDialogText" : "Wollen Sie %1 %2 wirklich löschen?"
     },
 
     "companies" : {
@@ -78,7 +79,8 @@
         "cancelButtonText" : "ABBRECHEN",
         "saveButtonText" : "SPEICHERN",
         "addButtonText" : "NEUE FIRMA HINZUFÜGEN",
-        "backButtonText" : "ZURÜCK"
+        "backButtonText" : "ZURÜCK",
+        "deleteDialogText" : "Wollen Sie %1 wirklich löschen?"
     },
 
     "import" : {
@@ -105,7 +107,7 @@
         "passwordLabel" : "Passwort",
         "autoLoginLabel" : "Jedes mal automatisch anmelden, wenn ich kolledata besuche",
         "loginButtonText" : "Anmelden",
-        "createNewAccount" : "Neues Konto erstellen",
+        "createNewAccount" : "Neues Nutzerkonto erstellen",
         "needHelp" : "Benötigen Sie Hilfe?",
         "messageInfo" : "Sie müssen sich zuerst anmelden um die gewünschte Seite aufrufen zu können.",
         "messageFailed" : "Der eingegebene Benutzername oder das eingegebene Passwort waren falsch. Bitte vergewissern Sie sich das die Daten korrekt sind und versuchen Sie es erneut.",
@@ -113,7 +115,7 @@
     },
     
     "changePassword" : {
-        "title" : "Passwort ändern für Nutzer ",
+        "title" : "Passwort ändern für Konto",
         "oldPasswordLabel" : "Altes Passwort eingeben",
         "newPasswordLabel" : "Neues Passwort eingeben",
         "confirmPasswordLabel" : "Neues Passwort bestätigen",
@@ -124,11 +126,11 @@
     },
     
     "createAccount" : {
-        "title" : "Neuen Account erstellen",
+        "title" : "Neues Nutzerkonto erstellen",
         "usernameLabel" : "Gewünschten Benuzternamen eingeben",
         "passwordLabel" : "Gewünschtes Passwort eingeben",
         "confirmPasswordLabel" : "Passwort bestätigen",
-        "submitButtonText" : "Account erstellen",
+        "submitButtonText" : "Konto erstellen",
         "messageAdminError" : "Nur dem Admin ist es erlaubt, neue Accounts zu erstellen",
         "messageConfirmWrong" : "Das neue Passwort und dessen Bestätigung weichen voneinander ab. Bitte wiederholen Sie die Eingabe.",
         "messageUsernameDuplicate" : "Der gewählte Benutzername existiert bereits, bitte wählen Sie einen anderen.",
@@ -136,8 +138,8 @@
     },
 	
 	"deleteAccount" : {
-		"title" : "Löschen des Accounts ",
-		"message" : "Wollen Sie den Account wirklich löschen?",
+		"title" : "Löschen des Nutzerkontos",
+		"message" : "Wollen Sie das Nutzerkonto wirklich löschen?",
 		"submitButtonText" : "Ja",
 		"abortButtonText" : "Nein"
 	}

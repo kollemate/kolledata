@@ -36,7 +36,7 @@ block content
                                     label(for='pwdPlain')
                                         h5
                                             = dict === undefined ? 'ERROR' : dict.get('login', 'passwordLabel')
-                                    input.form-control(type='password', id='pwdPlain', name='pwdPlain', required, onChange='setPwdHash(\'pwdPlain\', \'password\')')
+                                    input.form-control(type='password', id='pwdPlain', required, onChange='setPwdHash(\'pwdPlain\', \'password\')')
                                     input.form-control(type='hidden', id='password', name='password', value='')
                                 .form-group
                                     .checkbox

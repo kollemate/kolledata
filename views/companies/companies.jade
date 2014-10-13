@@ -79,8 +79,8 @@ block content
                         input.hidden(type='text',id='id',name='id',value=results[i]['com_id'])
                     .pull-right
                         form(method='post',action='/companies/delete',)
-                            - var companyshortdesc = { name: results[i]['com_name'] }
-                            button.btn.btn-danger.btn-xs(type='submit', name='com_id', value=results[i]['com_id'], onClick="return confirm('Wollen Sie #{companyshortdesc.name} wirklich löschen?')")
+                            - var msgTxt = dict === undefined ? 'ERROR' : dict.get('companies', 'deleteDialogText', results[i]['com_name'])
+                            button.btn.btn-danger.btn-xs(type='submit', name='com_id', value=results[i]['com_id'], onClick="return confirm('#{msgTxt}')")
                                 span.symbolbutton
                                     i.fa.fa-times
                     .pull-right
