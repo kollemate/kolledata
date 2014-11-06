@@ -542,7 +542,7 @@ module.exports = function() {
      * @param (string) [state] The with which the login page should be displayed.
      */
     function renderLoginPage(req, res, state) {
-        res.render('Accounts/login', { title: 'Login', state: state});
+        res.render('accounts/login', { title: 'Login', state: state});
     };
     
     return module;

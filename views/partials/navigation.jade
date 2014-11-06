@@ -56,7 +56,7 @@
                     ul.dropdown-menu(role='menu')
                         - for (var i = 0; i < supportedLanguages.length; i++) {
                             li
-                                 a(href='lang/#{supportedLanguages[i].tag}')
+                                 a(href='/lang/#{supportedLanguages[i].tag}')
                                     i.fa.fa-angle-double-right
                                     = ' ' + supportedLanguages[i].name
                         - }
